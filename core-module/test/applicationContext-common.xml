@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xsi:schemaLocation=" http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd "
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.springframework.org/schema/beans">	
+	<context:annotation-config/>
+	
+	<bean id="baseDAO" class="com.acs.core.common.dao.impl.BaseDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="baseMgr" class="com.acs.core.common.service.impl.BaseManagerImpl">
+		<property name="baseDAO" ref="baseDAO"/>
+	</bean>
+	
+	<bean id="menuDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
+		<property name="className" value="com.acs.core.menu.entity.Menu"/>
+	</bean>
+	<bean id="menuService" class="com.acs.core.menu.service.impl.MenuServiceImpl">
+		<property name="dao" ref="menuDao"/>
+	</bean>
+	
+	<bean id="logDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
+		<property name="className" value="com.acs.core.logger.entity.CommonLog"/>
+	</bean>
+	<bean id="logService" class="com.acs.core.logger.service.impl.LogServiceImpl" >
+		<property name="dao" ref="logDao"/>
+	</bean>
+	
+	<bean id="appConfigDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
+		<property name="className" value="com.acs.core.common.entity.AppConfig"/>
+	</bean>
+	<bean id="appConfigService" class="com.acs.core.common.service.impl.AppConfigServiceImpl">
+		<property name="dao" ref="appConfigDao"/>
+	</bean>
+
+</beans>

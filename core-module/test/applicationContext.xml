@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xsi:schemaLocation=" http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd "
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.springframework.org/schema/beans">
+	<context:property-placeholder location="settings.properties"/>
+	<context:annotation-config/>
+	<bean id="myDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>${hibernate.driver}</value>
+		</property>
+		<property name="url">
+			<value>${hibernate.jdbcurl}</value>
+		</property>
+		<property name="username">
+			<value>${hibernate.username}</value>
+		</property>
+		<property name="password">
+			<value>${hibernate.password}</value>
+		</property>		
+	</bean>	
+	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"/>	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"/>		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl}</prop>
+				<prop key="hibernate.show_sql">${hibernate.showsql}</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.acs.core.**.entity</value>
+				<value>com.acs.biz.**.entity</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="nestedTransactionAllowed" value="true"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="myDataSource"/>
+	</bean>
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">		
+		<constructor-arg index="0" ref="myDataSource"/>		
+	</bean>	
+	<bean id="daoTemplate" abstract="true" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="velocityService" class="com.acs.core.template.service.impl.VelocityServiceImpl"/>
+	<bean id="mailDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
+		<property name="className" value="com.acs.core.mail.entity.Mail" />
+	</bean>	
+	<bean id="mailService" class="com.acs.core.mail.service.impl.MailServiceImpl">
+		<property name="dao" ref="mailDao" />
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">  
+		<property name="host" value="${mail.host}" />  
+		<!-- 
+		<property name="username" value="${mail.username}" />  
+		<property name="password" value="${mail.password}" />  
+		<property name="defaultEncoding" value="UTF-8"></property>  
+		<property name="javaMailProperties">  
+			<props>  
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>  
+				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>  
+				<prop key="mail.smtp.auth.mechanisms">NTLM</prop>
+			</props>  
+		</property>
+		 -->  
+	</bean>	
+
+</beans>
