@@ -14,6 +14,7 @@ import com.acs.biz.device.entity.DeviceGroup;
 import com.acs.biz.device.service.DeviceGroupService;
 import com.acs.biz.device.service.DeviceService;
 import com.acs.core.common.dao.ObjectDao;
+import com.acs.core.common.dao.impl.CommonCriteria;
 import com.acs.core.common.exception.CoreException;
 import com.acs.core.common.service.impl.DomainServiceImpl;
 
@@ -53,4 +54,13 @@ public class DeviceGroupServiceImpl extends DomainServiceImpl<DeviceGroup> imple
 		super.delete(entity);
 	}
 
+	@Override
+	public boolean isGroupNameUsed(String groupName, Long oid) {
+		CommonCriteria crit = new CommonCriteria();
+		crit.addEq("groupName", groupName);
+		if (oid != null)
+			crit.addNe("oid", oid);
+		int size = super.getListSize(crit).intValue();
+		return size > 0 ? true : false;
+	}
 }

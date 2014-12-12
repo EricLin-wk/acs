@@ -25,13 +25,13 @@ public class DeviceGroup extends BaseEntity {
 	 */
 	@Id
 	@GeneratedValue
-	@Column(name = "oid")
+	@Column(name = "oid", nullable = false)
 	private Long oid;
 
 	/**
 	 * Device group name
 	 */
-	@Column(name = "group_name", length = 50)
+	@Column(name = "group_name", length = 50, nullable = false)
 	private String groupName;
 
 	/**

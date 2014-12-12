@@ -65,7 +65,7 @@ input,textarea {
 		</table>
 		<div class="row-fluid">
 			<div class="span12" style="margin-bottom: 20px; margin-left: 15px">
-				<a href="edit.do?paramOid=${obj.oid}" class="btn btn-primary">编辑</a>
+				<a href="edit.do?paramOid=${paraObj.oid}" class="btn btn-primary">编辑</a>
 				<a href="list.do"	class="btn btn-primary">回搜寻页</a>
 			</div>
 		</div>

@@ -28,43 +28,43 @@ public class Device extends BaseEntity {
 	 */
 	@Id
 	@GeneratedValue
-	@Column(name = "oid")
+	@Column(name = "oid", nullable = false)
 	private Long oid;
 
 	/**
 	 * IP Address, or domain name
 	 */
-	@Column(name = "ip_address", length = 50)
+	@Column(name = "ip_address", length = 50, nullable = false)
 	private String ipAddress;
 
 	/**
 	 * TCP port
 	 */
-	@Column(name = "port")
-	private int port;
+	@Column(name = "port", nullable = false)
+	private int port = -1;
 
 	/**
 	 * Serial number
 	 */
-	@Column(name = "serial_num", length = 50)
+	@Column(name = "serial_num", length = 50, nullable = false)
 	private String serialNum;
 
 	/**
 	 * Model name
 	 */
-	@Column(name = "model", length = 50)
+	@Column(name = "model", length = 50, nullable = false)
 	private String model;
 
 	/**
 	 * Device nick name
 	 */
-	@Column(name = "device_name", length = 50)
+	@Column(name = "device_name", length = 50, nullable = false)
 	private String deviceName;
 
 	/**
 	 * Device type. Air conditional, humidifier, dehumidifier etc.
 	 */
-	@Column(name = "device_type", length = 50)
+	@Column(name = "device_type", length = 50, nullable = false)
 	private String deviceType;
 
 	/**

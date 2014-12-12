@@ -28,4 +28,13 @@ public interface DeviceGroupService extends DomainService<DeviceGroup> {
 	 */
 	public List<DeviceGroup> listAllOrdered();
 
+	/**
+	 * Check whether given group name is used, excluding record with given oid
+	 *
+	 * @param groupName
+	 * @param oid Oid to be exlcuded
+	 * @return
+	 */
+	public boolean isGroupNameUsed(String groupName, Long oid);
+
 }

@@ -101,4 +101,24 @@ public class DeviceServiceImpl extends DomainServiceImpl<Device> implements Devi
 		logger.debug("updRows:" + updRows);
 	}
 
+	@Override
+	public boolean isSerialNumUsed(String serialNum, Long oid) {
+		CommonCriteria crit = new CommonCriteria();
+		crit.addEq("serialNum", serialNum);
+		if (oid != null)
+			crit.addNe("oid", oid);
+		int size = super.getListSize(crit).intValue();
+		return size > 0 ? true : false;
+	}
+
+	@Override
+	public boolean isDeviceNameUsed(String deviceName, Long oid) {
+		CommonCriteria crit = new CommonCriteria();
+		crit.addEq("deviceName", deviceName);
+		if (oid != null)
+			crit.addNe("oid", oid);
+		int size = super.getListSize(crit).intValue();
+		return size > 0 ? true : false;
+	}
+
 }

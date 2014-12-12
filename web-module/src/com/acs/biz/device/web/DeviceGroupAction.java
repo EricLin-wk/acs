@@ -78,6 +78,15 @@ public class DeviceGroupAction extends AbstractAction {
 
 	public String save() {
 		try {
+			// validate
+			boolean isValid = true;
+			boolean check = deviceGroupService.isGroupNameUsed(paraObj.getGroupName(), paraObj.getOid());
+			if (check) {
+				addActionError("错误: 群组名称已被使用");
+				isValid = false;
+			}
+			if (!isValid)
+				return "edit";
 			// copy field values for entity save
 			DeviceGroup entity = null;
 			if (paraObj.getOid() != null) {
@@ -87,7 +96,7 @@ public class DeviceGroupAction extends AbstractAction {
 			} else
 				entity = new DeviceGroup();
 			BeanUtils.copyProperties(paraObj, entity, new String[] { "oid", "createUser", "createDate", "modifyUser",
-					"modifyDate" });
+			"modifyDate" });
 
 			deviceGroupService.save(entity);
 			addActionMessage("設備群组" + entity.getGroupName() + "保存成功");

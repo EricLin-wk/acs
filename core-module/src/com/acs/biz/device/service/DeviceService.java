@@ -66,4 +66,22 @@ public interface DeviceService extends DomainService<Device> {
 	public abstract int listSizeByIsDelete_GroupId_DeviceType_SerialNum(boolean isDelete, Long groupId,
 			String deviceType, String serialNum);
 
+	/**
+	 * Check if given serial number is used, excluding records with given oid
+	 *
+	 * @param serialNum
+	 * @param oid Oid to exclude
+	 * @return
+	 */
+	public boolean isSerialNumUsed(String serialNum, Long oid);
+
+	/**
+	 * Check if given device name is used, excluding records with given oid
+	 *
+	 * @param deviceName
+	 * @param oid Oid to exclude
+	 * @return
+	 */
+	public boolean isDeviceNameUsed(String deviceName, Long oid);
+
 }

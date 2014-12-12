@@ -2,11 +2,30 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ include file="/taglibs.jsp"%>
 <%@ page import="com.acs.core.common.utils.ServerValue"%>
-<style type="text/css">
-input,textarea {
+<style>
+#formObj label.error  {
 	width: auto;
+	display: inline;
+	color: #B94A48;
+}
+#formObj input.error  {
+	border-color: #B94A48;
 }
 </style>
+<script>
+$().ready(function() {
+	$("#formObj").validate({
+		rules: {
+			"paraObj.serialNum": "required",
+			"paraObj.deviceName": "required",
+			"paraObj.deviceType": "required",
+			"paraObj.model": "required",
+			"paraObj.ipAddress": "required",
+			"paraObj.port": {required: true, range: [0, 65535]},			
+		}
+	});
+});
+</script>
 <div class="row-fluid">
 	<s:if test="hasActionMessages()">
 		<div class="alert alert-success" >
@@ -39,27 +58,27 @@ input,textarea {
 		</div>
 		<table class="table table-bordered table-striped table-condensed">
 			<tr>
-				<th style="width: 15%">序列号</th>
+				<th style="width: 15%">序列号*</th>
 				<td><s:textfield id="paraObj.serialNum" name="paraObj.serialNum" theme="simple"/></td>
 			</tr>
 			<tr>
-				<th style="width: 15%">设备名称</th>
+				<th style="width: 15%">设备名称*</th>
 				<td style="text-align: left"><s:textfield id="paraObj.deviceName" name="paraObj.deviceName" theme="simple"/></td>
 			</tr>
 			<tr>
-				<th style="width: 15%">设备类型</th>
+				<th style="width: 15%">设备类型*</th>
 				<td style="text-align: left"><s:select id="paraObj.deviceType" name="paraObj.deviceType" list="menuDeviceType.options" listKey="key" listValue="value.name" theme="simple"/></td>
 			</tr>
 			<tr>
-				<th style="width: 15%">型号</th>
+				<th style="width: 15%">型号*</th>
 				<td style="text-align: left"><s:textfield id="paraObj.model" name="paraObj.model" theme="simple"/></td>
 			</tr>
 			<tr>
-				<th style="width: 15%">IP地址</th>
+				<th style="width: 15%">IP地址*</th>
 				<td style="text-align: left"><s:textfield id="paraObj.ipAddress" name="paraObj.ipAddress" theme="simple"/></td>
 			</tr>
 			<tr>
-				<th style="width: 15%">端口</th>
+				<th style="width: 15%">端口*</th>
 				<td style="text-align: left"><s:textfield id="paraObj.port" name="paraObj.port" theme="simple"/></td>
 			</tr>
 			<tr>

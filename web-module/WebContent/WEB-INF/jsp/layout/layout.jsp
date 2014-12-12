@@ -97,6 +97,9 @@ body {
 	<script src="${jsPath}/charisma.js"></script>
 	<script src="${jsPath}/formValidator.js"></script>
 	<script src="${jsPath}/formValidatorRegex.js"></script>
+	<!-- jQuery validation -->
+	<script src="${jsPath}/jquery.validate.min.js"></script>
+	<script src="${jsPath}/jquery.validate.messages_zh.min.js"></script>	
 </head>
 <body>
 	<!-- topbar starts -->

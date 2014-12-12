@@ -109,10 +109,23 @@ public class DeviceAction extends AbstractAction {
 	public String save() {
 		try {
 			// validate
+			boolean isValid = true;
 			if (paraObj.getPort() < 0 || paraObj.getPort() > 65535) {
 				addActionError("錯誤: 端口超出範圍(0~65535)");
-				return "edit";
+				isValid = false;
 			}
+			boolean check = deviceService.isSerialNumUsed(paraObj.getSerialNum(), paraObj.getOid());
+			if (check) {
+				addActionError("錯誤: 序列号已被使用");
+				isValid = false;
+			}
+			boolean check2 = deviceService.isDeviceNameUsed(paraObj.getDeviceName(), paraObj.getOid());
+			if (check2) {
+				addActionError("錯誤: 设备名称已被使用");
+				isValid = false;
+			}
+			if (!isValid)
+				return "edit";
 			// copy field values for entity save
 			Device entity = null;
 			if (paraObj.getOid() != null) {
@@ -122,7 +135,7 @@ public class DeviceAction extends AbstractAction {
 			} else
 				entity = new Device();
 			BeanUtils.copyProperties(paraObj, entity, new String[] { "oid", "createUser", "createDate", "modifyUser",
-			"modifyDate" });
+					"modifyDate" });
 
 			deviceService.save(entity);
 			addActionMessage("設備" + entity.getDeviceName() + "保存成功");
