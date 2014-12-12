@@ -1,0 +1,151 @@
+@charset "utf-8";
+/* CSS Document yaodain100.V1@2009.11*/
+
+/* miyac reset */
+html{color:#333;background:transparent;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}caption,th{text-align:left;}q:before,q:after{content:'';}abbr,acronym {border:0;font-variant:normal;}/* to preserve line-height and selector appearance */sup {vertical-align:text-top;}sub {vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}/*to enable resizing for IE*/input,textarea,select{*font-size:100%;}
+a{border:0;*zoom:1;}strong{font-weight:bold;}
+ol,ul{list-style:none;}
+body{width:100%; height:100%;vertical-align:baseline;font-size:13px; font-family:Arial, Helvetica, sans-serif,"宋体", "宋体";}
+
+#container{ width:100%; margin:0 auto;}
+
+#header,.logo,.li-tag li,h1 div a,.a-btn-f,.f-links a:link,.f-link a:hover,.f-link a:visited{background: repeat-x 0;}
+
+#header{border:1px solid #ccc; border-top:0; background-position:0 -268px; padding:2px 5px; font-size:12px; color:#555;}
+
+/* #sidebar{float:right;width:150px;overflow:auto;} */
+#sidebar{float:left;width:150px;overflow:auto;top:40px; left:2px;position:absolute;}
+.logo{width:150px; height:90px; background-repeat:no-repeat;}
+.li-tag li{display:block; padding:4px 15px;background-repeat:no-repeat; background-position:0 -143px; margin-bottom:5px;}
+.li-tag li.tag-f{background-position:0 -86px;color:#631;}
+.li-tag li.tag-logout{background-position:0 -198px;}
+.li-tag li a{text-decoration:none; color:#333; font-weight:bold;}
+.li-tag li a:hover{text-decoration:underline;}
+
+/* #main{float:right; width:70%; border:4px solid #ffebcc; padding:15px 30px; margin:15px 0 0;} */
+#main{float:right;margin-top:20px; position:absolute;top:20px;left:150px; width:expression(document.body.clientWidth-220);border:4px solid #ffebcc; padding:15px 30px; margin:15px 0 0; overflow:auto;}
+h1{padding:5px; border-bottom:1px dotted #aa7856;color:#aa7856; background-repeat:no-repeat;margin:-2px 0 15px;}
+h1 span{visibility:hidden;}
+h1.h-member{background-position:5px -416px;}h1.h-goods{background-position:5px -456px;}h1.h-list{background-position:5px -496px;}h1.h-sell{background-position:5px -536px;}h1.h-order{background-position:5px -576px;}h1.h-marketing{background-position:5px -616px;}
+h1 .f-link{margin-top:-30px;}
+.f-link{float:right; margin:23px 0 15px; *margin:15px 0 -5px;font-size:12px; font-weight:normal;}
+.f-link a:link,.f-link a:visited{padding:2px 5px; border:1px solid #f6e0ba; margin:0 3px; background:url(../img/backend_img.gif) repeat-x 0 -373px; text-decoration:none; color:#631;}
+.f-link a:hover{ background-position:0 -324px; background-color:#ffcc76;}
+
+#main p{clear:both; height:2.4em;vertical-align:bottom;}
+#main p b{font-weight:normal; width:80px; text-align:right;height:2.4em; float:left;*padding-top:3px;}
+.data-form,.data-form b{clear:both; height:2.5em; font-weight:normal;}
+.data-show b{width:80px; text-align:right;height:2.5em; float:left; font-weight:normal;}
+.w-180 input{width:90px;}
+.w-320 input{width:220px;}
+.w-180{float:left; width:180px;}.w-320{float:left; width:320px;}.w-160{float:left; width:160px;}
+
+.page-change{text-align:center; margin-top:15px; padding:10px 0; *padding:5px 0; background:#f7f7f7;}
+.page-change span{float:right; margin-right:5px;}
+.page-change a{padding:2px 5px; margin:2px 2px; color:#333; }
+.page-change a:hover, a.pg-now {padding:2px 5px; background:#F60; color:#fff;text-decoration:none;}
+.page-change.pft{margin-top:0;}
+
+.tb-1{border:1px solid #ccc; width:100%; vertical-align:text-bottom;}
+.tb-1 th{background:#ffe9b5; color:#631;text-align:center; font-weight:bold; font-size:13px; padding:.25em;*padding:.35em .2em .15em;vertical-align:middle; border-bottom:1px solid #F80;}
+.tb-1 td{padding:6px 5px;*padding:6px 5px 4px;border:1px solid #ddd; text-align:center;}
+
+.tb-data{clear:both;border:1px solid #ccc; width:100%; vertical-align:text-bottom;}
+.tb-data th{background:#ffe9b5; color:#631;text-align:center; font-weight:bold; font-size:13px; padding:.25em;*padding:.35em .2em .15em;vertical-align:middle; border-bottom:1px solid #F80;}
+.tb-data-F th{background:#ffe9b5; color:#631;text-align:left; font-weight:bold; font-size:13px; padding:.25em;*padding:.35em .2em .15em;vertical-align:middle; border-bottom:1px solid #F80;}
+.tb-data td{padding:6px 5px;*padding:6px 5px 4px;border-bottom:1px solid #ddd; text-align:left;}
+
+.tb-R{border:1px solid #ccc; width:100%; vertical-align:text-bottom;}
+.tb-R th{background:#ffe9b5; color:#631;text-align:center; font-weight:bold; font-size:13px; padding:.25em;*padding:.35em .2em .15em;vertical-align:middle; border-bottom:1px solid #F80;}
+.tb-R td{padding:6px 5px;*padding:6px 5px 4px;border-bottom:1px solid #ddd; text-align:right;}
+
+/* 表格之類的滑過變色 */
+.bg-yl{background:#fffef4;}
+.tb-1 tr:hover{background:#fffae5;}
+.tb-R tr:hover{background:#fffae5;}
+
+.txt-rd{ color:#F00;}
+
+.c-f{clear:both;}
+
+.a-rt{text-align:right;}
+
+/* view plan */
+div.view-plan-tabs {
+	font-size: 0pt;
+}
+
+div.view-frame
+	{
+	background-color: #E0F5EB;
+	border: 1px solid #8BDAB3;
+	padding: 5px;
+}
+
+div.view-frame-detial-item {
+	background-color: white;
+	padding: 5px;
+	border-bottom: 1px dotted #CCCCCC;
+}
+
+/*Credits: Dynamic Drive CSS Library */
+/*URL: http://www.dynamicdrive.com/style/ */
+
+#tabs-blue {
+	float:left;
+	width:100%;
+	font-size:93%;
+	line-height:normal;
+	border-bottom:1px solid #666;
+	margin-bottom:1em; /*margin between menu and rest of page*/
+	overflow:hidden;
+	}
+
+#tabs-blue ul {
+	margin:0;
+	padding:10px 10px 0 0px;
+	list-style:none;
+	
+	}
+
+#tabs-blue li {
+	display:inline;
+	margin:0;
+	padding:0;
+	}
+
+#tabs-blue a {
+	float:left;
+	background:url("/img/left.png") no-repeat left top;
+	margin:0;
+	padding:0 0 0 6px;
+	text-decoration:none;
+	}
+
+#tabs-blue a span {
+	float:left;
+	display:block;
+	background:url("/img/right.png") no-repeat right top;
+	padding:6px 15px 4px 6px;
+	margin-right:2px;
+	color:#FFF;
+	}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#tabs-blue a span {float:none;}
+
+/* End IE5-Mac hack */
+#tabs-blue a:hover span {
+	}
+
+#tabs-blue a:hover {
+	background-position:0% -42px;
+	}
+
+#tabs-blue a:hover span {
+	background-position:100% -42px;
+}
+ul.errorMessage {
+	color: #CC0000;
+	font-weight: bold;
+}

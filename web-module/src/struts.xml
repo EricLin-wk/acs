@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<constant name="struts.i18n.reload" value="false"/>
+	<constant name="struts.devMode" value="false"/>
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.codebehind.defaultPackage" value="default" />
+	<constant name="struts.codebehind.pathPrefix" value="/WEB-INF/jsp" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.ui.theme" value="simple" />
+
+	<package name="default" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+			<result-type name="xslt" class="org.apache.struts2.views.xslt.XSLTResult"/>  
+			<!-- <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"/>  -->
+		</result-types>
+		<interceptors>
+			<interceptor-stack name="crudStack">
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="params" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="conversionError"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-action-ref name="welcome" />
+		<action name="welcome">
+			<result>index.jsp</result>
+		</action>
+	</package>
+	<!-- Menu/OPTION維護 -->
+	<package name="menu" extends="default" namespace="/menu">
+		<action name="*" method="{1}" class="menuAction">
+			<result type="tiles" name="list">menu.list</result>
+			<result type="tiles" name="edit">menu.edit</result>
+			<result type="json" name="jsonResponse">
+			  <param name="root">jsonResponse</param>
+			</result>
+		</action>
+	</package>
+	<!-- Group維護 -->
+	<package name="group" extends="default" namespace="/group">
+		<action name="*" method="{1}" class="groupAction">
+			<result type="tiles" name="list">group.list</result>
+			<result type="tiles" name="edit">group.edit</result>
+			<result type="tiles" name="view">group.view</result>
+		</action>
+	</package>
+	<!-- Role維護 -->
+	<package name="role" extends="default" namespace="/role">
+		<action name="*" method="{1}" class="roleAction">
+			<result type="tiles" name="list">role.list</result>
+			<result type="tiles" name="edit">role.edit</result>
+			<result type="tiles" name="view">role.view</result>
+		</action>
+	</package>
+	<!-- Permission維護 -->
+	<package name="permission" extends="default" namespace="/permission">
+		<action name="*" method="{1}" class="permissionAction">
+			<result type="tiles" name="list">permission.list</result>
+			<result type="tiles" name="edit">permission.edit</result>
+			<result type="tiles" name="view">permission.view</result>
+		</action>
+	</package>
+	<!-- User維護 -->
+	<package name="user" extends="default" namespace="/user">
+		<action name="*" method="{1}" class="userAction">
+			<result type="tiles" name="list">user.list</result>
+			<result type="tiles" name="edit">user.edit</result>
+			<result type="tiles" name="view">user.view</result>
+		</action>
+	</package>
+	<!-- 个人资料维护 -->
+	<package name="userSelf" extends="default" namespace="/userSelf">
+		<action name="*" method="{1}" class="userSelfAction">
+			<result type="tiles" name="chgpwd">userSelf.chgpwd</result>
+			<result type="tiles" name="view">userSelf.view</result>
+			<result type="tiles" name="edit">userSelf.edit</result>
+		</action>
+	</package>
+	<!-- 設備管理 -->
+	<package name="device" extends="default" namespace="/device">
+		<action name="*" method="{1}" class="deviceAction">
+			<result type="tiles" name="list">device.list</result>
+			<result type="tiles" name="view">device.view</result>
+			<result type="tiles" name="edit">device.edit</result>
+		</action>
+	</package>
+	<!-- 設備群组管理 -->
+	<package name="deviceGroup" extends="default" namespace="/deviceGroup">
+		<action name="*" method="{1}" class="deviceGroupAction">
+			<result type="tiles" name="list">deviceGroup.list</result>
+			<result type="tiles" name="view">deviceGroup.view</result>
+			<result type="tiles" name="edit">deviceGroup.edit</result>
+		</action>
+	</package>				
+</struts>

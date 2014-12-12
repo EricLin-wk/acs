@@ -1,0 +1,3 @@
+var provinceArray = [{'When':'1','Value':'1','Text':'北京市'},{'When':'2','Value':'2','Text':'安徽省'}];
+var cityArray = [{'When':'1','Value':'1','Text':'北京市'},{'When':'2','Value':'2','Text':'安庆市'},{'When':'2','Value':'3','Text':'蚌埠市'}];
+var districtArray = [{'When':'1','Value':'1','Text':'顺义区'},{'When':'1','Value':'2','Text':'宣武区'},{'When':'2','Value':'3','Text':'宜秀区'},{'When':'2','Value':'4','Text':'望江县'},{'When':'3','Value':'5','Text':'五河县'},{'When':'3','Value':'6','Text':'淮上区'}];

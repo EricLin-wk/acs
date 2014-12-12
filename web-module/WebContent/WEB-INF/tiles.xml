@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition name="layout.base" template="/WEB-INF/jsp/layout/layout.jsp">
+		<put-attribute name="commonTitle" value="ACS管理系统"/>
+		<put-attribute name="title"/>
+	    <put-attribute name="header" value="/WEB-INF/jsp/layout/header.jsp" />
+	    <put-attribute name="content" value="/WEB-INF/jsp/layout/content.jsp" />
+	    <put-attribute name="menu" value="/WEB-INF/jsp/layout/menu.jsp" />
+	</definition>
+	<!--Menu/Option-->
+    <definition name="menu.list" extends="layout.base">
+    	<put-attribute name="title" value="选单维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/menu/list.jsp"/>
+    </definition>
+    <definition name="menu.edit" extends="layout.base">
+    	<put-attribute name="title" value="选单维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/menu/edit.jsp"/>
+    </definition> 
+    <!--Group-->
+    <definition name="group.list" extends="layout.base">
+    	<put-attribute name="title" value="Group维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/group/list.jsp"/>
+    </definition>
+    <definition name="group.edit" extends="layout.base">
+    	<put-attribute name="title" value="Group维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/group/edit.jsp"/>
+    </definition>
+    <definition name="group.view" extends="layout.base">
+    	<put-attribute name="title" value="Group维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/group/view.jsp"/>
+    </definition>
+    <!--Role-->
+    <definition name="role.list" extends="layout.base">
+    	<put-attribute name="title" value="Role维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/role/list.jsp"/>
+    </definition>
+    <definition name="role.edit" extends="layout.base">
+    	<put-attribute name="title" value="Role维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/role/edit.jsp"/>
+    </definition>
+    <definition name="role.view" extends="layout.base">
+    	<put-attribute name="title" value="Role维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/role/view.jsp"/>
+    </definition> 
+    <!--Permission-->
+    <definition name="permission.list" extends="layout.base">
+    	<put-attribute name="title" value="Permission维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/permission/list.jsp"/>
+    </definition>
+    <definition name="permission.edit" extends="layout.base">
+    	<put-attribute name="title" value="Permission维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/permission/edit.jsp"/>
+    </definition>
+    <definition name="permission.view" extends="layout.base">
+    	<put-attribute name="title" value="Permission维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/permission/view.jsp"/>
+    </definition>    
+    <!--User-->
+    <definition name="user.list" extends="layout.base">
+    	<put-attribute name="title" value="User维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/user/list.jsp"/>
+    </definition>
+    <definition name="user.edit" extends="layout.base">
+    	<put-attribute name="title" value="User维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/user/edit.jsp"/>
+    </definition>
+    <definition name="user.view" extends="layout.base">
+    	<put-attribute name="title" value="User维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/user/view.jsp"/>
+    </definition>
+    <!--User-->
+    <definition name="userSelf.chgpwd" extends="layout.base">
+    	<put-attribute name="title" value="个人资料维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/user/self_changepwd.jsp"/>
+    </definition>
+    <definition name="userSelf.edit" extends="layout.base">
+    	<put-attribute name="title" value="个人资料维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/user/self_edit.jsp"/>
+    </definition>
+    <definition name="userSelf.view" extends="layout.base">
+    	<put-attribute name="title" value="个人资料维护"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/user/self_view.jsp"/>
+    </definition>  
+    <!--设备管理-->
+    <definition name="device.list" extends="layout.base">
+    	<put-attribute name="title" value="设备管理"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/device/list.jsp"/>
+    </definition>
+    <definition name="device.view" extends="layout.base">
+    	<put-attribute name="title" value="设备管理-显示"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/device/view.jsp"/>
+    </definition>
+    <definition name="device.edit" extends="layout.base">
+    	<put-attribute name="title" value="设备管理-编辑"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/device/edit.jsp"/>
+    </definition>
+    <!--设备群组管理-->
+    <definition name="deviceGroup.list" extends="layout.base">
+    	<put-attribute name="title" value="设备群组管理"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/device/grouplist.jsp"/>
+    </definition>
+    <definition name="deviceGroup.view" extends="layout.base">
+    	<put-attribute name="title" value="设备群组管理-显示"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/device/groupview.jsp"/>
+    </definition>
+    <definition name="deviceGroup.edit" extends="layout.base">
+    	<put-attribute name="title" value="设备群组管理-编辑"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/device/groupedit.jsp"/>
+    </definition>  
+</tiles-definitions>

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+
+  <description>page util</description>
+  <display-name>JSTL functions</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>pageutil</short-name>
+
+<function>
+  <name>get</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object get(java.lang.String, java.io.Serializable)</function-signature>
+</function>
+<function>
+  <name>listAll</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.List list(java.lang.Class)</function-signature>
+</function>
+<function>
+	<name>urlEncoding</name>
+	<function-class>com.teecs.core.common.utils.JspUtil</function-class>
+	<function-signature>java.lang.String urlEncoding(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+	<name>urlDecoding</name>
+	<function-class>com.teecs.core.common.utils.JspUtil</function-class>
+	<function-signature>java.lang.String urlDecoding(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+  <name>findByCriteria</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] findByCriteria(org.hibernate.criterion.DetachedCriteria)</function-signature>
+</function>
+<function>
+  <name>findByCriteriaLimited</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] findByCriteria(org.hibernate.criterion.DetachedCriteria, java.lang.Integer, java.lang.Integer)</function-signature>
+</function>
+<function>
+  <name>countByCriteria</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Integer findByCriteria(org.hibernate.criterion.DetachedCriteria)</function-signature>
+</function>
+<function>
+  <name>parseLong</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Long parseLong(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>toLong</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Long toLong(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>toInteger</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Integer toInteger(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>toFloat</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Float toFloat(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>toDouble</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Double toDouble(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>toDate</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.Date toDate(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+  <name>toWrapDate</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.Date toWrapDate(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+  <name>toString</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String toString(java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>toBoolean</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean toBoolean(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>findByHql</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] findByHql(java.lang.String, java.lang.Object[], java.lang.String, int, int)</function-signature>
+</function>
+<function>
+  <name>countByHql</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] countByHql(java.lang.String, java.lang.Object[])</function-signature>
+</function>
+<function>
+  <name>queryByHql</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] queryByHql(java.lang.String, java.lang.Object[], tw.idv.cut7man.pageable.TagProperties)</function-signature>
+</function>
+<function>
+  <name>pageableTag</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>tw.idv.cut7man.pageable.TagProperties pageableTag(java.lang.String, int, int)</function-signature>
+</function>
+<function>
+  <name>addToList</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] addToList(java.lang.String, java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>addToMap</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.Map addToMap(java.lang.String, java.lang.String, java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>maskEmail</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String maskEmail(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>maskString</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String maskString(java.lang.String, java.lang.Integer)</function-signature>
+</function>
+<function>
+  <name>maskMobile</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String maskMobile(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>customHqlQuery</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] customHqlQuery(java.lang.String, java.lang.Object[], tw.idv.cut7man.pageable.TagProperties, java.lang.Long)</function-signature>
+</function>
+<function>
+  <name>customHqlCount</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Long customHqlQuery(java.lang.String, java.lang.Object[])</function-signature>
+</function>
+<function>
+  <name>before</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean before(java.util.Date, java.util.Date)</function-signature>
+</function>
+<function>
+  <name>after</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean after(java.util.Date, java.util.Date)</function-signature>
+</function>
+<function>
+  <name>addDays</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.Date addDays(java.util.Date, int)</function-signature>
+</function>
+<function>
+  <name>menuOption</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String menuOption(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+  <name>split</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String[] split(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+  <name>arrayLength</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Integer arrayLength(java.lang.Object[])</function-signature>
+</function>
+<function>
+  <name>listLength</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Integer listLength(java.util.List)</function-signature>
+</function>
+<function>
+  <name>substring</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String substring(java.lang.String, java.lang.Integer, java.lang.Integer)</function-signature>
+</function>
+<function>
+  <name>contain</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean contain(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+  <name>user</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>com.teecs.core.admin.entity.User user()</function-signature>
+</function>
+<function>
+  <name>username</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String username()</function-signature>
+</function>
+<function>
+  <name>getGroupByUsername</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>com.teecs.core.admin.entity.Group getGroupByUsername(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>getRolesByUsername</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.Collection getRolesByUsername(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>hasRole</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean hasRole(java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+  <name>isManager</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean isManager(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>isCRMManager</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean isCRMManager(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>isC02</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean isC02(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>getDefaultTaskGroup</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object getDefaultTaskGroup(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>getToken</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String getToken()</function-signature>
+</function>
+<function>
+  <name>getKeyToken</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String getToken(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>resetToken</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String resetToken()</function-signature>
+</function>
+<function>
+  <name>resetKeyToken</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String resetKeyToken(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>isResubmit</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean isResubmit(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>isKeyResubmit</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean isResubmit(java.lang.String, java.lang.String)</function-signature>
+</function>
+
+<function>
+  <name>criteriaForName</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>void criteriaForName(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>criteria</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteria(java.lang.String, java.lang.String, java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>criteriaNotNull</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteriaNotNull(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>criteriaNull</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteriaNull(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>criteriaBetween</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteriaBetween(java.lang.String, java.lang.Object, java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>criteriaIn</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteriaIn(java.lang.String, java.lang.Object[])</function-signature>
+</function>
+<function>
+  <name>criteriaAllEq</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteriaAllEq(java.util.Map)</function-signature>
+</function>
+<function>
+  <name>criteriaOr</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteriaOr(org.hibernate.criterion.Criterion, org.hibernate.criterion.Criterion)</function-signature>
+</function>
+<function>
+  <name>criteriaAnd</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Criterion criteriaAnd(org.hibernate.criterion.Criterion, org.hibernate.criterion.Criterion)</function-signature>
+</function>
+<function>
+  <name>criteriaAdd</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>void criteriaAdd(org.hibernate.criterion.Criterion)</function-signature>
+</function>
+<function>
+  <name>criteriaResult</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] criteriaResult(tw.idv.cut7man.pageable.TagProperties)</function-signature>
+</function>
+<function>
+  <name>listAdd</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>void listAdd(java.lang.String, java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>listGet</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.List listGet(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>arrayGet</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] arrayGet(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>currentDate</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.util.Date currentDate()</function-signature>
+</function>
+<function>
+  <name>reqSet</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>void set(java.lang.String, java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>reqGet</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object get(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>criteriaAddOrder</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>void criteriaAddOrder(org.hibernate.criterion.Order)</function-signature>
+</function>
+<function>
+  <name>criteriaOrderAsc</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Order criteriaOrderAsc(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>criteriaOrderDesc</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>org.hibernate.criterion.Order criteriaOrderDesc(java.lang.String)</function-signature>
+</function>
+<function>
+  <name>formatString</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String formatString(java.lang.String, java.lang.Object[])</function-signature>
+</function>
+<function>
+  <name>currency</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.String currency(java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>toArray</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object[] toArray(java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>emptyToNull</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Object emptyToNull(java.lang.Object)</function-signature>
+</function>
+<function>
+  <name>isIn</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean isIn(java.lang.String, java.lang.Object[])</function-signature>
+</function>
+<function>
+  <name>replaceAll</name>
+  <function-class>com.teecs.core.common.utils.JspUtil</function-class>
+  <function-signature>java.lang.Boolean replaceAll(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+</function>
+<function>
+	<name>rmb</name>
+	<function-class>com.teecs.core.common.utils.JspUtil</function-class>
+	<function-signature>java.lang.String rmb(java.lang.Object)</function-signature>
+</function>
+<function>
+	<name>subDateInHour</name>
+	<function-class>com.teecs.core.common.utils.JspUtil</function-class>
+	<function-signature>java.lang.Float subDateInHour(java.util.Date, java.util.Date)</function-signature>
+</function>
+</taglib>
+
