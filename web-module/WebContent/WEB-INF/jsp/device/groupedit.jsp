@@ -47,7 +47,7 @@ $().ready(function() {
 			<h2>
 				<i class="icon-tag"></i> 设备群组管理-
 				<s:if test="%{paraObj.oid != null}">
-					编辑<s:hidden id="paraObj.oid"/>
+					编辑<s:hidden id="paraObj.oid" value="%{paraObj.oid}"/>
 				</s:if>
 				<s:else>添加</s:else>
 			</h2>

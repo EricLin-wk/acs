@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.acs.biz.device.entity.Device;
 import com.acs.biz.device.service.DeviceService;
@@ -77,6 +78,7 @@ public class DeviceServiceImpl extends DomainServiceImpl<Device> implements Devi
 	 * @return Updated device
 	 */
 	@Override
+	@Transactional(readOnly = false)
 	public Device markDelete(Long oid) {
 		Device dev = super.get(oid);
 		if (dev == null) {
@@ -93,6 +95,7 @@ public class DeviceServiceImpl extends DomainServiceImpl<Device> implements Devi
 	 * @param groupId
 	 */
 	@Override
+	@Transactional(readOnly = false)
 	public void clearDeviceGroup(Long groupId) {
 		String sql = "update acs_device set group_id=null where group_id=:groupId";
 		HashMap<String, Object> parameter = new HashMap<String, Object>();
@@ -119,6 +122,16 @@ public class DeviceServiceImpl extends DomainServiceImpl<Device> implements Devi
 			crit.addNe("oid", oid);
 		int size = super.getListSize(crit).intValue();
 		return size > 0 ? true : false;
+	}
+
+	@Override
+	public List<Device> listByIsDelete_GroupId(int firstResult, int maxResults, boolean isDelete, Long groupId) {
+		List<Device> list = null;
+		CommonCriteria crit = new CommonCriteria();
+		crit.addEq("isDelete", isDelete);
+		crit.addEq("groupId", groupId);
+		list = super.getList(firstResult, maxResults, crit, new String[] { "deviceName" });
+		return list;
 	}
 
 }

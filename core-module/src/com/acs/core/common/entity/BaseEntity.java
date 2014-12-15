@@ -30,18 +30,18 @@ public class BaseEntity implements Serializable {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = -4882210405882397313L;
-	@Column(name = "ADD_USER", length = 30, updatable = false)
+	@Column(name = "add_user", length = 30, updatable = false)
 	private String createUser;
 
-	@Column(name = "ADD_DATE", updatable = false)
+	@Column(name = "add_date", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 
-	@Column(name = "MOD_USER", length = 30)
+	@Column(name = "mod_user", length = 30)
 	private String modifyUser;
 
 	@Version
-	@Column(name = "MOD_DATE")
+	@Column(name = "mod_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifyDate;
 
@@ -104,7 +104,7 @@ public class BaseEntity implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

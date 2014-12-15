@@ -109,5 +109,10 @@
     <definition name="deviceGroup.edit" extends="layout.base">
     	<put-attribute name="title" value="设备群组管理-编辑"/>
     	<put-attribute name="content"  value="/WEB-INF/jsp/device/groupedit.jsp"/>
-    </definition>  
+    </definition> 
+    <!--温度湿度设置-->
+    <definition name="deviceSetting.list" extends="layout.base">
+    	<put-attribute name="title" value="温度湿度设置"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/device/deviceSetting.jsp"/>
+    </definition> 
 </tiles-definitions>

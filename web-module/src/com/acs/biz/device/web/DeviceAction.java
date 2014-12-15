@@ -24,6 +24,8 @@ import com.acs.core.menu.service.MenuService;
  */
 public class DeviceAction extends AbstractAction {
 
+	private static final long serialVersionUID = -5893794616366867721L;
+
 	@Resource
 	private DeviceService deviceService;
 	@Resource
@@ -135,7 +137,7 @@ public class DeviceAction extends AbstractAction {
 			} else
 				entity = new Device();
 			BeanUtils.copyProperties(paraObj, entity, new String[] { "oid", "createUser", "createDate", "modifyUser",
-					"modifyDate" });
+			"modifyDate" });
 
 			deviceService.save(entity);
 			addActionMessage("設備" + entity.getDeviceName() + "保存成功");

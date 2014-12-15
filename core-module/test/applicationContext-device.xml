@@ -21,6 +21,13 @@
 	<bean id="deviceService" class="com.acs.biz.device.service.impl.DeviceServiceImpl">
 		<property name="dao" ref="deviceDao"/>
 	</bean>
+	
+	<bean id="deviceSettingDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
+		<property name="className" value="com.acs.biz.device.entity.DeviceSetting"/>
+	</bean>
+	<bean id="deviceSettingService" class="com.acs.biz.device.service.impl.DeviceSettingServiceImpl">
+		<property name="dao" ref="deviceSettingDao"/>
+	</bean>
 
 
 </beans>

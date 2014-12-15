@@ -84,4 +84,15 @@ public interface DeviceService extends DomainService<Device> {
 	 */
 	public boolean isDeviceNameUsed(String deviceName, Long oid);
 
+	/**
+	 * List devices with matching criteria. If group Id is set to null, will list Devices with null group ids.
+	 * 
+	 * @param firstResult
+	 * @param maxResults
+	 * @param isDelete
+	 * @param groupId
+	 * @return
+	 */
+	public List<Device> listByIsDelete_GroupId(int firstResult, int maxResults, boolean isDelete, Long groupId);
+
 }

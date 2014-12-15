@@ -10,6 +10,11 @@
 			<div><!-- 此div为缩放范围 -->
 				<teecs:checkPermission permissions="ROLE_USER">
 					<div class="accordion-inner">
+						<s:a value="/deviceSetting/init.do">温度湿度设置</s:a>
+					</div>
+				</teecs:checkPermission>
+				<teecs:checkPermission permissions="ROLE_USER">
+					<div class="accordion-inner">
 						<s:a value="/device/init.do">设备维护</s:a>
 					</div>
 				</teecs:checkPermission>

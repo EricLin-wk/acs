@@ -5,7 +5,8 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans">
 	<!-- Action Start -->
-	<bean scope="singleton" class="com.acs.biz.device.web.DeviceAction" id="deviceAction" />
-	<bean scope="singleton" class="com.acs.biz.device.web.DeviceGroupAction" id="deviceGroupAction" />
+	<bean scope="session" class="com.acs.biz.device.web.DeviceAction" id="deviceAction" />
+	<bean scope="session" class="com.acs.biz.device.web.DeviceGroupAction" id="deviceGroupAction" />
+	<bean scope="session" class="com.acs.biz.device.web.DeviceSettingAction" id="deviceSettingAction" />
 	<!-- Action End -->
 </beans>

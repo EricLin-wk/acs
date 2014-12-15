@@ -19,6 +19,8 @@ import com.acs.core.common.web.AbstractAction;
  */
 public class DeviceGroupAction extends AbstractAction {
 
+	private static final long serialVersionUID = -6870666160575438966L;
+
 	@Resource
 	private DeviceGroupService deviceGroupService;
 
@@ -96,7 +98,7 @@ public class DeviceGroupAction extends AbstractAction {
 			} else
 				entity = new DeviceGroup();
 			BeanUtils.copyProperties(paraObj, entity, new String[] { "oid", "createUser", "createDate", "modifyUser",
-			"modifyDate" });
+					"modifyDate" });
 
 			deviceGroupService.save(entity);
 			addActionMessage("設備群组" + entity.getGroupName() + "保存成功");

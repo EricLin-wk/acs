@@ -101,5 +101,11 @@
 			<result type="tiles" name="view">deviceGroup.view</result>
 			<result type="tiles" name="edit">deviceGroup.edit</result>
 		</action>
-	</package>				
+	</package>
+	<!-- 温度湿度设置 -->
+	<package name="deviceSetting" extends="default" namespace="/deviceSetting">
+		<action name="*" method="{1}" class="deviceSettingAction">
+			<result type="tiles" name="list">deviceSetting.list</result>			
+		</action>
+	</package>					
 </struts>

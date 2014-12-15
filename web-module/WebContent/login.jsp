@@ -5,11 +5,11 @@
 <%@ page import="org.springframework.security.core.AuthenticationException" %>
 <%@ page import="org.springframework.security.core.userdetails.UserDetails"%>
 <%@ page import="com.acs.core.user.utils.AdminHelper"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Login Page</title>
+<meta charset="utf-8">
+<title>Air Control Server</title>
 <link id="bs-css" href="css/bootstrap-united.css" rel="stylesheet"/>
 <style type="text/css">
 body {
@@ -37,23 +37,24 @@ body {
 		<div class="row-fluid">
 			<div class="row-fluid">
 				<div class="span12 center login-header">
-				<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message=='Bad credentials'}">
-					<h2 style="color: red">Your login attempt was not successful, try again.</h2>
-				</c:if>
+				<h2>Welcome to Air Control Server</h2>				
 				</div><!--/span-->
 			</div><!--/row-->
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
-					<div class="alert alert-info">Please login with your Username and Password.</div>
+					<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message=='Bad credentials'}">
+					<div class="alert alert-error">登录失败, 请再试一次.</div>
+					</c:if>
+					<div class="alert alert-info">请输入帐号密码</div>
 					<form class="form-horizontal" action="j_spring_security_check" method="post">
 						<fieldset>
-							<div class="input-prepend" title="Username" data-rel="tooltip">
+							<div class="input-prepend" title="帐号" data-rel="tooltip">
 								<span class="add-on"><i class="icon-user"></i></span><input	autofocus class="input-large span10" name="j_username"
 									id="username" type="text" />
 							</div>
 							<div class="clearfix"></div>
 
-							<div class="input-prepend" title="Password" data-rel="tooltip">
+							<div class="input-prepend" title="密码" data-rel="tooltip">
 								<span class="add-on"><i class="icon-lock"></i></span><input
 									class="input-large span10" name="j_password" id="password"
 									type="password"/>
@@ -67,7 +68,7 @@ body {
 							<div class="clearfix"></div>
 
 							<p class="center span5">
-								<button type="submit" class="btn btn-primary">Login</button>
+								<button type="submit" class="btn btn-primary">登录</button>
 							</p>
 						</fieldset>
 					</form>

@@ -51,7 +51,7 @@ $().ready(function() {
 			<h2>
 				<i class="icon-tag"></i> 设备管理-
 				<s:if test="%{paraObj.modifyDate != null}">
-					編輯<s:hidden id="paraObj.oid"/>
+					編輯<s:hidden id="paraObj.oid" value="%{paraObj.oid}"/>
 				</s:if>
 				<s:else>添加</s:else>
 			</h2>
