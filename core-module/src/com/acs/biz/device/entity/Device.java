@@ -154,4 +154,8 @@ public class Device extends BaseEntity {
 				.append("serialNum", this.serialNum).append("deviceType", this.deviceType).toString();
 	}
 
+	public String toStringShort() {
+		return "Device[" + oid + "|" + serialNum + "|" + deviceName + "]";
+	}
+
 }

@@ -36,7 +36,7 @@ public class DeviceServiceImpl extends DomainServiceImpl<Device> implements Devi
 		List<Device> list = null;
 		CommonCriteria crit = new CommonCriteria();
 		crit.addEq("isDelete", false);
-		list = super.getList(firstResult, maxResults, crit, new String[] { "deviceName" });
+		list = super.getList(firstResult, maxResults, crit, new String[] { "oid" });
 		return list;
 	}
 

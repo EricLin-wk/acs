@@ -3,6 +3,7 @@
  */
 package com.acs.biz.device.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -73,10 +74,19 @@ public interface DeviceSettingService extends DomainService<DeviceSetting> {
 
 	/**
 	 * Save the given setting into all devices under the specified group.
-	 * 
+	 *
 	 * @param groupId
 	 * @param listSetting
 	 */
 	public void saveGroupSettingFromMap(Long groupId, List<HashMap<String, String>> listSetting);
+
+	/**
+	 * Get Device setting for given device Id and time.
+	 *
+	 * @param deviceId
+	 * @param time
+	 * @return
+	 */
+	public DeviceSetting getSettingByDeviceId_Time(Long deviceId, Date time);
 
 }

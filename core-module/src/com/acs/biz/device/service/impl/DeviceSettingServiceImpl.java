@@ -5,6 +5,7 @@ package com.acs.biz.device.service.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -207,5 +208,26 @@ public class DeviceSettingServiceImpl extends DomainServiceImpl<DeviceSetting> i
 			// save to device setting
 			this.saveDeviceSettingFromMap(dev.getOid(), listSetting);
 		}
+	}
+
+	@Override
+	public DeviceSetting getSettingByDeviceId_Time(Long deviceId, Date time) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+
+		// build critera
+		CommonCriteria crit = new CommonCriteria();
+		crit.addEq("deviceId", deviceId);
+		String dayOfWeek = DateFormatUtils.format(cal, "EEE", Locale.US).toLowerCase();
+		crit.addEq("dayOfWeek", dayOfWeek);
+		int timeOfDay = cal.get(Calendar.HOUR_OF_DAY) * 100;
+		crit.addEq("timeOfDay", timeOfDay);
+		DeviceSetting setting = super.getSingle(crit, null);
+
+		// get default setting if not found
+		if (setting == null)
+			setting = getDefaultSetting();
+
+		return setting;
 	}
 }

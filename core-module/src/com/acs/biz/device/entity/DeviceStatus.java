@@ -31,7 +31,7 @@ public class DeviceStatus {
 	/**
 	 * current temperature in celsius
 	 */
-	private Double temperatureCelsius;
+	private Double temperature;
 
 	/**
 	 * current humidity
@@ -87,12 +87,12 @@ public class DeviceStatus {
 		this.operationStatus = operationStatus;
 	}
 
-	public Double getTemperatureCelsius() {
-		return temperatureCelsius;
+	public Double getTemperature() {
+		return temperature;
 	}
 
-	public void setTemperatureCelsius(Double temperatureCelsius) {
-		this.temperatureCelsius = temperatureCelsius;
+	public void setTemperature(Double temperatureCelsius) {
+		this.temperature = temperatureCelsius;
 	}
 
 	public Double getHumidity() {

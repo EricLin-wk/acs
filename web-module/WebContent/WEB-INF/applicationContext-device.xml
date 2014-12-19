@@ -28,6 +28,7 @@
 	<bean id="deviceSettingService" class="com.acs.biz.device.service.impl.DeviceSettingServiceImpl">
 		<property name="dao" ref="deviceSettingDao"/>
 	</bean>
-
+	
+	<bean id="deviceHandler" class="com.acs.biz.device.service.DeviceHandler" scope="singleton" />
 
 </beans>
