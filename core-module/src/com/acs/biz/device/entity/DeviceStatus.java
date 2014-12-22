@@ -13,6 +13,10 @@ import java.util.Date;
  */
 public class DeviceStatus {
 
+	public static final String STATUS_CONNECTED = "已连线";
+	public static final String STATUS_DISCONNECTED = "未连线";
+	public static final String STATUS_CONNECTION_ERROR = "连线错误";
+
 	/**
 	 * hardware version
 	 */
@@ -37,6 +41,16 @@ public class DeviceStatus {
 	 * current humidity
 	 */
 	private Double humidity;
+
+	/**
+	 * target temperature in celsius
+	 */
+	private Double targetTemperature;
+
+	/**
+	 * target humidity
+	 */
+	private Double targetHumidity;
 
 	/**
 	 * timestamp for last status update
@@ -141,6 +155,34 @@ public class DeviceStatus {
 
 	public void setDevice(Device device) {
 		this.device = device;
+	}
+
+	public Double getTargetTemperature() {
+		return targetTemperature;
+	}
+
+	public void setTargetTemperature(Double targetTemperature) {
+		this.targetTemperature = targetTemperature;
+	}
+
+	public Double getTargetHumidity() {
+		return targetHumidity;
+	}
+
+	public void setTargetHumidity(Double targetHumidity) {
+		this.targetHumidity = targetHumidity;
+	}
+
+	public String getStatusConnected() {
+		return STATUS_CONNECTED;
+	}
+
+	public String getStatusDisconnected() {
+		return STATUS_DISCONNECTED;
+	}
+
+	public String getStatusConnectionError() {
+		return STATUS_CONNECTION_ERROR;
 	}
 
 }

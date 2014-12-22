@@ -6,6 +6,18 @@
 <div id="menu" class="span2 main-menu-span accordion ">
 	<div class="well nav-collapse sidebar-nav">
 		<div id="menuGroup1" class="accordion-heading" data-collapse="persist">
+			<a class="accordion-toggle"> 监控报表</a>
+			<div><!-- 此div为缩放范围 -->
+				<teecs:checkPermission permissions="ROLE_USER">
+					<div class="accordion-inner">
+						<s:a value="/dashboard/list.do">仪表板</s:a>
+					</div>
+				</teecs:checkPermission>				
+			</div>
+		</div>
+	</div>	
+	<div class="well nav-collapse sidebar-nav">
+		<div id="menuGroup2" class="accordion-heading" data-collapse="persist">
 			<a class="accordion-toggle"> 設備管理</a>
 			<div><!-- 此div为缩放范围 -->
 				<teecs:checkPermission permissions="ROLE_USER">

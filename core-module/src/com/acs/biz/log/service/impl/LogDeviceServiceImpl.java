@@ -14,7 +14,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.acs.biz.device.entity.Device;
-import com.acs.biz.device.entity.DeviceSetting;
 import com.acs.biz.device.entity.DeviceStatus;
 import com.acs.biz.device.service.DeviceSettingService;
 import com.acs.biz.log.entity.LogDevice;
@@ -43,10 +42,8 @@ public class LogDeviceServiceImpl extends DomainServiceImpl<LogDevice> implement
 		log.setGroupId(device.getGroupId());
 		log.setTemperature(status.getTemperature());
 		log.setHumidity(status.getHumidity());
-
-		DeviceSetting setting = deviceSettingService.getSettingByDeviceId_Time(device.getOid(), status.getStatusDate());
-		log.setTargetTemperature(setting.getTemperature());
-		log.setTargetHumidity(setting.getHumidity());
+		log.setTargetTemperature(status.getTargetTemperature());
+		log.setTargetHumidity(status.getTargetHumidity());
 
 		log = super.save(log);
 		return log;
@@ -67,6 +64,17 @@ public class LogDeviceServiceImpl extends DomainServiceImpl<LogDevice> implement
 		CommonCriteria crit = new CommonCriteria();
 		crit.addLe("recordDate", cutOffDate);
 		return super.getDao().deleteByAttributes(crit);
+	}
+
+	@Override
+	public List<Map<String, Object>> listByDeviceId_RecordDate(Long deviceId, Date recordDateStart, Date recordDateEnd) {
+		String sql = "select record_date, temperature, humidity from acs_log_device where device_id=:deviceId and record_date between :recordDateStart and :recordDateEnd order by record_date asc";
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("deviceId", deviceId);
+		paramMap.put("recordDateStart", recordDateStart);
+		paramMap.put("recordDateEnd", recordDateEnd);
+		List<Map<String, Object>> result = npJdbcTemplate.queryForList(sql, paramMap);
+		return result;
 	}
 
 }

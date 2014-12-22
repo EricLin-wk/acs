@@ -32,10 +32,11 @@ public class MyAppServletContextListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext())
-		.getAutowireCapableBeanFactory().autowireBean(this);
+				.getAutowireCapableBeanFactory().autowireBean(this);
 
 		logger.debug("invoke deviceHandler.connectAllActiveDevice()");
 		deviceHandler.connectAllActiveDevice();
+		deviceHandler.sendCommandStatusToAllDevice();
+		deviceHandler.sendCommandSetTemperatureToAllDevice();
 	}
-
 }

@@ -40,4 +40,14 @@ public interface LogDeviceService extends DomainService<LogDevice> {
 	 */
 	public int deleteLog(Date cutOffDate);
 
+	/**
+	 * List by device id and record date range.
+	 *
+	 * @param deviceId
+	 * @param recordDateStart
+	 * @param recordDateEnd
+	 * @return List of map with keys: record_date, temperature, humidity. Ordered by record date in asending order.
+	 */
+	public List<Map<String, Object>> listByDeviceId_RecordDate(Long deviceId, Date recordDateStart, Date recordDateEnd);
+
 }

@@ -107,5 +107,11 @@
 		<action name="*" method="{1}" class="deviceSettingAction">
 			<result type="tiles" name="list">deviceSetting.list</result>			
 		</action>
-	</package>					
+	</package>
+	<!-- 仪表板 -->
+	<package name="dashboard" extends="default" namespace="/dashboard">
+		<action name="*" method="{1}" class="dashboardAction">
+			<result type="tiles" name="list">dashboard.list</result>			
+		</action>
+	</package>				
 </struts>

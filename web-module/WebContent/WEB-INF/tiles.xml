@@ -115,4 +115,9 @@
     	<put-attribute name="title" value="温度湿度设置"/>
     	<put-attribute name="content"  value="/WEB-INF/jsp/device/deviceSetting.jsp"/>
     </definition> 
+    <!--仪表板-->
+    <definition name="dashboard.list" extends="layout.base">
+    	<put-attribute name="title" value="仪表板"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/report/dashboard.jsp"/>
+    </definition> 
 </tiles-definitions>

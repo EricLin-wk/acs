@@ -70,7 +70,7 @@ class EchoHandler extends Thread {
 					writer.println("bye!");
 					break;
 				}
-				int sleep = rand.nextInt(5);
+				int sleep = rand.nextInt(3);
 				// int sleep = 2;
 				logger.debug("client (" + myClientNum + ") sleep" + sleep);
 				Thread.sleep(sleep * 1000);

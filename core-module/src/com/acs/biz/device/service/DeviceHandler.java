@@ -135,6 +135,7 @@ public class DeviceHandler {
 			status.setSocket(socket);
 			status.setSocketOut(socketOut);
 			status.setSocketIn(socketIn);
+			status.setOperationStatus(DeviceStatus.STATUS_CONNECTED);
 
 			logger.debug(status.getDevice().toStringShort() + " connection created.");
 			return new AsyncResult<Boolean>(true);
@@ -142,6 +143,7 @@ public class DeviceHandler {
 			logger.error(
 					"Error connection to Device " + device.getDeviceName() + " S/N:" + device.getSerialNum() + "\n"
 							+ e.getMessage(), e);
+			status.setOperationStatus(DeviceStatus.STATUS_CONNECTION_ERROR);
 			return new AsyncResult<Boolean>(false);
 		}
 	}
@@ -187,6 +189,7 @@ public class DeviceHandler {
 				if (socketIn != null)
 					socketIn.close();
 				socket.close();
+				status.setOperationStatus(DeviceStatus.STATUS_DISCONNECTED);
 
 				logger.debug(status.getDevice().toStringShort() + " connection closed.");
 			}
@@ -199,9 +202,9 @@ public class DeviceHandler {
 		List<Future<Boolean>> futureList = new ArrayList<Future<Boolean>>();
 		// loop through all connected devices
 		for (DeviceStatus status : statusMap.values()) {
-			if (status.getSocket().isClosed())
+			if (status.getSocket() == null || status.getSocket().isClosed())
 				continue; // skip disconnected device
-			if (status.getDevice().isDelete())
+			if (status.getDevice() == null || status.getDevice().isDelete())
 				continue; // skip deleted device
 
 			final DeviceStatus statusRef = status;
@@ -245,9 +248,9 @@ public class DeviceHandler {
 		List<Future<Boolean>> futureList = new ArrayList<Future<Boolean>>();
 		// loop through all connected devices
 		for (DeviceStatus status : statusMap.values()) {
-			if (status.getSocket().isClosed())
+			if (status.getSocket() == null || status.getSocket().isClosed())
 				continue; // skip disconnected device
-			if (status.getDevice().isDelete())
+			if (status.getDevice() == null || status.getDevice().isDelete())
 				continue; // skip deleted device
 
 			// create new thread for task
@@ -330,6 +333,11 @@ public class DeviceHandler {
 			status.setTemperature(temperature);
 			status.setHumidity(humidity);
 			status.setStatusDate(Calendar.getInstance().getTime());
+			// set target temperature & humidity
+			Device device = status.getDevice();
+			DeviceSetting setting = deviceSettingService.getSettingByDeviceId_Time(device.getOid(), status.getStatusDate());
+			status.setTargetTemperature(setting.getTemperature());
+			status.setTargetHumidity(setting.getHumidity());
 			// save device log
 			// logDeviceService.saveLog(status);
 		} catch (Exception e) {
@@ -345,5 +353,19 @@ public class DeviceHandler {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
+	}
+
+	public void rereshStatus() {
+		for (DeviceStatus status : statusMap.values()) {
+			Socket socket = status.getSocket();
+			if (socket == null || socket.isClosed())
+				status.setOperationStatus(DeviceStatus.STATUS_DISCONNECTED);
+			else if (socket.isConnected())
+				status.setOperationStatus(DeviceStatus.STATUS_CONNECTED);
+		}
+	}
+
+	public Hashtable<Long, DeviceStatus> getStatusMap() {
+		return statusMap;
 	}
 }
