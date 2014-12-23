@@ -57,7 +57,7 @@ $().ready(function() {
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>
-				<i class="icon-tag"></i> 设备每小时报表
+				<i class="icon-tag"></i> 设备每日报表
 			</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
@@ -101,12 +101,12 @@ $().ready(function() {
     var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
     var toolTipT = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
         var dataItem = dataAdapter.records[itemIndex];
-        return '<DIV style="text-align:left"><b>記錄時間:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd HH:mm", 'en-us') +
+        return '<DIV style="text-align:left"><b>記錄時間:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
                 '<br /><b>溫度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.temperature, 'd2') + ' °C </DIV>';
     };
     var toolTipH = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
         var dataItem = dataAdapter.records[itemIndex];
-        return '<DIV style="text-align:left"><b>記錄時間:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd HH:mm", 'en-us') +
+        return '<DIV style="text-align:left"><b>記錄時間:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
                 '<br /><b>溼度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.humidity, 'd2')  + ' % </DIV>';
     };
     // prepare jqxChart settings
@@ -115,7 +115,7 @@ $().ready(function() {
     var rangeStart = new Date(${recordDateEnd.year + 1900}, ${recordDateEnd.month}, ${recordDateEnd.date-7});
     var settings = {
         title: "设备:${deviceObj.deviceName}",
-        description: "设备类型:${menuDeviceType.options[deviceObj.deviceType].name} / 型号:${deviceObj.model} / 序列号:${deviceObj.serialNum} / " + $.jqx.dataFormat.formatdate(recordDateStart, "yyyy-MM-dd", 'en-us') + " ~ "  + $.jqx.dataFormat.formatdate(recordDateEnd, "yyyy-MM-dd", 'en-us'),
+        description: "设备类型:${menuDeviceType.options[deviceObj.deviceType].name} / 型号:${deviceObj.model} / 序列号:${deviceObj.serialNum}",
         enableAnimations: true,
         animationDuration: 1500,
         enableCrosshairs: true,
@@ -127,16 +127,16 @@ $().ready(function() {
             {
                 dataField: 'record_date',
                 formatFunction: function (value) {
-                	return $.jqx.dataFormat.formatdate(value, "MM-dd HH:mm", 'en-us');                	
+                	return $.jqx.dataFormat.formatdate(value, "MM-dd", 'en-us');                	
                 },
                 type: 'date',
-                baseUnit: 'hour',
+                baseUnit: 'day',
                 textRotationAngle: -45,
         		textOffset: { x: -10, y: 0 },
                 rangeSelector: {
                     //size: 120,
                     padding: { /*left: 0, right: 0,*/top: 20, bottom: 0 },
-                    minValue: recordDateStart,
+                    //minValue: recordDateStart,
                     maxValue: recordDateEnd,
                     backgroundColor: 'white',
                     dataField: 'temperature',

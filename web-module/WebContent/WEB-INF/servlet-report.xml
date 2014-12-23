@@ -8,5 +8,7 @@
 	<bean scope="session" class="com.acs.biz.report.web.DashboardAction" id="dashboardAction" />
 	
 	<bean scope="session" class="com.acs.biz.report.web.DeviceHourlyReportAction" id="deviceHourlyReportAction" />
+	
+	<bean scope="session" class="com.acs.biz.report.web.DeviceDailyReportAction" id="deviceDailyReportAction" />
 	<!-- Action End -->
 </beans>

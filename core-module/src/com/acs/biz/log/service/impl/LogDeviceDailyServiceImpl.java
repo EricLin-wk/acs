@@ -5,6 +5,8 @@ package com.acs.biz.log.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -51,6 +53,17 @@ public class LogDeviceDailyServiceImpl extends DomainServiceImpl<LogDeviceDaily>
 		CommonCriteria crit = new CommonCriteria();
 		crit.addLe("recordDate", cutOffDate);
 		return super.getDao().deleteByAttributes(crit);
+	}
+
+	@Override
+	public List<Map<String, Object>> listByDeviceId_RecordDate(Long deviceId, Date recordDateStart, Date recordDateEnd) {
+		String sql = "select record_date, temperature, humidity from acs_log_device_daily where device_id=:deviceId and record_date between :recordDateStart and :recordDateEnd order by record_date asc";
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("deviceId", deviceId);
+		paramMap.put("recordDateStart", recordDateStart);
+		paramMap.put("recordDateEnd", recordDateEnd);
+		List<Map<String, Object>> result = npJdbcTemplate.queryForList(sql, paramMap);
+		return result;
 	}
 
 }

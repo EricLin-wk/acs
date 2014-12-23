@@ -125,7 +125,15 @@
 		</action>
 	</package>	
 	<!-- 設備每日報表 -->
-	
+	<package name="deviceDailyRpt" extends="default" namespace="/deviceDailyRpt">
+		<action name="*" method="{1}" class="deviceDailyReportAction">
+			<result type="tiles" name="list">deviceDailyRpt.list</result>
+			<result type="stream" name="jsonData">
+				<param name="contentType">application/json;charset=UTF-8</param>
+				<param name="inputName">inputStream</param>				
+			</result>
+		</action>
+	</package>	
 	<!-- 群组每小時報表 -->
 	
 	<!-- 群组每日報表 -->			
