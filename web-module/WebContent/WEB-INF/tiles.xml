@@ -119,5 +119,10 @@
     <definition name="dashboard.list" extends="layout.base">
     	<put-attribute name="title" value="仪表板"/>
     	<put-attribute name="content"  value="/WEB-INF/jsp/report/dashboard.jsp"/>
-    </definition> 
+    </definition>
+    <!-- 設備每小時報表 -->
+    <definition name="deviceHourlyRpt.list" extends="layout.base">
+    	<put-attribute name="title" value="设备每小时报表"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/report/deviceHourlyRpt.jsp"/>
+    </definition>
 </tiles-definitions>

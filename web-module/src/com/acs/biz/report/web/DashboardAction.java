@@ -98,7 +98,7 @@ public class DashboardAction extends AbstractAction {
 			TreeMap<Date, TreeMap<String, Object>> temperatureDataMap = new TreeMap<Date, TreeMap<String, Object>>();
 			ArrayList<LinkedHashMap<String, String>> seriesListT = new ArrayList<LinkedHashMap<String, String>>();
 			ArrayList<LinkedHashMap<String, String>> seriesListH = new ArrayList<LinkedHashMap<String, String>>();
-			Gson gson = new GsonBuilder().create();
+
 			for (List<Device> devList : deviceMap.values()) {
 				for (Device device : devList) {
 					// get logs in date range
@@ -133,6 +133,7 @@ public class DashboardAction extends AbstractAction {
 					}
 				}
 			}
+			Gson gson = new GsonBuilder().create();
 			jsonData = gson.toJson(temperatureDataMap.values());
 			seriesDataTemperature = gson.toJson(seriesListT);
 			seriesDataHumidity = gson.toJson(seriesListH);

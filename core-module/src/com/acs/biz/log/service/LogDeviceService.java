@@ -46,7 +46,7 @@ public interface LogDeviceService extends DomainService<LogDevice> {
 	 * @param deviceId
 	 * @param recordDateStart
 	 * @param recordDateEnd
-	 * @return List of map with keys: record_date, temperature, humidity. Ordered by record date in asending order.
+	 * @return List of map with keys: record_date, temperature, humidity. Ordered by record date in ascending order.
 	 */
 	public List<Map<String, Object>> listByDeviceId_RecordDate(Long deviceId, Date recordDateStart, Date recordDateEnd);
 

@@ -113,5 +113,20 @@
 		<action name="*" method="{1}" class="dashboardAction">
 			<result type="tiles" name="list">dashboard.list</result>			
 		</action>
-	</package>				
+	</package>	
+	<!-- 設備每小時報表 -->
+	<package name="deviceHourlyRpt" extends="default" namespace="/deviceHourlyRpt">
+		<action name="*" method="{1}" class="deviceHourlyReportAction">
+			<result type="tiles" name="list">deviceHourlyRpt.list</result>
+			<result type="stream" name="jsonData">
+				<param name="contentType">application/json;charset=UTF-8</param>
+				<param name="inputName">inputStream</param>				
+			</result>
+		</action>
+	</package>	
+	<!-- 設備每日報表 -->
+	
+	<!-- 群组每小時報表 -->
+	
+	<!-- 群组每日報表 -->			
 </struts>

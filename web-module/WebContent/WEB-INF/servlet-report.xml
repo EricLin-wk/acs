@@ -6,5 +6,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans">
 	<!-- Action Start -->
 	<bean scope="session" class="com.acs.biz.report.web.DashboardAction" id="dashboardAction" />
+	
+	<bean scope="session" class="com.acs.biz.report.web.DeviceHourlyReportAction" id="deviceHourlyReportAction" />
 	<!-- Action End -->
 </beans>

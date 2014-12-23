@@ -12,7 +12,27 @@
 					<div class="accordion-inner">
 						<s:a value="/dashboard/list.do">仪表板</s:a>
 					</div>
-				</teecs:checkPermission>				
+				</teecs:checkPermission>
+				<teecs:checkPermission permissions="ROLE_USER">
+					<div class="accordion-inner">
+						<s:a value="/deviceHourlyRpt/init.do">设备每小时报表</s:a>
+					</div>
+				</teecs:checkPermission>
+				<teecs:checkPermission permissions="ROLE_USER">
+					<div class="accordion-inner">
+						<s:a value="/deviceDailyRpt/init.do">设备每日报表</s:a>
+					</div>
+				</teecs:checkPermission>
+				<teecs:checkPermission permissions="ROLE_USER">
+					<div class="accordion-inner">
+						<s:a value="/groupHourlyRpt/init.do">群组每小时报表</s:a>
+					</div>
+				</teecs:checkPermission>
+				<teecs:checkPermission permissions="ROLE_USER">
+					<div class="accordion-inner">
+						<s:a value="/groupDailyRpt/init.do">群组每日报表</s:a>
+					</div>
+				</teecs:checkPermission>
 			</div>
 		</div>
 	</div>	
