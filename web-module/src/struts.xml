@@ -36,7 +36,7 @@
 			<result>index.jsp</result>
 		</action>
 	</package>
-	<!-- Menu/OPTION維護 -->
+	<!-- Menu/OPTION维护 -->
 	<package name="menu" extends="default" namespace="/menu">
 		<action name="*" method="{1}" class="menuAction">
 			<result type="tiles" name="list">menu.list</result>
@@ -46,7 +46,7 @@
 			</result>
 		</action>
 	</package>
-	<!-- Group維護 -->
+	<!-- Group维护 -->
 	<package name="group" extends="default" namespace="/group">
 		<action name="*" method="{1}" class="groupAction">
 			<result type="tiles" name="list">group.list</result>
@@ -54,7 +54,7 @@
 			<result type="tiles" name="view">group.view</result>
 		</action>
 	</package>
-	<!-- Role維護 -->
+	<!-- Role维护 -->
 	<package name="role" extends="default" namespace="/role">
 		<action name="*" method="{1}" class="roleAction">
 			<result type="tiles" name="list">role.list</result>
@@ -62,7 +62,7 @@
 			<result type="tiles" name="view">role.view</result>
 		</action>
 	</package>
-	<!-- Permission維護 -->
+	<!-- Permission维护 -->
 	<package name="permission" extends="default" namespace="/permission">
 		<action name="*" method="{1}" class="permissionAction">
 			<result type="tiles" name="list">permission.list</result>
@@ -70,7 +70,7 @@
 			<result type="tiles" name="view">permission.view</result>
 		</action>
 	</package>
-	<!-- User維護 -->
+	<!-- User维护 -->
 	<package name="user" extends="default" namespace="/user">
 		<action name="*" method="{1}" class="userAction">
 			<result type="tiles" name="list">user.list</result>
@@ -86,7 +86,7 @@
 			<result type="tiles" name="edit">userSelf.edit</result>
 		</action>
 	</package>
-	<!-- 設備管理 -->
+	<!-- 设备管理 -->
 	<package name="device" extends="default" namespace="/device">
 		<action name="*" method="{1}" class="deviceAction">
 			<result type="tiles" name="list">device.list</result>
@@ -94,7 +94,7 @@
 			<result type="tiles" name="edit">device.edit</result>
 		</action>
 	</package>
-	<!-- 設備群组管理 -->
+	<!-- 设备群组管理 -->
 	<package name="deviceGroup" extends="default" namespace="/deviceGroup">
 		<action name="*" method="{1}" class="deviceGroupAction">
 			<result type="tiles" name="list">deviceGroup.list</result>
@@ -114,7 +114,7 @@
 			<result type="tiles" name="list">dashboard.list</result>			
 		</action>
 	</package>	
-	<!-- 設備每小時報表 -->
+	<!-- 设备每小时报表 -->
 	<package name="deviceHourlyRpt" extends="default" namespace="/deviceHourlyRpt">
 		<action name="*" method="{1}" class="deviceHourlyReportAction">
 			<result type="tiles" name="list">deviceHourlyRpt.list</result>
@@ -124,7 +124,7 @@
 			</result>
 		</action>
 	</package>	
-	<!-- 設備每日報表 -->
+	<!-- 设备每日报表 -->
 	<package name="deviceDailyRpt" extends="default" namespace="/deviceDailyRpt">
 		<action name="*" method="{1}" class="deviceDailyReportAction">
 			<result type="tiles" name="list">deviceDailyRpt.list</result>
@@ -134,7 +134,7 @@
 			</result>
 		</action>
 	</package>	
-	<!-- 群组每小時報表 -->
+	<!-- 群组每小时报表 -->
 	<package name="groupHourlyRpt" extends="default" namespace="/groupHourlyRpt">
 		<action name="*" method="{1}" class="groupHourlyReportAction">
 			<result type="tiles" name="list">groupHourlyRpt.list</result>
@@ -144,5 +144,14 @@
 			</result>
 		</action>
 	</package>	
-	<!-- 群组每日報表 -->			
+	<!-- 群组每日报表 -->	
+	<package name="groupDailyRpt" extends="default" namespace="/groupDailyRpt">
+		<action name="*" method="{1}" class="groupDailyReportAction">
+			<result type="tiles" name="list">groupDailyRpt.list</result>
+			<result type="stream" name="jsonData">
+				<param name="contentType">application/json;charset=UTF-8</param>
+				<param name="inputName">inputStream</param>				
+			</result>
+		</action>
+	</package>			
 </struts>

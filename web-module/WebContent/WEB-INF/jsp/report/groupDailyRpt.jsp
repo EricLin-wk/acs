@@ -32,7 +32,7 @@
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>
-				<i class="icon-tag"></i> 群组每小时报表
+				<i class="icon-tag"></i> 群组每日报表
 			</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
@@ -61,15 +61,15 @@ $().ready(function() {
     var source = {
         datatype: "json",
         datafields: [
-				{ name: 'record_date', type: 'date' },
-				{ name: 'temperature', type: 'number' },
-				{ name: 'target_temperature', type: 'number' },
-				{ name: 'max_temperature', type: 'number' },
-				{ name: 'min_temperature', type: 'number' },
-				{ name: 'humidity', type: 'number' },
-				{ name: 'target_humidity', type: 'number' },
-				{ name: 'max_humidity', type: 'number' },
-				{ name: 'min_humidity', type: 'number' }      
+	            { name: 'record_date', type: 'date' },
+	            { name: 'temperature', type: 'number' },
+	            { name: 'target_temperature', type: 'number' },
+	            { name: 'max_temperature', type: 'number' },
+	            { name: 'min_temperature', type: 'number' },
+	            { name: 'humidity', type: 'number' },
+	            { name: 'target_humidity', type: 'number' },
+	            { name: 'max_humidity', type: 'number' },
+	            { name: 'min_humidity', type: 'number' }            
             ],
         url: 'jsonData.do?paraGroupId=${paraGroupId}'
     };
@@ -85,21 +85,21 @@ $().ready(function() {
     });
     var toolTipT = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
         var dataItem = dataAdapter.records[itemIndex];
-        return '<DIV style="text-align:left"><b>记录时间:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd HH:mm", 'en-us') +
-	        '<br /><b>平均温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.temperature, 'd2') + 
-	        ' °C<br /><b>目标温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.target_temperature, 'd2') +
-	        ' °C<br /><b>最高温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.max_temperature, 'd2') +
-	        ' °C<br /><b>最低温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.min_temperature, 'd2') +
-	        ' °C </DIV>';
+        return '<DIV style="text-align:left"><b>记录时间:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
+                '<br /><b>平均温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.temperature, 'd2') + 
+                ' °C<br /><b>目标温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.target_temperature, 'd2') +
+                ' °C<br /><b>最高温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.max_temperature, 'd2') +
+                ' °C<br /><b>最低温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.min_temperature, 'd2') +
+                ' °C </DIV>';
     };
     var toolTipH = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
         var dataItem = dataAdapter.records[itemIndex];
-        return '<DIV style="text-align:left"><b>记录时间:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd HH:mm", 'en-us') +
-	        '<br /><b>平均湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.humidity, 'd2')  +
-	        ' %<br /><b>目标湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.target_humidity, 'd2') +
-	        ' %<br /><b>最高湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.max_humidity, 'd2') +
-	        ' %<br /><b>最低湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.min_humidity, 'd2') +
-	        ' % </DIV>';
+        return '<DIV style="text-align:left"><b>记录时间:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
+                '<br /><b>平均湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.humidity, 'd2')  +
+                ' %<br /><b>目标湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.target_humidity, 'd2') +
+                ' %<br /><b>最高湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.max_humidity, 'd2') +
+                ' %<br /><b>最低湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.min_humidity, 'd2') +
+                ' % </DIV>';
     };
     // prepare jqxChart settings
     var recordDateStart = new Date(<fmt:formatDate value="${recordDateStart}" pattern="yyyy"/>, <fmt:formatDate value="${recordDateStart}" pattern="MM"/>-1, <fmt:formatDate value="${recordDateStart}" pattern="dd"/>);    
@@ -108,7 +108,7 @@ $().ready(function() {
     rangeStart.setDate(rangeStart.getDate()-7);
     var settings = {
         title: "设备群组: ${groupObj.groupName}",
-        description: $.jqx.dataFormat.formatdate(recordDateStart, "yyyy-MM-dd", 'en-us') + " ~ "  + $.jqx.dataFormat.formatdate(recordDateEnd, "yyyy-MM-dd", 'en-us'),
+        description: " ",
         enableAnimations: true,
         animationDuration: 1500,
         enableCrosshairs: true,
@@ -120,16 +120,16 @@ $().ready(function() {
             {
                 dataField: 'record_date',
                 formatFunction: function (value) {
-                	return $.jqx.dataFormat.formatdate(value, "MM-dd HH:mm", 'en-us');                	
+                	return $.jqx.dataFormat.formatdate(value, "MM-dd", 'en-us');                	
                 },
                 type: 'date',
-                baseUnit: 'hour',
+                baseUnit: 'day',
                 textRotationAngle: -45,
         		textOffset: { x: -10, y: 0 },
                 rangeSelector: {
                     //size: 120,
                     padding: { /*left: 0, right: 0,*/top: 20, bottom: 0 },
-                    minValue: recordDateStart,
+                    //minValue: recordDateStart,
                     maxValue: recordDateEnd,
                     backgroundColor: 'white',
                     dataField: 'temperature',

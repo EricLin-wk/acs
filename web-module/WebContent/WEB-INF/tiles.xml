@@ -134,5 +134,10 @@
     <definition name="groupHourlyRpt.list" extends="layout.base">
     	<put-attribute name="title" value="设备群组每小时报表"/>
     	<put-attribute name="content"  value="/WEB-INF/jsp/report/groupHourlyRpt.jsp"/>
-    </definition> 
+    </definition>
+    <!-- 设备群组每日报表 -->
+    <definition name="groupDailyRpt.list" extends="layout.base">
+    	<put-attribute name="title" value="设备群组每日报表"/>
+    	<put-attribute name="content"  value="/WEB-INF/jsp/report/groupDailyRpt.jsp"/>
+    </definition>  
 </tiles-definitions>
