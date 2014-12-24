@@ -52,4 +52,14 @@ public interface LogDeviceHourlyService extends DomainService<LogDeviceHourly> {
 	 */
 	public List<Map<String, Object>> listByDeviceId_RecordDate(Long deviceId, Date recordDateStart, Date recordDateEnd);
 
+	/**
+	 * List by group id and record date range. Grouped by recordDate and groupId.
+	 * 
+	 * @param groupId
+	 * @param recordDateStart
+	 * @param recordDateEnd
+	 * @return
+	 */
+	public List<Map<String, Object>> listGroupByGroupId_RecordDate(Long groupId, Date recordDateStart, Date recordDateEnd);
+
 }

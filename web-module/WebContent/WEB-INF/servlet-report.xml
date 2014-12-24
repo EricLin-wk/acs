@@ -10,5 +10,7 @@
 	<bean scope="session" class="com.acs.biz.report.web.DeviceHourlyReportAction" id="deviceHourlyReportAction" />
 	
 	<bean scope="session" class="com.acs.biz.report.web.DeviceDailyReportAction" id="deviceDailyReportAction" />
+	
+	<bean scope="session" class="com.acs.biz.report.web.GroupHourlyReportAction" id="groupHourlyReportAction" />
 	<!-- Action End -->
 </beans>

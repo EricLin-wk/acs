@@ -10,31 +10,6 @@
 <script type="text/javascript" src="${jsPath}/jqxchart.core.js"></script>
 <script type="text/javascript" src="${jsPath}/jqxchart.rangeselector.js"></script>
 <script type="text/javascript" src="${jsPath}/jqxdata.js"></script>
-<style>
-#deviceSearchForm label.error  {
-	width: auto;
-	display: inline;
-	color: #B94A48;
-}
-#groupSearchForm label.error  {
-	width: auto;
-	display: inline;
-	color: #B94A48;
-}
-</style>
-<script>
-$().ready(function() {
-	$("#deviceSearchForm").validate({
-		rules: {
-			"paraDeviceId": "required"						
-		},
-		messages: {
-			"paraDeviceId": "必须选择设备"	
-		}
-	});
-	
-});
-</script>
 <div class="row-fluid">
 	<s:if test="hasActionMessages()">
 		<div class="alert alert-success" >
@@ -57,26 +32,20 @@ $().ready(function() {
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>
-				<i class="icon-tag"></i> 设备每小时报表
+				<i class="icon-tag"></i> 设备群组每小时报表
 			</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 			</div>				
 		</div>	
 		<div class="box-content">
-			<s:form action="list.do" method="post" id="deviceSearchForm">
+			<s:form action="list.do" method="post" id="searchForm">
 			<div class="row-fluid">			
-				<div class="span1">选择设备</div>
+				<div class="span1">选择设备群组</div>
 				<div class="span2">
-					<select data-placeholder="选择设备" id="paraDeviceId" name="paraDeviceId" data-rel="chosen" >
-					<c:forEach items="${deviceMap}" var="entry">
-						<optgroup label="${entry.key}">
-						<c:forEach items="${entry.value}" var="device">
-						<option value="${device.oid}" <c:if test="${device.oid == paraDeviceId}">selected</c:if>>${device.deviceName}</option>
-						</c:forEach>
-						</optgroup>
-					</c:forEach>
-					</select>		
+					<div class="span2">
+					<s:select id="paraGroupId" name="paraGroupId" list="groupMap" listKey="key" listValue="value.groupName" headerKey="-1" headerValue="无群组设备" theme="simple"/>						
+				</div>	
 				</div>
 				<div class="span1">
 						<button type="submit" class="btn btn-primary">搜索</button>
@@ -102,13 +71,13 @@ $().ready(function() {
 				{ name: 'max_humidity', type: 'number' },
 				{ name: 'min_humidity', type: 'number' }      
             ],
-        url: 'jsonData.do?paraDeviceId=${paraDeviceId}'
+        url: 'jsonData.do?paraGroupId=${paraGroupId}'
     };
     var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, 
     	loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); },
     	loadComplete: function (records) {
     		if(records.length == 0) {
-    			<s:if test="paraDeviceId != null">
+    			<s:if test="paraGroupId != null">
     			alert('無顯示數據');
     			</s:if>
     		}
@@ -138,8 +107,8 @@ $().ready(function() {
     var rangeStart = new Date(recordDateEnd);
     rangeStart.setDate(rangeStart.getDate()-7);
     var settings = {
-        title: "设备: ${deviceObj.deviceName}",
-        description: "设备类型:${menuDeviceType.options[deviceObj.deviceType].name} / 型号:${deviceObj.model} / 序列号:${deviceObj.serialNum} / " + $.jqx.dataFormat.formatdate(recordDateStart, "yyyy-MM-dd", 'en-us') + " ~ "  + $.jqx.dataFormat.formatdate(recordDateEnd, "yyyy-MM-dd", 'en-us'),
+        title: "设备群组: ${groupObj.groupName}",
+        description: $.jqx.dataFormat.formatdate(recordDateStart, "yyyy-MM-dd", 'en-us') + " ~ "  + $.jqx.dataFormat.formatdate(recordDateEnd, "yyyy-MM-dd", 'en-us'),
         enableAnimations: true,
         animationDuration: 1500,
         enableCrosshairs: true,
@@ -204,7 +173,7 @@ $().ready(function() {
                 }
             ]
     };
-    <s:if test="paraDeviceId != null">
+    <s:if test="paraGroupId != null">
     $('#chartContainer').jqxChart(settings);
     </s:if>
 });

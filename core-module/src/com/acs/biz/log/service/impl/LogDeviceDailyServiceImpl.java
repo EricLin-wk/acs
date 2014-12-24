@@ -57,9 +57,20 @@ public class LogDeviceDailyServiceImpl extends DomainServiceImpl<LogDeviceDaily>
 
 	@Override
 	public List<Map<String, Object>> listByDeviceId_RecordDate(Long deviceId, Date recordDateStart, Date recordDateEnd) {
-		String sql = "select record_date, temperature, humidity from acs_log_device_daily where device_id=:deviceId and record_date between :recordDateStart and :recordDateEnd order by record_date asc";
+		String sql = "select record_date, temperature, humidity, target_temperature, target_humidity, max_temperature, max_humidity, min_temperature, min_humidity from acs_log_device_daily where device_id=:deviceId and record_date between :recordDateStart and :recordDateEnd order by record_date asc";
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("deviceId", deviceId);
+		paramMap.put("recordDateStart", recordDateStart);
+		paramMap.put("recordDateEnd", recordDateEnd);
+		List<Map<String, Object>> result = npJdbcTemplate.queryForList(sql, paramMap);
+		return result;
+	}
+
+	@Override
+	public List<Map<String, Object>> listGroupByGroupId_RecordDate(Long groupId, Date recordDateStart, Date recordDateEnd) {
+		String sql = "select record_date, avg(temperature) as temperature, avg(humidity) as humidity, avg(target_temperature) as target_temperature, avg(target_humidity) as target_humidity, max(max_temperature) as max_temperature, max(max_humidity) as max_humidity, min(min_temperature) as min_temperature, min(min_humidity) as min_humidity from acs_log_device_daily where group_id=:groupId and record_date between :recordDateStart and :recordDateEnd group by record_date, group_id order by record_date asc";
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("groupId", groupId);
 		paramMap.put("recordDateStart", recordDateStart);
 		paramMap.put("recordDateEnd", recordDateEnd);
 		List<Map<String, Object>> result = npJdbcTemplate.queryForList(sql, paramMap);

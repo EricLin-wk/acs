@@ -135,6 +135,14 @@
 		</action>
 	</package>	
 	<!-- 群组每小時報表 -->
-	
+	<package name="groupHourlyRpt" extends="default" namespace="/groupHourlyRpt">
+		<action name="*" method="{1}" class="groupHourlyReportAction">
+			<result type="tiles" name="list">groupHourlyRpt.list</result>
+			<result type="stream" name="jsonData">
+				<param name="contentType">application/json;charset=UTF-8</param>
+				<param name="inputName">inputStream</param>				
+			</result>
+		</action>
+	</package>	
 	<!-- 群组每日報表 -->			
 </struts>

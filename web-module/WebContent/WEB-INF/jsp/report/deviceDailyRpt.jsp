@@ -92,29 +92,53 @@ $().ready(function() {
     var source = {
         datatype: "json",
         datafields: [
-            { name: 'record_date', type: 'date' },
-            { name: 'temperature', type: 'number' },
-            { name: 'humidity', type: 'number' }
+	            { name: 'record_date', type: 'date' },
+	            { name: 'temperature', type: 'number' },
+	            { name: 'target_temperature', type: 'number' },
+	            { name: 'max_temperature', type: 'number' },
+	            { name: 'min_temperature', type: 'number' },
+	            { name: 'humidity', type: 'number' },
+	            { name: 'target_humidity', type: 'number' },
+	            { name: 'max_humidity', type: 'number' },
+	            { name: 'min_humidity', type: 'number' }            
             ],
         url: 'jsonData.do?paraDeviceId=${paraDeviceId}'
     };
-    var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
+    var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, 
+    	loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); },
+    	loadComplete: function (records) {
+    		if(records.length == 0) {
+    			<s:if test="paraDeviceId != null">
+    			alert('無顯示數據');
+    			</s:if>
+    		}
+		}
+    });
     var toolTipT = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
         var dataItem = dataAdapter.records[itemIndex];
-        return '<DIV style="text-align:left"><b>記錄時間:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
-                '<br /><b>溫度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.temperature, 'd2') + ' °C </DIV>';
+        return '<DIV style="text-align:left"><b>记录时间:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
+                '<br /><b>平均温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.temperature, 'd2') + 
+                ' °C<br /><b>目标温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.target_temperature, 'd2') +
+                ' °C<br /><b>最高温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.max_temperature, 'd2') +
+                ' °C<br /><b>最低温度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.min_temperature, 'd2') +
+                ' °C </DIV>';
     };
     var toolTipH = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
         var dataItem = dataAdapter.records[itemIndex];
-        return '<DIV style="text-align:left"><b>記錄時間:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
-                '<br /><b>溼度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.humidity, 'd2')  + ' % </DIV>';
+        return '<DIV style="text-align:left"><b>记录时间:</b> ' + $.jqx.dataFormat.formatdate(categoryValue, "yyyy-MM-dd", 'en-us') +
+                '<br /><b>平均湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.humidity, 'd2')  +
+                ' %<br /><b>目标湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.target_humidity, 'd2') +
+                ' %<br /><b>最高湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.max_humidity, 'd2') +
+                ' %<br /><b>最低湿度:</b> ' + $.jqx.dataFormat.formatnumber(dataItem.min_humidity, 'd2') +
+                ' % </DIV>';
     };
     // prepare jqxChart settings
-    var recordDateStart = new Date(${recordDateStart.year + 1900}, ${recordDateStart.month}, ${recordDateStart.date});
-    var recordDateEnd = new Date(${recordDateEnd.year + 1900}, ${recordDateEnd.month}, ${recordDateEnd.date});
-    var rangeStart = new Date(${recordDateEnd.year + 1900}, ${recordDateEnd.month}, ${recordDateEnd.date-7});
+    var recordDateStart = new Date(<fmt:formatDate value="${recordDateStart}" pattern="yyyy"/>, <fmt:formatDate value="${recordDateStart}" pattern="MM"/>-1, <fmt:formatDate value="${recordDateStart}" pattern="dd"/>);    
+    var recordDateEnd = new Date(<fmt:formatDate value="${recordDateEnd}" pattern="yyyy"/>, <fmt:formatDate value="${recordDateEnd}" pattern="MM"/>-1, <fmt:formatDate value="${recordDateEnd}" pattern="dd"/>);
+    var rangeStart = new Date(recordDateEnd);
+    rangeStart.setDate(rangeStart.getDate()-7);
     var settings = {
-        title: "设备:${deviceObj.deviceName}",
+        title: "设备: ${deviceObj.deviceName}",
         description: "设备类型:${menuDeviceType.options[deviceObj.deviceType].name} / 型号:${deviceObj.model} / 序列号:${deviceObj.serialNum}",
         enableAnimations: true,
         animationDuration: 1500,
@@ -156,11 +180,11 @@ $().ready(function() {
                     toolTipFormatFunction: toolTipT,
                     valueAxis:
                     {
-                        description: '溫度°C',
+                        description: '温度°C',
                         showGridLines: false
                     },
                     series: [
-                        { dataField: 'temperature', displayText: '溫度', lineWidth: 2, lineWidthSelected: 2, lineColor: '#F44C73', fillColor: '#F44C73' }                        
+                        { dataField: 'temperature', displayText: '温度', lineWidth: 2, lineWidthSelected: 2, lineColor: '#F44C73', fillColor: '#F44C73' }                        
                     ]
                 },
                 {
@@ -171,11 +195,11 @@ $().ready(function() {
                     	position: 'right',
                     	unitInterval: 20,
                     	maxValue: 100,
-                        description: '溼度%',
+                        description: '湿度%',
                         showGridLines: false
                     },
                     series: [
-                        { dataField: 'humidity', displayText: '溼度', lineWidth: 2, lineWidthSelected: 2, lineColor: '#4492DB', fillColor: '#4492DB' }
+                        { dataField: 'humidity', displayText: '湿度', lineWidth: 2, lineWidthSelected: 2, lineColor: '#4492DB', fillColor: '#4492DB' }
                     ]
                 }
             ]
