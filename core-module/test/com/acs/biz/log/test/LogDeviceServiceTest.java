@@ -12,8 +12,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.acs.biz.device.entity.Device;
+import com.acs.biz.device.entity.DeviceSetting;
 import com.acs.biz.device.entity.DeviceStatus;
 import com.acs.biz.device.service.DeviceService;
+import com.acs.biz.device.service.DeviceSettingService;
 import com.acs.biz.log.service.LogDeviceService;
 import com.acs.core.common.utils.SpringCommonTest;
 
@@ -21,6 +23,7 @@ public class LogDeviceServiceTest extends SpringCommonTest {
 
 	private static LogDeviceService logDeviceService;
 	private static DeviceService deviceService;
+	private static DeviceSettingService deviceSettingService;
 	private static SessionFactory sessionFactory;
 
 	@BeforeClass
@@ -29,6 +32,7 @@ public class LogDeviceServiceTest extends SpringCommonTest {
 		logDeviceService = (LogDeviceService) ctx.getBean("logDeviceService");
 		deviceService = (DeviceService) ctx.getBean("deviceService");
 		sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
+		deviceSettingService = (DeviceSettingService) ctx.getBean("deviceSettingService");
 	}
 
 	@Test
@@ -51,27 +55,44 @@ public class LogDeviceServiceTest extends SpringCommonTest {
 		List<Device> devList = deviceService.listActiveDevices(0, -1);
 		for (Device device : devList) {
 			Calendar startCal = Calendar.getInstance();
-			startCal.setTime(DateUtils.parseDate("2014-12-01 00:00", "yyyy-MM-dd HH:mm"));
+			startCal.setTime(DateUtils.parseDate("2014-12-08 00:00", "yyyy-MM-dd HH:mm"));
 			Calendar endCal = Calendar.getInstance();
-			endCal.setTime(DateUtils.parseDate("2014-12-07 23:59", "yyyy-MM-dd HH:mm"));
+			endCal.setTime(DateUtils.parseDate("2014-12-23 23:59", "yyyy-MM-dd HH:mm"));
 
 			// iterate over interval time
 			while (startCal.compareTo(endCal) < 0) {
 				// randomize temperature & humidity
-				if (rand.nextDouble() > 0.5)
+				if (rand.nextDouble() > 0.5) {
 					temperature += rand.nextDouble();
-				else
+					if (temperature >= 100)
+						temperature = 99;
+				} else {
 					temperature -= rand.nextDouble();
-				if (rand.nextDouble() > 0.5)
-					humidity += (1 + rand.nextInt(2));
-				else
-					humidity -= (1 + rand.nextInt(2));
+					if (temperature <= -15)
+						temperature = -14;
+				}
+				temperature = Math.round(temperature * 100.0) / 100.0;
+
+				if (rand.nextDouble() > 0.5) {
+					humidity += (1 + rand.nextDouble() * 2);
+					if (humidity >= 100)
+						humidity = 100;
+				} else {
+					humidity -= (1 + rand.nextDouble() * 2);
+					if (humidity <= 0)
+						humidity = 0;
+				}
+				humidity = Math.round(humidity * 100.0) / 100.0;
 
 				DeviceStatus status = new DeviceStatus();
 				status.setDevice(device);
 				status.setStatusDate(startCal.getTime());
 				status.setTemperature(temperature);
 				status.setHumidity(humidity);
+				// get target
+				DeviceSetting setting = deviceSettingService.getSettingByDeviceId_Time(device.getOid(), startCal.getTime());
+				status.setTargetTemperature(setting.getTemperature());
+				status.setTargetHumidity(setting.getHumidity());
 				// save to log
 				logDeviceService.saveLog(status);
 

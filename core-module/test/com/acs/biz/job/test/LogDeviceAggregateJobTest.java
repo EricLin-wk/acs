@@ -24,7 +24,12 @@ public class LogDeviceAggregateJobTest extends SpringCommonTest {
 
 	@Test
 	public void aggregateLogDeviceData() {
-		logDeviceAggregateJob.aggregateLogDeviceData();
+		logDeviceAggregateJob.aggregateLogDeviceDataDailyJob();
+	}
+
+	@Test
+	public void aggregateLogDeviceDataHourlyJob() {
+		logDeviceAggregateJob.aggregateLogDeviceDataHourlyJob();
 	}
 
 }

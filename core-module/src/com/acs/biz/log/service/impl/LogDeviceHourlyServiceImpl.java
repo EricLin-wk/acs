@@ -68,6 +68,14 @@ public class LogDeviceHourlyServiceImpl extends DomainServiceImpl<LogDeviceHourl
 	}
 
 	@Override
+	public int listSizeByRecordDate(Date recordDateStart, Date recordDateEnd) {
+		CommonCriteria crit = new CommonCriteria();
+		crit.addGe("recordDate", recordDateStart);
+		crit.addLe("recordDate", recordDateEnd);
+		return super.getListSize(crit).intValue();
+	}
+
+	@Override
 	public List<Map<String, Object>> listByDeviceId_RecordDate(Long deviceId, Date recordDateStart, Date recordDateEnd) {
 		String sql = "select record_date, temperature, humidity, target_temperature, target_humidity, max_temperature, max_humidity, min_temperature, min_humidity from acs_log_device_hourly where device_id=:deviceId and record_date between :recordDateStart and :recordDateEnd order by record_date asc";
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -92,6 +100,26 @@ public class LogDeviceHourlyServiceImpl extends DomainServiceImpl<LogDeviceHourl
 		paramMap.put("recordDateEnd", recordDateEnd);
 		List<Map<String, Object>> result = npJdbcTemplate.queryForList(sql, paramMap);
 		return result;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void aggregateLogDeviceHourly(Date recordDateStart, Date recordDateEnd) {
+		// aggregate from LogDevice table and insert into LogDeviceHourly table
+		String sql = "insert into acs_log_device_hourly (record_date, device_id, group_id, temperature, humidity, "
+				+ "target_temperature, target_humidity, max_temperature, max_humidity, min_temperature, min_humidity, "
+				+ "add_user, mod_user, add_date, mod_date) "
+				+ "select DATE_FORMAT(a.record_date, '%Y-%m-%d %H:00:00') as record_date, a.device_id, max(a.group_id) as group_id, "
+				+ "avg(a.temperature) as temperature, avg(a.humidity) as humidity, avg(a.target_temperature) as target_temperature, "
+				+ "avg(a.target_humidity) as target_humidity, max(a.temperature) as max_temperature, max(a.humidity) as max_humidity, "
+				+ "min(a.temperature) as min_temperature, min(a.humidity) as min_humidity, 'sys' as add_user, 'sys' as mod_user, "
+				+ "NOW() as add_date, NOW() as mod_date from acs_log_device as a "
+				+ "where a.record_date between :recordDateStart and :recordDateEnd "
+				+ "group by DATE_FORMAT(a.record_date, '%Y-%m-%d %H:00:00'), a.device_id";
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("recordDateStart", recordDateStart);
+		paramMap.put("recordDateEnd", recordDateEnd);
+		npJdbcTemplate.update(sql, paramMap);
 	}
 
 }

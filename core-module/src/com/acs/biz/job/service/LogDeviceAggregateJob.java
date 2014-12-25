@@ -43,7 +43,7 @@ public class LogDeviceAggregateJob {
 	 * Aggregate LogDevice data into LogDeviceHourly & LogDeviceDaily table. Delete logs that are past retaining days.
 	 * Method to be run in a scheduled job once daily.
 	 */
-	public void aggregateLogDeviceData() {
+	public void aggregateLogDeviceDataDailyJob() {
 		try {
 			Calendar cal = DateUtils.truncate(Calendar.getInstance(), Calendar.DAY_OF_MONTH);
 			List<Map<String, Object>> list = logDeviceService.listDistinctRecordDay_DeviceId(cal.getTime());
@@ -84,4 +84,25 @@ public class LogDeviceAggregateJob {
 		Date logHourlyCutOff = DateUtils.addDays(startDate, DEVICE_LOG_HOURLY_RETAIN_DAYS * -1);
 		logDeviceHourlyService.deleteLog(logHourlyCutOff);
 	}
+
+	/**
+	 * Aggregate LogDevice data into LogDeviceHourly table. Will only run aggregate data for the previous hour. Intended
+	 * to be run in a hourly job.
+	 */
+	public void aggregateLogDeviceDataHourlyJob() {
+
+		Calendar cal = DateUtils.truncate(Calendar.getInstance(), Calendar.HOUR);
+		cal.add(Calendar.HOUR, -1);
+		Date recordDateStart = cal.getTime();
+		cal.add(Calendar.HOUR, 1);
+		cal.add(Calendar.MILLISECOND, -1);
+		Date recordDateEnd = cal.getTime();
+		// check if record already exits
+		if (logDeviceHourlyService.listSizeByRecordDate(recordDateStart, recordDateEnd) == 0) {
+			// aggregate data
+			logDeviceHourlyService.aggregateLogDeviceHourly(recordDateStart, recordDateEnd);
+		}
+
+	}
+
 }

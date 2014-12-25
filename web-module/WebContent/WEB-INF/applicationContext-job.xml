@@ -22,9 +22,10 @@
 	<bean id="deviceHandlerJob" class="com.acs.biz.job.service.DeviceHandlerJob" />
 	
 	<task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="deviceHandlerJob" method="retrieveDeviceStatus" fixed-rate="300000" initial-delay="30000"></task:scheduled> <!-- Run every 5 minutes -->
-        <task:scheduled ref="deviceHandlerJob" method="reconnectAllDevices" fixed-rate="3600000" initial-delay="3600000"></task:scheduled> <!-- Run every 60 minutes -->
-        <task:scheduled ref="logDeviceAggregateJob" method="aggregateLogDeviceData" cron="0 30 1 * * ?"></task:scheduled> <!-- Run daily at 1:30 -->
+        <task:scheduled ref="deviceHandlerJob" method="retrieveDeviceStatus" cron="0 */5 * * * ?"></task:scheduled> <!-- Run every 5 minutes -->
+        <task:scheduled ref="deviceHandlerJob" method="reconnectAllDevices" cron="30 0 * * * ?"></task:scheduled> <!-- Run hourly at second 30 -->
+        <task:scheduled ref="logDeviceAggregateJob" method="aggregateLogDeviceDataDailyJob" cron="0 30 1 * * ?"></task:scheduled> <!-- Run daily at 1:30 -->
+        <task:scheduled ref="logDeviceAggregateJob" method="aggregateLogDeviceDataHourlyJob" cron="0 4 * * * ?"></task:scheduled> <!-- Run hourly at minute 4 -->
     </task:scheduled-tasks>
 
 </beans>

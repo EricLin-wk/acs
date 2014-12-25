@@ -26,6 +26,15 @@ public interface LogDeviceHourlyService extends DomainService<LogDeviceHourly> {
 	public int listSizeByRecordDate_DeviceId(Date recordDateStart, Date recordDateEnd, Long deviceId);
 
 	/**
+	 * Get list size for given RecordDate range
+	 *
+	 * @param recordDateStart
+	 * @param recordDateEnd
+	 * @return
+	 */
+	public int listSizeByRecordDate(Date recordDateStart, Date recordDateEnd);
+
+	/**
 	 * Delete logs with RecordDates less equal to given cutOffDate
 	 *
 	 * @param cutOffDate
@@ -54,12 +63,20 @@ public interface LogDeviceHourlyService extends DomainService<LogDeviceHourly> {
 
 	/**
 	 * List by group id and record date range. Grouped by recordDate and groupId.
-	 * 
+	 *
 	 * @param groupId
 	 * @param recordDateStart
 	 * @param recordDateEnd
 	 * @return
 	 */
 	public List<Map<String, Object>> listGroupByGroupId_RecordDate(Long groupId, Date recordDateStart, Date recordDateEnd);
+
+	/**
+	 * Aggregates rows in LogDevice table by RecordDate's hour and DeviceId, then insert into LogDeviceHourly table
+	 *
+	 * @param recordDateStart
+	 * @param recordDateEnd
+	 */
+	public void aggregateLogDeviceHourly(Date recordDateStart, Date recordDateEnd);
 
 }
