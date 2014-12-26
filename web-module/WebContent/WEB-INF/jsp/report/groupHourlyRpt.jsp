@@ -119,6 +119,8 @@ $().ready(function() {
         xAxis:
             {
                 dataField: 'record_date',
+                minValue: rangeStart,
+                maxValue: recordDateEnd,
                 formatFunction: function (value) {
                 	return $.jqx.dataFormat.formatdate(value, "MM-dd HH:mm", 'en-us');                	
                 },
@@ -127,10 +129,7 @@ $().ready(function() {
                 textRotationAngle: -45,
         		textOffset: { x: -10, y: 0 },
                 rangeSelector: {
-                    //size: 120,
                     padding: { /*left: 0, right: 0,*/top: 20, bottom: 0 },
-                    minValue: recordDateStart,
-                    maxValue: recordDateEnd,
                     backgroundColor: 'white',
                     dataField: 'temperature',
                     baseUnit: 'day',

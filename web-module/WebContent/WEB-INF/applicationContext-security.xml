@@ -14,6 +14,16 @@
 	access="hasAnyRole('roleName1','roleName2')"	判定是否含有Role1,Role2權限
 	 -->
 	<security:http use-expressions="true">
+		<security:intercept-url pattern="/deviceSetting/*" access="hasAnyRole('ROLE_DEVICE_MGMT')" />
+		<security:intercept-url pattern="/device/*" access="hasAnyRole('ROLE_DEVICE_MGMT')" />
+		<security:intercept-url pattern="/deviceGroup/*" access="hasAnyRole('ROLE_DEVICE_MGMT')" />
+		
+		<security:intercept-url pattern="/dashboard/*" access="hasAnyRole('ROLE_MONITOR_RPT')" />
+		<security:intercept-url pattern="/deviceHourlyRpt/*" access="hasAnyRole('ROLE_MONITOR_RPT')" />
+		<security:intercept-url pattern="/deviceDailyRpt/*" access="hasAnyRole('ROLE_MONITOR_RPT')" />
+		<security:intercept-url pattern="/groupHourlyRpt/*" access="hasAnyRole('ROLE_MONITOR_RPT')" />
+		<security:intercept-url pattern="/groupDailyRpt/*" access="hasAnyRole('ROLE_MONITOR_RPT')" />		
+		
 		<security:intercept-url pattern="/menu/*" access="hasAnyRole('ROLE_USER')" />
 		<security:intercept-url pattern="/group/*" access="hasAnyRole('ROLE_HR')" />
 		<security:intercept-url pattern="/role/*" access="hasAnyRole('ROLE_HR')" />
@@ -28,7 +38,7 @@
 		<security:intercept-url pattern="/remoteHttpInvoke/**" access="permitAll" />
 		<security:intercept-url pattern="/version.txt" access="permitAll" />
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')" />
-		<security:form-login login-processing-url="/j_spring_security_check" login-page="/login.jsp" default-target-url="/userSelf/view.do" authentication-failure-url="/login.jsp?error=1"  />
+		<security:form-login login-processing-url="/j_spring_security_check" login-page="/login.jsp" default-target-url="/login_success_redirect.jsp" authentication-failure-url="/login.jsp?error=1"  />
 		<security:logout logout-success-url="/login.jsp" logout-url="/logout.do" />
 		<security:remember-me services-ref="rememberService" key="_cookie_key"/>
 	</security:http>

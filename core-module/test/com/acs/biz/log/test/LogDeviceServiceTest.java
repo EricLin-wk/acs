@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.scheduling.annotation.Async;
 
 import com.acs.biz.device.entity.Device;
 import com.acs.biz.device.entity.DeviceSetting;
@@ -55,12 +56,13 @@ public class LogDeviceServiceTest extends SpringCommonTest {
 		List<Device> devList = deviceService.listActiveDevices(0, -1);
 		for (Device device : devList) {
 			Calendar startCal = Calendar.getInstance();
-			startCal.setTime(DateUtils.parseDate("2014-12-08 00:00", "yyyy-MM-dd HH:mm"));
+			startCal.setTime(DateUtils.parseDate("2014-12-01 00:00", "yyyy-MM-dd HH:mm"));
 			Calendar endCal = Calendar.getInstance();
-			endCal.setTime(DateUtils.parseDate("2014-12-23 23:59", "yyyy-MM-dd HH:mm"));
+			endCal.setTime(DateUtils.parseDate("2014-12-24 23:59", "yyyy-MM-dd HH:mm"));
 
 			// iterate over interval time
 			while (startCal.compareTo(endCal) < 0) {
+				logger.debug("device: " + device.getOid() + " date: " + startCal);
 				// randomize temperature & humidity
 				if (rand.nextDouble() > 0.5) {
 					temperature += rand.nextDouble();
@@ -94,11 +96,17 @@ public class LogDeviceServiceTest extends SpringCommonTest {
 				status.setTargetTemperature(setting.getTemperature());
 				status.setTargetHumidity(setting.getHumidity());
 				// save to log
-				logDeviceService.saveLog(status);
+				asyncInsertLog(status);
 
 				startCal.add(Calendar.MINUTE, intervalMinute);
 			}
 		}
+	}
+
+	@Async
+	private void asyncInsertLog(DeviceStatus status) {
+		// save to log
+		logDeviceService.saveLog(status);
 	}
 
 }

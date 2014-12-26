@@ -45,6 +45,8 @@ public class PrepareServiceTest extends SpringCommonTest {
 	private static final String MAIN_GROUP_ID = "GRP000";
 	private static final String ROLE_USER = "USER";
 	private static final String ROLE_HR = "HR";
+	private static final String ROLE_DEVICE_MGMT = "DEVICE_MGMT";
+	private static final String ROLE_MONITOR_RPT = "MONITOR_RPT";
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -75,9 +77,9 @@ public class PrepareServiceTest extends SpringCommonTest {
 		if (menuService.get(MenuService.MENU_USER_STATUS) == null) {
 			Menu menu = new Menu();
 			menu.setKey(MenuService.MENU_USER_STATUS);
-			menu.setDescription("使用者狀態");
-			menu.addOption("9", "啟用");
-			menu.addOption("1", "鎖定");
+			menu.setDescription("使用者状态");
+			menu.addOption("9", "启用");
+			menu.addOption("1", "锁定");
 			menu.addOption("0", "停用");
 			menuService.save(menu);
 		}
@@ -120,6 +122,20 @@ public class PrepareServiceTest extends SpringCommonTest {
 		r = roleService.get(ROLE_HR, Role.Type.OTHER);
 		if (r == null) {
 			r = new Role(ROLE_HR, "使用者管理", Role.Type.OTHER);
+			roleService.save(r);
+			logger.info("entity: {}", r);
+		}
+
+		r = roleService.get(ROLE_DEVICE_MGMT, Role.Type.OTHER);
+		if (r == null) {
+			r = new Role(ROLE_DEVICE_MGMT, "设备管理", Role.Type.OTHER);
+			roleService.save(r);
+			logger.info("entity: {}", r);
+		}
+
+		r = roleService.get(ROLE_MONITOR_RPT, Role.Type.OTHER);
+		if (r == null) {
+			r = new Role(ROLE_MONITOR_RPT, "监控报表", Role.Type.OTHER);
 			roleService.save(r);
 			logger.info("entity: {}", r);
 		}

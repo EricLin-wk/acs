@@ -35,7 +35,7 @@ input,textarea  {
 		<div class="box span12">
 			<div class="box-header well" data-original-title>
 				<h2>
-					<i class="icon-tag"></i> 用户维护管理
+					<i class="icon-tag"></i> Permission维护管理
 				</h2>
 				<div class="box-icon">
 					<a href="add.do" class="btn btn-primary" style="border-bottom: 10px;width: 35px">新增</a>
@@ -46,23 +46,19 @@ input,textarea  {
 	
 			<div class="box-content">
 				<div class="row-fluid">
-					<div class="span1">登入代码</div>
+					<div class="span1">代码</div>
 					<div class="span2">
-						<input name="usernameParam" id="usernameParam" type="text" value="${usernameParam}">
+						<input name="paraKey" type="text" id="paraKey" value="${paraKey}">
 					</div>
-					<div class="span1">电子邮件</div>
-					<div class="span2">						
-						<input name="emailParam" id="emailParam" type="text" value="${emailParam}"/>
+					<div class="span1">说明</div>
+					<div class="span2">
+						<input name="paraDesc" type="text" id="paraDesc" value="${paraDesc}">
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span1">部门</div>
-					<div class="span2">
-						<input name="groupParam" id="groupParam" type="text" value="${groupParam}"/>
-					</div>
-					<div class="span1">狀態</div>
-					<div class="span3">
-						<s:checkboxlist list="userStatusMenu.options" name="statusParam" listKey="value.code" listValue="value.name" template="checkboxlist2" theme="simple"/>
+					<div class="span1">类别</div>
+					<div class="span6">						
+						<s:checkboxlist list="typeMenu" name="paraTypes" listKey="code" listValue="desc" template="checkboxlist2" theme="simple"></s:checkboxlist>
 					</div>
 				</div>
 				<div class="row-fluid">
@@ -74,27 +70,23 @@ input,textarea  {
 		</div>
 	</s:form>
 </div>
-<s:if test="objList.size > 0">
+<s:if test="permissionList.size > 0">
 	<table class="table table-bordered table-striped table-condensed">
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>登入代码</th>
-				<th>姓名</th>
-				<th>电子邮件</th>
-				<th>部门</th>
-				<th>状态</th>
+				<th>类别</th>
+				<th>代码</th>
+				<th>说明</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${objList}" var="user" varStatus="rows_index">
+			<c:forEach items="${permissionList}" var="permission" varStatus="rows_index">
 				<tr>
 					<td><fmt:formatNumber pattern="0000" value="${rows_index.count + pager.currentPage*20}" /></td>
-					<td><a href="view.do?objId=${user.username}">${user.username}</a></td>
-					<td>${user.nameNative}</td>
-					<td>${user.email}</td>
-					<td>${user.group.code}/${user.group.description}</td>
-					<td class="center">${userStatusMenu.options[user.status].name}</td>
+					<td class="center"><a href="view.do?paraId=${permission.name}">${permission.type.code}</a></td>
+					<td class="center"><a href="view.do?paraId=${permission.name}">${permission.key}</a></td>
+					<td class="center">${permission.description}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
