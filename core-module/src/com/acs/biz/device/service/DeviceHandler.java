@@ -280,8 +280,8 @@ public class DeviceHandler {
 			DeviceSetting setting = deviceSettingService.getSettingByDeviceId_Time(status.getDevice().getOid(), Calendar
 					.getInstance().getTime());
 			// TODO: update command
-			String command = "SET TEMPERATURE " + status.getDevice().toStringShort() + " Temperature:"
-					+ setting.getTemperature() + " Humidity:" + setting.getHumidity();
+			String command = "SET TEMPERATURE" + status.getDevice().toStringShort() + "\tTemperature:"
+					+ setting.getTemperature() + "\tHumidity:" + setting.getHumidity();
 			// write command to device
 			PrintWriter pw = status.getSocketOut();
 			pw.println(command);
@@ -304,10 +304,10 @@ public class DeviceHandler {
 					break;
 				logger.debug(status.getDevice().toStringShort() + " response: " + response);
 				// parse response header
-				if (response.startsWith("[echo] STATUS")) {
+				if (response.startsWith("[OK] STATUS")) {
 					// status response
 					processResponseStatus(status, response);
-				} else if (response.startsWith("[echo] SET")) {
+				} else if (response.startsWith("[OK] SET TEMPERATURE")) {
 					// set temperature response
 					processResponseSetTemperature(status, response);
 				} else {
@@ -320,14 +320,18 @@ public class DeviceHandler {
 	}
 
 	private void processResponseStatus(DeviceStatus status, String response) {
-		if (response == null || !response.startsWith("[echo] STATUS"))
+		if (response == null || !response.startsWith("[OK] STATUS"))
 			return;
 		try {
 			// TODO: parse response
+			double temperature, humidity;
+			String[] arg = response.split("\t");
+			temperature = Double.parseDouble(arg[1].split(":")[1]);
+			humidity = Double.parseDouble(arg[2].split(":")[1]);
+
 			String hwVersion = "1.0";
 			String swVersion = "0.1";
-			double temperature = 25.5;
-			double humidity = 52.5;
+
 			status.setHwVersion(hwVersion);
 			status.setSwVersion(swVersion);
 			status.setTemperature(temperature);
@@ -339,14 +343,14 @@ public class DeviceHandler {
 			status.setTargetTemperature(setting.getTemperature());
 			status.setTargetHumidity(setting.getHumidity());
 			// save device log
-			// logDeviceService.saveLog(status);
+			logDeviceService.saveLog(status);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
 
 	private void processResponseSetTemperature(DeviceStatus status, String response) {
-		if (response == null || !response.startsWith("[echo] SET"))
+		if (response == null || !response.startsWith("[OK] SET TEMPERATURE"))
 			return;
 		try {
 			// TODO: do something when set fail

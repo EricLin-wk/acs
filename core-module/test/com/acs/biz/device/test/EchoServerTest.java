@@ -50,6 +50,9 @@ class EchoHandler extends Thread {
 	private Socket client;
 	private int myClientNum;
 
+	private double targetTemperature = 25;
+	private double targetHumidity = 50;
+
 	EchoHandler(Socket client) {
 		this.client = client;
 		myClientNum = ++clientNum;
@@ -75,7 +78,8 @@ class EchoHandler extends Thread {
 				logger.debug("client (" + myClientNum + ") sleep" + sleep);
 				Thread.sleep(sleep * 1000);
 
-				writer.println("[echo] " + line);
+				String response = processCommand(line);
+				writer.println(response);
 			}
 		} catch (Exception e) {
 			System.err.println("Exception caught: client (" + myClientNum + ") disconnected.");
@@ -86,5 +90,45 @@ class EchoHandler extends Thread {
 				;
 			}
 		}
+	}
+
+	private String processCommand(String cmd) {
+		try {
+			String response = null;
+			if (cmd.startsWith("SET TEMPERATURE")) {
+				String[] arg = cmd.split("\t");
+				String strTemperature = arg[1].split(":")[1];
+				this.targetTemperature = Double.parseDouble(strTemperature);
+				String strHumidity = arg[2].split(":")[1];
+				this.targetHumidity = Double.parseDouble(strHumidity);
+
+				response = "[OK] " + cmd;
+			} else if (cmd.startsWith("STATUS")) {
+				double temperature, humidity;
+				if (rand.nextDouble() > 0.5) {
+					temperature = targetTemperature + rand.nextDouble();
+				} else {
+					temperature = targetTemperature - rand.nextDouble();
+				}
+				if (rand.nextDouble() > 0.5) {
+					humidity = targetHumidity + rand.nextDouble() + rand.nextDouble();
+				} else {
+					humidity = targetHumidity - rand.nextDouble() - rand.nextDouble();
+				}
+				temperature = Math.round(temperature * 100.0) / 100.0;
+				humidity = Math.round(humidity * 100.0) / 100.0;
+
+				response = "[OK] " + cmd + "\tTemperature:" + temperature + "\tHumidity:" + humidity;
+
+			} else {
+				response = "[UNKNOWN] " + cmd;
+			}
+
+			return response;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			return "[ERR] " + e.getMessage();
+		}
+
 	}
 }
