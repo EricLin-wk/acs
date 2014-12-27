@@ -8,7 +8,11 @@
 	xmlns="http://www.springframework.org/schema/beans">
 	<context:property-placeholder location="/WEB-INF/settings.properties"/>
 	<context:annotation-config/>
-	<bean id="myDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+	
+	<bean id="myDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="java:comp/env/jdbc/MySQLDS"/>
+    </bean>
+	<!-- <bean id="myDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
 		<property name="driverClassName">
 			<value>${hibernate.driver}</value>
 		</property>
@@ -21,7 +25,7 @@
 		<property name="password">
 			<value>${hibernate.password}</value>
 		</property>		
-	</bean>	
+	</bean>  -->	
 	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"/>	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource"/>		
