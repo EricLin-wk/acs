@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author tw4149
  */
 @Entity
-@Table(name = "APP_CONFIG")
+@Table(name = "app_config")
 public class AppConfig extends BaseEntity {
 
 	/** serialVersionUID */
@@ -40,13 +40,13 @@ public class AppConfig extends BaseEntity {
 	@Id
 	@GeneratedValue(generator = "assigned")
 	@GenericGenerator(name = "assigned", strategy = "assigned")
-	@Column(name = "CONFIG_KEY", length = 100)
+	@Column(name = "config_key", length = 100)
 	private String key;
 
-	@Column(name = "CONFIG_VALUE", length = 500)
+	@Column(name = "config_value", length = 500)
 	private String value;
 
-	@Column(name = "DESCR", length = 100)
+	@Column(name = "descr", length = 100)
 	private String description;
 
 	public String getKey() {

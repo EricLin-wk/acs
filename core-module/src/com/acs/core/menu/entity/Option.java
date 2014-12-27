@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -31,10 +31,9 @@ import org.springframework.beans.BeanUtils;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_MENU_OPTION")
+@Table(name = "comm_menu_option")
 public class Option implements Serializable {
 
 	/** serialVersionUID */
@@ -45,23 +44,23 @@ public class Option implements Serializable {
 	@Column(name = "OPTION_OID")
 	private Long oid;
 
-	@Column(name = "OPTION_CODE", length = 60)
+	@Column(name = "option_code", length = 60)
 	private String code;
 
-	@Column(name = "OPTION_NAME", length = 60)
+	@Column(name = "option_name", length = 60)
 	private String name;
 
-	@Column(name = "OPTION_MEMO1", length = 60)
+	@Column(name = "option_memo1", length = 60)
 	private String memo1;
 
-	@Column(name = "OPTION_MEMO2", length = 60)
+	@Column(name = "option_memo2", length = 60)
 	private String memo2;
 
-	@Column(name = "SORT_ORDER")
+	@Column(name = "sort_order")
 	private int sortOrder = 0;
 
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Menu.class)
-	@JoinColumn(name = "MENU_KEY")
+	@JoinColumn(name = "menu_key")
 	private Menu menu;
 
 	/** default constructor */
@@ -99,8 +98,7 @@ public class Option implements Serializable {
 	}
 
 	/**
-	 * @param oid
-	 *           the oid to set
+	 * @param oid the oid to set
 	 */
 	public void setOid(Long oid) {
 		this.oid = oid;
@@ -122,8 +120,7 @@ public class Option implements Serializable {
 	}
 
 	/**
-	 * @param code
-	 *           the code to set
+	 * @param code the code to set
 	 */
 	public void setCode(String code) {
 		this.code = code;
@@ -137,8 +134,7 @@ public class Option implements Serializable {
 	}
 
 	/**
-	 * @param name
-	 *           the name to set
+	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -152,8 +148,7 @@ public class Option implements Serializable {
 	}
 
 	/**
-	 * @param memo1
-	 *           the memo1 to set
+	 * @param memo1 the memo1 to set
 	 */
 	public void setMemo1(String memo1) {
 		this.memo1 = memo1;
@@ -167,8 +162,7 @@ public class Option implements Serializable {
 	}
 
 	/**
-	 * @param memo2
-	 *           the memo2 to set
+	 * @param memo2 the memo2 to set
 	 */
 	public void setMemo2(String memo2) {
 		this.memo2 = memo2;
@@ -182,8 +176,7 @@ public class Option implements Serializable {
 	}
 
 	/**
-	 * @param sortOrder
-	 *           the sortOrder to set
+	 * @param sortOrder the sortOrder to set
 	 */
 	public void setSortOrder(int sortOrder) {
 		this.sortOrder = sortOrder;
@@ -197,8 +190,7 @@ public class Option implements Serializable {
 	}
 
 	/**
-	 * @param menu
-	 *           the menu to set
+	 * @param menu the menu to set
 	 */
 	public void setMenu(Menu menu) {
 		this.menu = menu;
@@ -206,7 +198,7 @@ public class Option implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -216,7 +208,7 @@ public class Option implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#clone()
 	 */
 	@Override

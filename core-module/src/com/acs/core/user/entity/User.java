@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -52,10 +52,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_USER")
+@Table(name = "comm_user")
 public class User extends UserDetails {
 
 	/** serialVersionUID */
@@ -69,26 +68,27 @@ public class User extends UserDetails {
 	@Id
 	@GeneratedValue(generator = "assigned")
 	@GenericGenerator(name = "assigned", strategy = "assigned")
-	@Column(name = "USER_NAME")
+	@Column(name = "user_name")
 	private String username;
 
 	/** password */
-	@Column(name = "USER_PASSWORD", length = 100, nullable = false)
+	@Column(name = "user_password", length = 100, nullable = false)
 	private String password;
 
 	/** group */
 	@ManyToOne
-	@JoinColumn(name = "GROUP_CODE")
+	@JoinColumn(name = "group_code")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@LazyToOne(LazyToOneOption.FALSE)
 	private Group group;
 
-	@Column(name = "GROUP_CODE", insertable = false, updatable = false)
+	@Column(name = "group_code", insertable = false, updatable = false)
 	private String groupCode;
 
 	/** roles */
 	@ManyToMany(targetEntity = Role.class)
-	@JoinTable(name = "COMM_USER_ROLE", joinColumns = @JoinColumn(name = "USER_NAME"), inverseJoinColumns = @JoinColumn(name = "ROLE_NAME"))
+	@JoinTable(name = "comm_user_role", joinColumns = @JoinColumn(name = "user_name"), inverseJoinColumns = @JoinColumn(
+			name = "role_name"))
 	@NotFound(action = NotFoundAction.IGNORE)
 	@OrderBy("name")
 	private Set<Role> roles;
@@ -100,53 +100,53 @@ public class User extends UserDetails {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<String, UserPermission> permissions;
 
-	@Column(name = "USER_STATUS", length = 1, nullable = false)
+	@Column(name = "user_status", length = 1, nullable = false)
 	private String status = STATUS_ACTIVE;
 
-	@Column(name = "LOGIN_IP", length = 15)
+	@Column(name = "login_ip", length = 15)
 	private String loginIP;
 
-	@Column(name = "USER_LANG", length = 5)
+	@Column(name = "user_lang", length = 5)
 	private String lang = "zh_TW";
 
-	@Column(name = "ERROR_COUNT")
+	@Column(name = "error_count")
 	private int errorCount = 0;
 
-	@Column(name = "IS_PASSWORD_NEED_CHANGE")
+	@Column(name = "is_password_need_change")
 	@Type(type = "yes_no")
 	private boolean needChangePassword = false;
 
-	@Column(name = "IS_ACC_NOT_EXPIRE")
+	@Column(name = "is_acc_not_expire")
 	@Type(type = "yes_no")
 	private boolean accountNonExpired = true;
 
-	@Column(name = "IS_ACC_NOT_LOCK")
+	@Column(name = "is_acc_not_lock")
 	@Type(type = "yes_no")
 	private boolean accountNonLocked = true;
 
-	@Column(name = "IS_PASSWORD_NOT_EXPIRE")
+	@Column(name = "is_password_not_expire")
 	@Type(type = "yes_no")
 	private boolean credentialsNonExpired = true;
 
-	@Column(name = "FIRST_NAME", length = 30)
+	@Column(name = "first_name", length = 30)
 	private String nameFirst;
 
-	@Column(name = "LAST_NAME", length = 30)
+	@Column(name = "last_name", length = 30)
 	private String nameLast;
 
-	@Column(name = "NICK_NAME", length = 50)
+	@Column(name = "nick_name", length = 50)
 	private String nameNick;
 
-	@Column(name = "NATIVE_NAME", length = 50, nullable = false)
+	@Column(name = "native_name", length = 50, nullable = false)
 	private String nameNative;
 
-	@Column(name = "USER_PHONE", length = 50)
+	@Column(name = "user_phone", length = 50)
 	private String phone;
 
-	@Column(name = "USER_MOBILE", length = 50)
+	@Column(name = "user_mobile", length = 50)
 	private String mobile;
 
-	@Column(name = "USER_EMAIL", length = 50)
+	@Column(name = "user_email", length = 50)
 	private String email;
 
 	/** default constructors */
@@ -179,8 +179,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param roles
-	 *           the roles to set
+	 * @param roles the roles to set
 	 */
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
@@ -215,8 +214,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param permissions
-	 *           the permissions to set
+	 * @param permissions the permissions to set
 	 */
 	public void setPermissions(Map<String, UserPermission> permissions) {
 		this.permissions = permissions;
@@ -230,8 +228,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param group
-	 *           the group to set
+	 * @param group the group to set
 	 */
 	public void setGroup(Group group) {
 		this.group = group;
@@ -245,8 +242,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param groupName
-	 *           the groupName to set
+	 * @param groupName the groupName to set
 	 */
 	public void setGroupName(String groupName) {
 		this.groupCode = groupName;
@@ -260,8 +256,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param email
-	 *           the email to set
+	 * @param email the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -275,8 +270,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param lang
-	 *           the lang to set
+	 * @param lang the lang to set
 	 */
 	public void setLang(String lang) {
 		this.lang = lang;
@@ -290,8 +284,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param errorCount
-	 *           the errorCount to set
+	 * @param errorCount the errorCount to set
 	 */
 	public void setErrorCount(int errorCount) {
 		this.errorCount = errorCount;
@@ -305,8 +298,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param loginIP
-	 *           the loginIP to set
+	 * @param loginIP the loginIP to set
 	 */
 	public void setLoginIP(String loginIP) {
 		this.loginIP = loginIP;
@@ -320,8 +312,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param mobile
-	 *           the mobile to set
+	 * @param mobile the mobile to set
 	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
@@ -335,8 +326,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param nameFirst
-	 *           the nameFirst to set
+	 * @param nameFirst the nameFirst to set
 	 */
 	public void setNameFirst(String nameFirst) {
 		this.nameFirst = nameFirst;
@@ -350,8 +340,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param nameLast
-	 *           the nameLast to set
+	 * @param nameLast the nameLast to set
 	 */
 	public void setNameLast(String nameLast) {
 		this.nameLast = nameLast;
@@ -365,8 +354,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param nameNative
-	 *           the nameNative to set
+	 * @param nameNative the nameNative to set
 	 */
 	public void setNameNative(String nameNative) {
 		this.nameNative = nameNative;
@@ -384,8 +372,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param nameNick
-	 *           the nameNick to set
+	 * @param nameNick the nameNick to set
 	 */
 	public void setNameNick(String nameNick) {
 		this.nameNick = nameNick;
@@ -399,8 +386,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param needChangePassword
-	 *           the needChangePassword to set
+	 * @param needChangePassword the needChangePassword to set
 	 */
 	public void setNeedChangePassword(boolean needChangePassword) {
 		this.needChangePassword = needChangePassword;
@@ -415,8 +401,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param password
-	 *           the password to set
+	 * @param password the password to set
 	 */
 	@Override
 	public void setPassword(String password) {
@@ -431,8 +416,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param phone
-	 *           the phone to set
+	 * @param phone the phone to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -446,8 +430,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param status
-	 *           the status to set
+	 * @param status the status to set
 	 */
 	public void setStatus(String status) {
 		this.status = status;
@@ -462,8 +445,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param userid
-	 *           the userid to set
+	 * @param userid the userid to set
 	 */
 	@Override
 	public void setUsername(String username) {
@@ -472,7 +454,7 @@ public class User extends UserDetails {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.springframework.security.userdetails.UserDetails#getAuthorities()
 	 */
 	@Override
@@ -494,8 +476,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param accountNonExpired
-	 *           the accountNonExpired to set
+	 * @param accountNonExpired the accountNonExpired to set
 	 */
 	public void setAccountNonExpired(boolean accountNonExpired) {
 		this.accountNonExpired = accountNonExpired;
@@ -510,8 +491,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param accountNonLocked
-	 *           the accountNonLocked to set
+	 * @param accountNonLocked the accountNonLocked to set
 	 */
 	public void setAccountNonLocked(boolean accountNonLocked) {
 		this.accountNonLocked = accountNonLocked;
@@ -526,8 +506,7 @@ public class User extends UserDetails {
 	}
 
 	/**
-	 * @param credentialsNonExpired
-	 *           the credentialsNonExpired to set
+	 * @param credentialsNonExpired the credentialsNonExpired to set
 	 */
 	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
 		this.credentialsNonExpired = credentialsNonExpired;
@@ -535,7 +514,7 @@ public class User extends UserDetails {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.springframework.security.userdetails.UserDetails#isEnabled()
 	 */
 	@Override

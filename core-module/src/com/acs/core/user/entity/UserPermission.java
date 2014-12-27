@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -40,11 +40,10 @@ import com.acs.core.common.utils.StringUtils;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_USER_PERMISSION", uniqueConstraints = { @UniqueConstraint(columnNames = { "USER_NAME",
-		"PERMISSION_KEY" }) })
+@Table(name = "comm_user_permission", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_name",
+"permission_key" }) })
 public class UserPermission implements GrantedAuthority {
 
 	/** serialVersionUID */
@@ -52,21 +51,21 @@ public class UserPermission implements GrantedAuthority {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_userprmn")
 	@SequenceGenerator(name = "seq_userprmn", sequenceName = "SEQ_USER_PERMISSION")
-	@Column(name = "OID")
+	@Column(name = "oid")
 	private Long oid;
 
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-	@JoinColumn(name = "USER_NAME")
+	@JoinColumn(name = "user_name")
 	private User user;
 
-	@Column(name = "PERMISSION_KEY", length = 50)
+	@Column(name = "permission_key", length = 50)
 	private String permissionKey;
 
 	@Enumerated
-	@Column(name = "PERMISSION_TYPE", updatable = false, nullable = false)
+	@Column(name = "permission_type", updatable = false, nullable = false)
 	private Permission.Type permissionType;
 
-	@Column(name = "END_DATE")
+	@Column(name = "end_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 
@@ -85,9 +84,10 @@ public class UserPermission implements GrantedAuthority {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.springframework.security.GrantedAuthority#getAuthority()
 	 */
+	@Override
 	public String getAuthority() {
 		return permissionKey;
 	}
@@ -100,8 +100,7 @@ public class UserPermission implements GrantedAuthority {
 	}
 
 	/**
-	 * @param permissionType
-	 *           the permissionType to set
+	 * @param permissionType the permissionType to set
 	 */
 	public void setPermissionType(Permission.Type permissionType) {
 		this.permissionType = permissionType;
@@ -115,8 +114,7 @@ public class UserPermission implements GrantedAuthority {
 	}
 
 	/**
-	 * @param oid
-	 *           the oid to set
+	 * @param oid the oid to set
 	 */
 	private void setOid(Long oid) {
 		this.oid = oid;
@@ -130,8 +128,7 @@ public class UserPermission implements GrantedAuthority {
 	}
 
 	/**
-	 * @param user
-	 *           the user to set
+	 * @param user the user to set
 	 */
 	private void setUser(User user) {
 		this.user = user;
@@ -157,8 +154,7 @@ public class UserPermission implements GrantedAuthority {
 	}
 
 	/**
-	 * @param permissionKey
-	 *           the permissionKey to set
+	 * @param permissionKey the permissionKey to set
 	 */
 	public void setPermissionKey(String permissionKey) {
 		this.permissionKey = permissionKey;
@@ -172,8 +168,7 @@ public class UserPermission implements GrantedAuthority {
 	}
 
 	/**
-	 * @param endDT
-	 *           the endDT to set
+	 * @param endDT the endDT to set
 	 */
 	public void setEndDate(Date endDT) {
 		this.endDate = endDT;

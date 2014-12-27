@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -39,10 +39,9 @@ import com.acs.core.common.entity.BaseEntity;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_ROLE")
+@Table(name = "comm_role")
 public class Role extends BaseEntity {
 
 	/** serialVersionUID */
@@ -95,25 +94,25 @@ public class Role extends BaseEntity {
 	@Id
 	@GeneratedValue(generator = "assigned")
 	@GenericGenerator(name = "assigned", strategy = "assigned")
-	@Column(name = "ROLE_NAME", length = 50)
+	@Column(name = "role_name", length = 50)
 	private String name;
 
-	@Column(name = "ROLE_DESC", length = 30)
+	@Column(name = "role_desc", length = 30)
 	private String description;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "MAIN_PERMISSION_KEY")
+	@JoinColumn(name = "main_permission_key")
 	@Cascade({ CascadeType.ALL })
 	private Permission mainPermission;
 
 	/** type */
 	@Enumerated
-	@Column(name = "ROLE_TYPE", updatable = false, nullable = false)
+	@Column(name = "role_type", updatable = false, nullable = false)
 	private Type type = Type.OTHER;
 
 	@ManyToMany(cascade = { javax.persistence.CascadeType.ALL }, fetch = FetchType.EAGER)
-	@JoinTable(name = "COMM_USER_ROLE_PERMISSION", joinColumns = @JoinColumn(name = "ROLE_NAME"),
-		inverseJoinColumns = @JoinColumn(name = "PERMISSION_NAME"))
+	@JoinTable(name = "comm_user_role_permission", joinColumns = @JoinColumn(name = "role_name"),
+			inverseJoinColumns = @JoinColumn(name = "permission_name"))
 	@MapKey(name = "name")
 	private Map<String, Permission> permissions;
 
@@ -131,10 +130,10 @@ public class Role extends BaseEntity {
 		switch (type) {
 		case GROUP:
 			this.mainPermission = new Permission(key, description, Permission.Type.GROUP);
-			break;
+		break;
 		case MANAGER:
 			this.mainPermission = new Permission(key, description, Permission.Type.MANAGER);
-			break;
+		break;
 		default:
 			this.mainPermission = new Permission(key, description, Permission.Type.ROLE);
 		}

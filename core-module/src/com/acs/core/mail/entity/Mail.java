@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -42,10 +42,9 @@ import com.acs.core.common.utils.StringUtils;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_MAIL")
+@Table(name = "comm_mail")
 public class Mail extends BaseEntity {
 
 	/** serialVersionUID */
@@ -57,66 +56,66 @@ public class Mail extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_mail")
 	@SequenceGenerator(name = "seq_mail", sequenceName = "SEQ_MAIL")
-	@Column(name = "MAIL_OID")
+	@Column(name = "mail_oid")
 	private Long oid;
 
-	@Column(name = "MAIL_SUBJECT", length = 200)
+	@Column(name = "mail_subject", length = 200)
 	private String subject;
 
 	@Lob
-	@Column(name = "MAIL_BODY", updatable = false)
+	@Column(name = "mail_body", updatable = false)
 	@Basic(fetch = FetchType.LAZY)
 	private String body;
 
-	@Column(name = "MAIL_TO")
+	@Column(name = "mail_to")
 	private String to;
 
-	@Column(name = "MAIL_CC")
+	@Column(name = "mail_cc")
 	private String cc;
 
-	@Column(name = "MAIL_BCC")
+	@Column(name = "mail_bcc")
 	private String bcc;
 
-	@Column(name = "MAIL_FROM", length = 50)
+	@Column(name = "mail_from", length = 50)
 	private String from;
 
 	/** 是否已寄送旗標 */
-	@Column(name = "IS_SEND")
+	@Column(name = "is_send")
 	@Type(type = "yes_no")
 	private boolean send = false;
 
 	/** 重試次數, if retry 3 time, this mail will be hold. */
-	@Column(name = "MAIL_RETRY")
+	@Column(name = "mail_retry")
 	private int retry = 0;
 
 	/** 優先序 */
-	@Column(name = "MAIL_LEVEL")
+	@Column(name = "mail_level")
 	private int sort = LEVEL_NORMAL;
 
 	/** 內崁物件 */
 	@ElementCollection
-	@JoinTable(name = "COMM_MAIL_INLINE", joinColumns = @JoinColumn(name = "MAIL_OID"))
-	@MapKeyColumn(name = "FILE_NAME")
-	@Column(name = "FILE_LOCATION")
+	@JoinTable(name = "comm_mail_inline", joinColumns = @JoinColumn(name = "mail_oid"))
+	@MapKeyColumn(name = "file_name")
+	@Column(name = "file_location")
 	private Map<String, String> inlines;
 
 	/** 附件 */
 	@ElementCollection
-	@JoinTable(name = "COMM_MAIL_ATTACH", joinColumns = @JoinColumn(name = "MAIL_OID"))
-	@MapKeyColumn(name = "CONTENT_ID")
-	@Column(name = "FILE_LOC")
+	@JoinTable(name = "comm_mail_attach", joinColumns = @JoinColumn(name = "mail_oid"))
+	@MapKeyColumn(name = "content_id")
+	@Column(name = "file_loc")
 	private Map<String, String> attachments;
 
 	/** 寄送時間 */
-	@Column(name = "SEND_DATE")
+	@Column(name = "send_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date sendDT;
 
-	@Column(name = "MAIL_FUNC_CODE", length = 50)
+	@Column(name = "mail_func_code", length = 50)
 	private String functionCode;
 
 	/** 是否有附檔 */
-	@Column(name = "HAS_ATTACHMENT")
+	@Column(name = "has_attachment")
 	@Type(type = "yes_no")
 	private boolean hasAttachment = false;
 
@@ -142,8 +141,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param hasAttachment
-	 *           the hasAttachment to set
+	 * @param hasAttachment the hasAttachment to set
 	 */
 	public void setHasAttachment(boolean hasAttachment) {
 		this.hasAttachment = hasAttachment;
@@ -157,8 +155,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param bcc
-	 *           the bcc to set
+	 * @param bcc the bcc to set
 	 */
 	public void setBcc(String bcc) {
 		this.bcc = bcc;
@@ -172,8 +169,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param from
-	 *           the from to set
+	 * @param from the from to set
 	 */
 	public void setFrom(String from) {
 		this.from = from;
@@ -187,8 +183,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param body
-	 *           the body to set
+	 * @param body the body to set
 	 */
 	public void setBody(String body) {
 		this.body = body;
@@ -202,8 +197,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param cc
-	 *           the cc to set
+	 * @param cc the cc to set
 	 */
 	public void setCc(String cc) {
 		this.cc = cc;
@@ -220,8 +214,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param attachments
-	 *           the attachments to set
+	 * @param attachments the attachments to set
 	 */
 	public void setAttachments(Map<String, String> attachments) {
 		this.attachments = attachments;
@@ -238,8 +231,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param inlines
-	 *           the inlines to set
+	 * @param inlines the inlines to set
 	 */
 	public void setInlines(Map<String, String> inlines) {
 		this.inlines = inlines;
@@ -253,8 +245,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param oid
-	 *           the oid to set
+	 * @param oid the oid to set
 	 */
 	public void setOid(Long oid) {
 		this.oid = oid;
@@ -268,8 +259,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param retry
-	 *           the retry to set
+	 * @param retry the retry to set
 	 */
 	public void setRetry(int retry) {
 		this.retry = retry;
@@ -283,8 +273,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param send
-	 *           the send to set
+	 * @param send the send to set
 	 */
 	public void setSend(boolean send) {
 		this.send = send;
@@ -298,8 +287,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param sendDT
-	 *           the sendDT to set
+	 * @param sendDT the sendDT to set
 	 */
 	public void setSendDT(Date sendDT) {
 		this.sendDT = sendDT;
@@ -313,8 +301,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param sort
-	 *           the sort to set
+	 * @param sort the sort to set
 	 */
 	public void setSort(int sort) {
 		this.sort = sort;
@@ -328,8 +315,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param subject
-	 *           the subject to set
+	 * @param subject the subject to set
 	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
@@ -343,8 +329,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param to
-	 *           the to to set
+	 * @param to the to to set
 	 */
 	public void setTo(String to) {
 		this.to = to;
@@ -358,8 +343,7 @@ public class Mail extends BaseEntity {
 	}
 
 	/**
-	 * @param functionCode
-	 *           the functionCode to set
+	 * @param functionCode the functionCode to set
 	 */
 	public void setFunctionCode(String functionCode) {
 		this.functionCode = functionCode;
@@ -415,7 +399,7 @@ public class Mail extends BaseEntity {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

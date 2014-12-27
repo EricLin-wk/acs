@@ -31,7 +31,7 @@ import javax.persistence.TemporalType;
  * @author tw4149
  */
 @Entity
-@Table(name = "COMM_LOG_COMMON")
+@Table(name = "comm_log_common")
 public class CommonLog implements Serializable {
 
 	/** serialVersionUID */
@@ -39,24 +39,24 @@ public class CommonLog implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_commonlog")
 	@SequenceGenerator(name = "seq_commonlog", sequenceName = "SEQ_LOG_COMMON")
-	@Column(name = "OID")
+	@Column(name = "oid")
 	private Long oid;
 
-	@Column(name = "SERVICE_NAME", length = 200)
+	@Column(name = "service_name", length = 200)
 	private String serviceName;
 
-	@Column(name = "SERVICE_METHOD", length = 100)
+	@Column(name = "service_method", length = 100)
 	private String serviceMethod;
 
 	@Lob
-	@Column(name = "LOG_MESSAGE")
+	@Column(name = "log_message")
 	private String message;
 
-	@Column(name = "CREATE_USER", length = 30)
+	@Column(name = "create_user", length = 30)
 	private String createUser;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATE_DATE")
+	@Column(name = "create_date")
 	private Date createDate;
 
 	/** default constructor */

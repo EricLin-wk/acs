@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -40,10 +40,9 @@ import com.acs.core.common.utils.StringUtils;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_MENU")
+@Table(name = "comm_menu")
 public class Menu extends BaseEntity {
 
 	/** serialVersionUID */
@@ -51,10 +50,10 @@ public class Menu extends BaseEntity {
 	@Id
 	@GeneratedValue(generator = "assigned")
 	@GenericGenerator(name = "assigned", strategy = "assigned")
-	@Column(name = "MENU_KEY")
+	@Column(name = "menu_key")
 	private String key;
 
-	@Column(name = "MENU_DESC", length = 60)
+	@Column(name = "menu_desc", length = 60)
 	private String description;
 
 	@MapKey(name = "code")
@@ -65,7 +64,7 @@ public class Menu extends BaseEntity {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Map<String, Option> options;
 
-	@Column(name = "MENU_TYPE", length = 1)
+	@Column(name = "menu_type", length = 1)
 	private String type = "M";
 
 	@Column(length = 3000)
@@ -96,8 +95,7 @@ public class Menu extends BaseEntity {
 	}
 
 	/**
-	 * @param type
-	 *           the type to set
+	 * @param type the type to set
 	 */
 	public void setType(String type) {
 		this.type = type;
@@ -111,8 +109,7 @@ public class Menu extends BaseEntity {
 	}
 
 	/**
-	 * @param memo
-	 *           the memo to set
+	 * @param memo the memo to set
 	 */
 	public void setMemo(String memo) {
 		this.memo = memo;
@@ -126,8 +123,7 @@ public class Menu extends BaseEntity {
 	}
 
 	/**
-	 * @param key
-	 *           the key to set
+	 * @param key the key to set
 	 */
 	public void setKey(String key) {
 		this.key = key;
@@ -141,8 +137,7 @@ public class Menu extends BaseEntity {
 	}
 
 	/**
-	 * @param description
-	 *           the description to set
+	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -198,8 +193,7 @@ public class Menu extends BaseEntity {
 	}
 
 	/**
-	 * @param options
-	 *           the options to set
+	 * @param options the options to set
 	 */
 	public void setOptions(Map<String, Option> options) {
 		this.options = options;
@@ -207,7 +201,7 @@ public class Menu extends BaseEntity {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -217,7 +211,7 @@ public class Menu extends BaseEntity {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#clone()
 	 */
 	@Override

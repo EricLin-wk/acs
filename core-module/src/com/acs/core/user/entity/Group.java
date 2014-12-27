@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -34,10 +34,9 @@ import com.acs.core.common.utils.StringUtils;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_GROUP")
+@Table(name = "comm_group")
 public class Group extends BaseEntity {
 
 	/** serialVersionUID */
@@ -55,36 +54,36 @@ public class Group extends BaseEntity {
 	@Id
 	@GeneratedValue(generator = "assigned")
 	@GenericGenerator(name = "assigned", strategy = "assigned")
-	@Column(name = "GROUP_CODE", length = 50)
+	@Column(name = "group_code", length = 50)
 	private String code;
 
-	@Column(name = "GROUP_DESC", length = 30)
+	@Column(name = "group_desc", length = 30)
 	private String description;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GROUP_MANAGER")
+	@JoinColumn(name = "group_manager")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@Cascade({ CascadeType.ALL })
 	private Role manager;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GROUP_ROLE")
+	@JoinColumn(name = "group_role")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@Cascade({ CascadeType.ALL })
 	private Role role;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PARENT_GROUP")
+	@JoinColumn(name = "parent_group")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private Group parentGroup;
 
-	@Column(name = "PARENT_GROUP", insertable = false, updatable = false)
+	@Column(name = "parent_group", insertable = false, updatable = false)
 	private String parentGroupName;
 
 	/**
 	 * Y for yaodian100, S for supplier, C for CRM
 	 */
-	@Column(name = "GROUP_TYPE", length = 3)
+	@Column(name = "group_type", length = 3)
 	private String type = Type.TE.name();
 
 	/** default constructors */
@@ -109,8 +108,7 @@ public class Group extends BaseEntity {
 	}
 
 	/**
-	 * @param type
-	 *           the type to set
+	 * @param type the type to set
 	 */
 	public void setType(String type) {
 		this.type = type;
@@ -136,8 +134,7 @@ public class Group extends BaseEntity {
 	}
 
 	/**
-	 * @param parentGroupName
-	 *           the parentGroupName to set
+	 * @param parentGroupName the parentGroupName to set
 	 */
 	public void setParentGroupName(String parentGroupName) {
 		this.parentGroupName = parentGroupName;
@@ -151,8 +148,7 @@ public class Group extends BaseEntity {
 	}
 
 	/**
-	 * @param code
-	 *           the code to set
+	 * @param code the code to set
 	 */
 	public void setCode(String code) {
 		this.code = code;
@@ -170,8 +166,7 @@ public class Group extends BaseEntity {
 	}
 
 	/**
-	 * @param description
-	 *           the description to set
+	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -185,8 +180,7 @@ public class Group extends BaseEntity {
 	}
 
 	/**
-	 * @param mainRole
-	 *           the mainRole to set
+	 * @param mainRole the mainRole to set
 	 */
 	public void setRole(Role role) {
 		this.role = role;
@@ -200,8 +194,7 @@ public class Group extends BaseEntity {
 	}
 
 	/**
-	 * @param manager
-	 *           the manager to set
+	 * @param manager the manager to set
 	 */
 	public void setManager(Role manager) {
 		this.manager = manager;
@@ -215,8 +208,7 @@ public class Group extends BaseEntity {
 	}
 
 	/**
-	 * @param parentGroup
-	 *           the parentGroup to set
+	 * @param parentGroup the parentGroup to set
 	 */
 	public void setParentGroup(Group parentGroup) {
 		this.parentGroup = parentGroup;
@@ -244,7 +236,7 @@ public class Group extends BaseEntity {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

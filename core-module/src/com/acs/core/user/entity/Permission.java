@@ -4,7 +4,7 @@
 
    Date Created      : 2012/11/22
    Original Author   : tw4149
-   Team              : 
+   Team              :
    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    MODIFICATION HISTORY
    ------------------------------------------------------------------------------
@@ -29,10 +29,9 @@ import com.acs.core.common.entity.BaseEntity;
 
 /**
  * @author tw4149
- * 
  */
 @Entity
-@Table(name = "COMM_PERMISSION")
+@Table(name = "comm_permission")
 @NamedQuery(name = "searchPermissions", query = "from Permission o where o.key like :key and o.key in (:keys)")
 public class Permission extends BaseEntity {
 
@@ -67,20 +66,20 @@ public class Permission extends BaseEntity {
 		}
 	};
 
-	@Column(name = "PERMISSION_KEY", length = 30, updatable = false, nullable = false)
+	@Column(name = "permission_key", length = 30, updatable = false, nullable = false)
 	private String key;
 
 	@Id
 	@GeneratedValue(generator = "assigned")
 	@GenericGenerator(name = "assigned", strategy = "assigned")
-	@Column(name = "PERMISSION_NAME", length = 50)
+	@Column(name = "permission_name", length = 50)
 	private String name;
 
 	@Enumerated
-	@Column(name = "PERMISSION_TYPE", updatable = false, nullable = false)
+	@Column(name = "permission_type", updatable = false, nullable = false)
 	private Type type = Type.OTHER;
 
-	@Column(name = "PERMISSION_DESC", length = 200)
+	@Column(name = "permission_desc", length = 200)
 	private String description;
 
 	/** default constructors */
