@@ -10,12 +10,12 @@
 if(AdminHelper.hasPermission("ROLE_MONITOR_RPT")) {
 %>
 <c:url value="/dashboard/list.do" var="redirectPath" />
-<meta http-equiv="refresh" content="10; url=${redirectPath}" />
+<meta http-equiv="refresh" content="0; url=${redirectPath}" />
 <%
 } else {
 %>
 <c:url value="/userSelf/view.do" var="redirectPath" />
-<meta http-equiv="refresh" content="10; url=${redirectPath}" />
+<meta http-equiv="refresh" content="0; url=${redirectPath}" />
 <%
 }
 %>

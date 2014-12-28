@@ -14,6 +14,8 @@ import java.util.TreeMap;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import com.acs.biz.device.entity.Device;
 import com.acs.biz.device.entity.DeviceGroup;
 import com.acs.biz.device.entity.DeviceStatus;
@@ -41,7 +43,7 @@ public class DashboardAction extends AbstractAction {
 	@Resource
 	protected MenuService menuService;
 	@Resource
-	protected DeviceHandlerHelper deviceHandler;
+	protected DeviceHandlerHelper deviceHandlerHelper;
 	@Resource
 	private LogDeviceService logDeviceService;
 
@@ -85,12 +87,12 @@ public class DashboardAction extends AbstractAction {
 
 	public String list() {
 		try {
-			deviceHandler.rereshStatus();
-			statusMap = deviceHandler.getStatusMap();
+			deviceHandlerHelper.rereshStatus();
+			statusMap = deviceHandlerHelper.getStatusMap();
 			// load graph data for past 30 min
 			Calendar cal = Calendar.getInstance();
 			Date endDate = cal.getTime();
-			cal.add(Calendar.MINUTE, -30);
+			cal.add(Calendar.MINUTE, -60);
 			Date startDate = cal.getTime();
 
 			// endDate = DateUtils.parseDate("2014-12-01 00:30:00", "yyyy-MM-dd HH:mm:ss");
@@ -106,6 +108,7 @@ public class DashboardAction extends AbstractAction {
 							endDate);
 					for (Map<String, Object> rowMap : logList) {
 						Date recordDate = (Date) rowMap.get("record_date");
+						recordDate = DateUtils.ceiling(recordDate, Calendar.MINUTE);
 						Double temperature = (Double) rowMap.get("temperature");
 						Double humidity = (Double) rowMap.get("humidity");
 						TreeMap<String, Object> jsonMap = temperatureDataMap.get(recordDate);

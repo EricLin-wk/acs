@@ -67,7 +67,7 @@ $(document).ready(function () {
         seriesGroups:
             [
                 {
-                    type: 'spline',
+                    type: 'line',
                     toolTipFormatSettings: { sufix: '°C' },
                     valueAxis:
                     {
@@ -93,7 +93,7 @@ $(document).ready(function () {
             seriesGroups:
                 [
                     {
-                        type: 'spline',
+                        type: 'line',
                         toolTipFormatSettings: { sufix: '%' },
                         valueAxis:
                         {
@@ -194,7 +194,7 @@ setInterval(function(){
 	<div class="box span6">
 		<div class="box-header well" data-original-title>
 			<h2>
-				<i class="icon-tag"></i> 30分钟温度
+				<i class="icon-tag"></i> 近60分钟温度
 			</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
@@ -208,7 +208,7 @@ setInterval(function(){
 	<div class="box span6">
 		<div class="box-header well" data-original-title>
 			<h2>
-				<i class="icon-tag"></i> 30分钟湿度
+				<i class="icon-tag"></i> 近60分钟湿度
 			</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>

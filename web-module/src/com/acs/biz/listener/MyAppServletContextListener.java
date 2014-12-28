@@ -21,12 +21,12 @@ public class MyAppServletContextListener implements ServletContextListener {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private DeviceHandlerHelper deviceHandler;
+	private DeviceHandlerHelper deviceHandlerHelper;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 		logger.debug("invoke deviceHandler.disconnectAllDevice()");
-		deviceHandler.disconnectAllDevice();
+		deviceHandlerHelper.disconnectAllDevice();
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class MyAppServletContextListener implements ServletContextListener {
 		new Thread(run).start();
 
 		logger.debug("invoke deviceHandler.connectAllActiveDevice()");
-		deviceHandler.connectAllActiveDevice();
-		deviceHandler.sendCommandStatusToAllDevice();
-		deviceHandler.sendCommandSetTemperatureToAllDevice();
+		deviceHandlerHelper.connectAllActiveDevice();
+		deviceHandlerHelper.sendCommandStatusToAllDevice();
+		deviceHandlerHelper.sendCommandSetTemperatureToAllDevice();
 	}
 }
