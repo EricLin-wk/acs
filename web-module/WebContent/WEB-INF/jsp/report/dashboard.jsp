@@ -110,8 +110,8 @@ $(document).ready(function () {
     $('#jqxChartTemperature').jqxChart(settingsTemperature);
     $('#jqxChartHumidity').jqxChart(settingsHumidity);
     // set up progress bar
-    $("#jqxProgressBar").jqxProgressBar({width: 150, height: 20, value: 0});    
-	
+    $("#jqxProgressBar").jqxProgressBar({width: 150, height: 20, value: 0});   
+   
 });
 //setTimeout(function () {location.reload(true); }, 60000);
 var refreshTime = 60;
@@ -121,6 +121,10 @@ setInterval(function(){
 	if(newValue >= 100)
 		location.reload(true);
 }, 1000);
+
+function selectReport(sel) {
+	window.location.href = sel.value;
+}
 </script>
 <div class="row-fluid">
 	<s:if test="hasActionMessages()">
@@ -181,7 +185,13 @@ setInterval(function(){
 							<td class="center"><fmt:formatNumber type="number" pattern="0.0" value="${statusMap[obj.oid].temperature}" />°C / <fmt:formatNumber type="number" pattern="0.0" value="${statusMap[obj.oid].targetTemperature}" />°C </td>
 							<td class="center"><fmt:formatNumber type="number" pattern="0.0" value="${statusMap[obj.oid].humidity}" />% / <fmt:formatNumber type="number" pattern="0.0" value="${statusMap[obj.oid].targetHumidity}" />%</td>
 							<td class="center"><fmt:formatDate value="${statusMap[obj.oid].statusDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-							<td class="center">DDL</td>
+							<td class="center">
+								<select name="select_rpt" onchange="selectReport(this);">
+								    <option value="" selected>選擇報表</option>
+								    <option value="<c:url value="/deviceHourlyRpt/list.do?paraDeviceId=${obj.oid}" />">设备每小时报表</option>
+								    <option value="<c:url value="/deviceDailyRpt/list.do?paraDeviceId=${obj.oid}" />">设备每日报表</option>								    
+								</select>
+							</td>
 						</tr>
 						</c:forEach>			
 					</c:forEach>

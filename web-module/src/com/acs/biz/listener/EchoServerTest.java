@@ -6,6 +6,7 @@ package com.acs.biz.listener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
@@ -22,18 +23,18 @@ import com.acs.core.common.utils.SpringCommonTest;
 public class EchoServerTest extends SpringCommonTest {
 
 	@Async
-	public void startServer() {
+	public void startServer(String address, int port) {
 		try {
-			int port = 5600;
-			ServerSocket server = new ServerSocket(port);
-			logger.debug("EchoServer started on port " + port + "...");
+			InetAddress bindAddr = InetAddress.getByName(address);
+			ServerSocket server = new ServerSocket(port, 50, bindAddr);
+			logger.debug("EchoServer started on  " + address + ":" + port + " ...");
 			while (true) {
 				Socket client = server.accept();
 				EchoHandler handler = new EchoHandler(client);
 				handler.start();
 			}
 		} catch (Exception e) {
-			System.err.println("Exception caught:" + e);
+			logger.error(e.getMessage(), e);
 		}
 	}
 }

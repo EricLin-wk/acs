@@ -35,8 +35,8 @@ public class LogDeviceDailyServiceImpl extends DomainServiceImpl<LogDeviceDaily>
 				+ "add_user, mod_user, add_date, mod_date) "
 				+ "select DATE_FORMAT(a.record_date, '%Y-%m-%d 00:00:00') as record_date, a.device_id, max(a.group_id) as group_id, "
 				+ "avg(a.temperature) as temperature, avg(a.humidity) as humidity, avg(a.target_temperature) as target_temperature, "
-				+ "avg(a.target_humidity) as target_humidity, max(a.temperature) as max_temperature, max(a.humidity) as max_humidity, "
-				+ "min(a.temperature) as min_temperature, min(a.humidity) as min_humidity, 'sys' as add_user, 'sys' as mod_user, "
+				+ "avg(a.target_humidity) as target_humidity, max(a.max_temperature) as max_temperature, max(a.max_humidity) as max_humidity, "
+				+ "min(a.min_temperature) as min_temperature, min(a.min_humidity) as min_humidity, 'sys' as add_user, 'sys' as mod_user, "
 				+ "NOW() as add_date, NOW() as mod_date from acs_log_device_hourly as a "
 				+ "where a.record_date between :recordDateStart and :recordDateEnd  and a.device_id = :deviceId "
 				+ "group by DATE_FORMAT(a.record_date, '%Y-%m-%d 00:00:00'), a.device_id;";

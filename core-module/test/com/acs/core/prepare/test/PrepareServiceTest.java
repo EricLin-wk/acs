@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.acs.biz.device.service.DeviceService;
+import com.acs.core.common.entity.AppConfig;
 import com.acs.core.common.service.AppConfigService;
 import com.acs.core.common.utils.SpringCommonTest;
 import com.acs.core.menu.entity.Menu;
@@ -62,14 +63,20 @@ public class PrepareServiceTest extends SpringCommonTest {
 
 	@Test
 	public void initAppConfig() {
-
-		// if (appConfigService.get(AppConstants.APPCONFIG_OSA_DASHBOARD_WAITING_LIMIT) == null) {
-		// AppConfig appConfig = new AppConfig();
-		// appConfig.setKey(AppConstants.APPCONFIG_OSA_DASHBOARD_WAITING_LIMIT);
-		// appConfig.setDescription("OSA DashBoard Active Waiting Limit");
-		// appConfig.setValue("300");
-		// appConfigService.save(appConfig);
-		// }
+		if (appConfigService.get(AppConfigService.APPCONFIG_ECHO_SERVER_BIND_IP) == null) {
+			AppConfig appConfig = new AppConfig();
+			appConfig.setKey(AppConfigService.APPCONFIG_ECHO_SERVER_BIND_IP);
+			appConfig.setDescription("Echo server binding IP");
+			appConfig.setValue("127.0.0.1");
+			appConfigService.save(appConfig);
+		}
+		if (appConfigService.get(AppConfigService.APPCONFIG_ECHO_SERVER_BIND_PORT) == null) {
+			AppConfig appConfig = new AppConfig();
+			appConfig.setKey(AppConfigService.APPCONFIG_ECHO_SERVER_BIND_PORT);
+			appConfig.setDescription("Echo server binding port");
+			appConfig.setValue("16000");
+			appConfigService.save(appConfig);
+		}
 	}
 
 	@Test

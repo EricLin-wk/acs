@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ include file="/taglibs.jsp"%>
-<%@ page import="com.teecs.core.common.utils.ServerValue"%>
+<%@ page import="com.acs.core.common.utils.ServerValue"%>
 <style type="text/css">
 input,textarea {
 	width: auto;
@@ -9,7 +9,7 @@ input,textarea {
 </style>
 <div class="row-fluid">
 	<s:if test="hasActionMessages()">
-		<div class="alert alert-block">
+		<div class="alert alert-success">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			<s:actionmessage cssStyle="list-style-type:none;" escape="false" />
 		</div>

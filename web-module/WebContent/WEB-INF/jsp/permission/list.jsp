@@ -13,7 +13,7 @@ input,textarea  {
 </script>
 <div class="row-fluid">
 	<s:if test="hasActionMessages()">
-		<div class="alert alert-block" >
+		<div class="alert alert-success" >
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			<s:actionmessage cssStyle="list-style-type:none;" escape="false"/>
 		</div>

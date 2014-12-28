@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.acs.biz.device.service.DeviceHandlerHelper;
+import com.acs.core.common.service.AppConfigService;
 
 /**
  * @author Eric
@@ -22,6 +23,8 @@ public class MyAppServletContextListener implements ServletContextListener {
 
 	@Autowired
 	private DeviceHandlerHelper deviceHandlerHelper;
+	@Autowired
+	private AppConfigService appConfigService;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -33,13 +36,16 @@ public class MyAppServletContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext())
 		.getAutowireCapableBeanFactory().autowireBean(this);
+		final int port = Integer
+				.parseInt(appConfigService.get(AppConfigService.APPCONFIG_ECHO_SERVER_BIND_PORT).getValue());
+		final String address = appConfigService.get(AppConfigService.APPCONFIG_ECHO_SERVER_BIND_IP).getValue();
 
 		Runnable run = new Runnable() {
 			@Override
 			public void run() {
 				try {
 					EchoServerTest test = new EchoServerTest();
-					test.startServer();
+					test.startServer(address, port);
 				} catch (Exception e) {
 					logger.info(e.getMessage());
 				}
