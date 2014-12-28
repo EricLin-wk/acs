@@ -18,7 +18,7 @@ import com.acs.biz.device.entity.Device;
 import com.acs.biz.device.entity.DeviceGroup;
 import com.acs.biz.device.entity.DeviceStatus;
 import com.acs.biz.device.service.DeviceGroupService;
-import com.acs.biz.device.service.DeviceHandler;
+import com.acs.biz.device.service.DeviceHandlerHelper;
 import com.acs.biz.device.service.DeviceService;
 import com.acs.biz.log.service.LogDeviceService;
 import com.acs.core.common.web.AbstractAction;
@@ -41,7 +41,7 @@ public class DashboardAction extends AbstractAction {
 	@Resource
 	protected MenuService menuService;
 	@Resource
-	protected DeviceHandler deviceHandler;
+	protected DeviceHandlerHelper deviceHandler;
 	@Resource
 	private LogDeviceService logDeviceService;
 

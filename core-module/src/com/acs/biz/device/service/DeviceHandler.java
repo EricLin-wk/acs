@@ -10,16 +10,8 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import javax.annotation.Resource;
 
@@ -37,75 +29,23 @@ import com.acs.biz.log.service.LogDeviceService;
  * @author Eric
  */
 public class DeviceHandler {
-
 	/** logger **/
 	private final Logger logger = LoggerFactory.getLogger(DeviceHandler.class);
+
+	@Resource
+	private DeviceSettingService deviceSettingService;
+	@Resource
+	private LogDeviceService logDeviceService;
 
 	private static final int CONNECTION_TIMEOUT_SEC = 30;
 
 	private static final int COMMAND_TIMEOUT_SEC = 30;
 
-	private static final int THREAD_POOL_SIZE = 10;
-
-	private static final int THREAD_EXECUTION_TIMEOUT_SEC = 60;
-
-	@Resource
-	private DeviceService deviceService;
-	@Resource
-	private LogDeviceService logDeviceService;
-	@Resource
-	private DeviceSettingService deviceSettingService;
-
-	private Hashtable<Long, DeviceStatus> statusMap;
-
-	private ExecutorService executor;
-
 	/**
 	 * No public constructor for singleton instance
 	 */
 	protected DeviceHandler() {
-		statusMap = new Hashtable<Long, DeviceStatus>();
-		executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-	}
 
-	/**
-	 * Create socket connections to all active devices
-	 */
-	public synchronized void connectAllActiveDevice() {
-		List<Future<Boolean>> futureList = new ArrayList<Future<Boolean>>();
-		// iterate over active devices
-		List<Device> devList = deviceService.listActiveDevices(0, -1);
-		logger.debug(devList.toString());
-		for (Device device : devList) {
-			// get corresponding device status
-			final DeviceStatus status;
-			DeviceStatus tmp = statusMap.get(device.getOid());
-			if (tmp == null) {
-				status = new DeviceStatus();
-				statusMap.put(device.getOid(), status);
-			} else
-				status = tmp;
-			status.setDevice(device);
-			// create connection if not already connected
-			Socket socket = status.getSocket();
-			if (socket == null || socket.isClosed()) {
-				// call method asynchronously
-				Future<Boolean> future = connectDevice(status);
-				futureList.add(future);
-			}
-		}
-
-		// wait for futures to finish or terminate
-		for (Future<Boolean> future : futureList) {
-			try {
-				Boolean result = future.get(THREAD_EXECUTION_TIMEOUT_SEC, TimeUnit.SECONDS);
-				// logger.debug("thread result: " + result);
-			} catch (InterruptedException | ExecutionException | TimeoutException e) {
-				logger.error(e.getMessage(), e);
-				// time out occurred, cancel thread
-				future.cancel(true);
-			}
-		}
 	}
 
 	/**
@@ -115,8 +55,8 @@ public class DeviceHandler {
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
-	@Async
-	private Future<Boolean> connectDevice(DeviceStatus status) {
+	@Async("myExecutor")
+	public Future<Boolean> connectDevice(DeviceStatus status) {
 		Device device = status.getDevice();
 		try {
 			// close current connection if it's open
@@ -149,35 +89,12 @@ public class DeviceHandler {
 	}
 
 	/**
-	 * Close connection for all connected devices.
-	 */
-	public synchronized void disconnectAllDevice() {
-		for (DeviceStatus status : statusMap.values()) {
-			disconnectDevice(status);
-		}
-	}
-
-	/**
-	 * Reconnect to all active devices
-	 */
-	public synchronized void reconnectAllDevices() {
-		try {
-			// disconnect all device
-			disconnectAllDevice();
-			// connect all device
-			connectAllActiveDevice();
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-	}
-
-	/**
 	 * Close the socket connection for given DeviceStatus.
 	 *
 	 * @param status
 	 * @throws IOException
 	 */
-	private void disconnectDevice(DeviceStatus status) {
+	public void disconnectDevice(DeviceStatus status) {
 		try {
 			Socket socket = status.getSocket();
 			if (socket != null && !socket.isClosed()) {
@@ -198,36 +115,8 @@ public class DeviceHandler {
 		}
 	}
 
-	public synchronized void sendCommandStatusToAllDevice() {
-		List<Future<Boolean>> futureList = new ArrayList<Future<Boolean>>();
-		// loop through all connected devices
-		for (DeviceStatus status : statusMap.values()) {
-			if (status.getSocket() == null || status.getSocket().isClosed())
-				continue; // skip disconnected device
-			if (status.getDevice() == null || status.getDevice().isDelete())
-				continue; // skip deleted device
-
-			final DeviceStatus statusRef = status;
-			// run method asynchronously
-			Future<Boolean> future = sendCommandStatus(statusRef);
-			futureList.add(future);
-		}
-
-		// wait for futures to finish or terminate
-		for (Future<Boolean> future : futureList) {
-			try {
-				Boolean result = future.get(THREAD_EXECUTION_TIMEOUT_SEC, TimeUnit.SECONDS);
-				// logger.debug("thread result: " + result);
-			} catch (InterruptedException | ExecutionException | TimeoutException e) {
-				logger.error(e.getMessage(), e);
-				// time out occurred, cancel thread
-				future.cancel(true);
-			}
-		}
-	}
-
 	@Async
-	private Future<Boolean> sendCommandStatus(DeviceStatus status) {
+	public Future<Boolean> sendCommandStatus(DeviceStatus status) {
 		try {
 			// TODO: update command
 			String command = "STATUS " + status.getDevice().toStringShort();
@@ -244,37 +133,8 @@ public class DeviceHandler {
 		}
 	}
 
-	public synchronized void sendCommandSetTemperatureToAllDevice() {
-		List<Future<Boolean>> futureList = new ArrayList<Future<Boolean>>();
-		// loop through all connected devices
-		for (DeviceStatus status : statusMap.values()) {
-			if (status.getSocket() == null || status.getSocket().isClosed())
-				continue; // skip disconnected device
-			if (status.getDevice() == null || status.getDevice().isDelete())
-				continue; // skip deleted device
-
-			// create new thread for task
-			final DeviceStatus statusRef = status;
-			// call methoud asynchronously
-			Future<Boolean> future = sendCommandSetTemperature(statusRef);
-			futureList.add(future);
-		}
-
-		// wait for futures to finish or terminate
-		for (Future<Boolean> future : futureList) {
-			try {
-				Boolean result = future.get(THREAD_EXECUTION_TIMEOUT_SEC, TimeUnit.SECONDS);
-				// logger.debug("thread result: " + result);
-			} catch (InterruptedException | ExecutionException | TimeoutException e) {
-				logger.error(e.getMessage(), e);
-				// time out occurred, cancel thread
-				future.cancel(true);
-			}
-		}
-	}
-
 	@Async
-	private Future<Boolean> sendCommandSetTemperature(DeviceStatus status) {
+	public Future<Boolean> sendCommandSetTemperature(DeviceStatus status) {
 		try {
 			// get target temperature
 			DeviceSetting setting = deviceSettingService.getSettingByDeviceId_Time(status.getDevice().getOid(), Calendar
@@ -359,17 +219,4 @@ public class DeviceHandler {
 		}
 	}
 
-	public void rereshStatus() {
-		for (DeviceStatus status : statusMap.values()) {
-			Socket socket = status.getSocket();
-			if (socket == null || socket.isClosed())
-				status.setOperationStatus(DeviceStatus.STATUS_DISCONNECTED);
-			else if (socket.isConnected())
-				status.setOperationStatus(DeviceStatus.STATUS_CONNECTED);
-		}
-	}
-
-	public Hashtable<Long, DeviceStatus> getStatusMap() {
-		return statusMap;
-	}
 }

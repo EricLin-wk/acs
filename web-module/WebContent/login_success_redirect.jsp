@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.acs.core.user.utils.AdminHelper"%>
 <%@ taglib uri="http://www.teecs.com/jsp/teecs" prefix="teecs"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -8,11 +9,13 @@
 <%
 if(AdminHelper.hasPermission("ROLE_MONITOR_RPT")) {
 %>
-<meta http-equiv="refresh" content="0; url=./dashboard/list.do" />
+<c:url value="/dashboard/list.do" var="redirectPath" />
+<meta http-equiv="refresh" content="10; url=${redirectPath}" />
 <%
 } else {
 %>
-<meta http-equiv="refresh" content="0; url=./userSelf/view.do" />
+<c:url value="/userSelf/view.do" var="redirectPath" />
+<meta http-equiv="refresh" content="10; url=${redirectPath}" />
 <%
 }
 %>

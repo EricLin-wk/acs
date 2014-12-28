@@ -6,7 +6,7 @@ package com.acs.biz.device.test;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.acs.biz.device.service.DeviceHandler;
+import com.acs.biz.device.service.DeviceHandlerHelper;
 import com.acs.core.common.utils.SpringCommonTest;
 
 /**
@@ -14,71 +14,71 @@ import com.acs.core.common.utils.SpringCommonTest;
  */
 public class DeviceHandlerTest extends SpringCommonTest {
 
-	private static DeviceHandler deviceHandler;
+	private static DeviceHandlerHelper deviceHandlerHelper;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		configCtx();
-		deviceHandler = (DeviceHandler) ctx.getBean("deviceHandler");
+		deviceHandlerHelper = (DeviceHandlerHelper) ctx.getBean("deviceHandlerHelper");
 	}
 
 	@Test
 	public void connectActiveDevices() {
-		deviceHandler.connectAllActiveDevice();
+		deviceHandlerHelper.connectAllActiveDevice();
 	}
 
 	@Test
 	public void testEchoServer() throws InterruptedException {
-		deviceHandler.connectAllActiveDevice();
+		deviceHandlerHelper.connectAllActiveDevice();
 		logger.debug("connectAllActiveDevice() finish");
 		// Thread.sleep(5000);
 
 		// get status
-		deviceHandler.sendCommandStatusToAllDevice();
+		deviceHandlerHelper.sendCommandStatusToAllDevice();
 		logger.debug("sendCommandStatusToAllDevice() finish");
 		// Thread.sleep(5000);
 
 		// set temp
-		deviceHandler.sendCommandSetTemperatureToAllDevice();
+		deviceHandlerHelper.sendCommandSetTemperatureToAllDevice();
 		logger.debug("sendCommandSetTemperatureToAllDevice() finish");
 		// Thread.sleep(5000);
 
 		// get status
-		deviceHandler.sendCommandStatusToAllDevice();
+		deviceHandlerHelper.sendCommandStatusToAllDevice();
 		logger.debug("sendCommandStatusToAllDevice() finish");
 		// Thread.sleep(5000);
 
 		// set temp
-		deviceHandler.sendCommandSetTemperatureToAllDevice();
+		deviceHandlerHelper.sendCommandSetTemperatureToAllDevice();
 		logger.debug("sendCommandSetTemperatureToAllDevice() finish");
 		// Thread.sleep(5000);
 
-		deviceHandler.disconnectAllDevice();
+		deviceHandlerHelper.disconnectAllDevice();
 	}
 
 	@Test
 	public void testReconnectEchoServer() throws InterruptedException {
-		deviceHandler.connectAllActiveDevice();
+		deviceHandlerHelper.connectAllActiveDevice();
 		logger.debug("connectAllActiveDevice() finish");
 		// Thread.sleep(5000);
 
-		deviceHandler.disconnectAllDevice();
-		logger.debug("disconnectAllDevice() finish");
-
-		deviceHandler.connectAllActiveDevice();
-		logger.debug("connectAllActiveDevice() finish");
-
-		// get status
-		deviceHandler.sendCommandStatusToAllDevice();
-		logger.debug("sendCommandStatusToAllDevice() finish");
-		// Thread.sleep(5000);
-
-		// set temp
-		deviceHandler.sendCommandSetTemperatureToAllDevice();
-		logger.debug("sendCommandSetTemperatureToAllDevice() finish");
-		// Thread.sleep(5000);
-
-		deviceHandler.disconnectAllDevice();
+		// deviceHandlerHelper.disconnectAllDevice();
+		// logger.debug("disconnectAllDevice() finish");
+		//
+		// deviceHandlerHelper.connectAllActiveDevice();
+		// logger.debug("connectAllActiveDevice() finish");
+		//
+		// // get status
+		// deviceHandlerHelper.sendCommandStatusToAllDevice();
+		// logger.debug("sendCommandStatusToAllDevice() finish");
+		// // Thread.sleep(5000);
+		//
+		// // set temp
+		// deviceHandlerHelper.sendCommandSetTemperatureToAllDevice();
+		// logger.debug("sendCommandSetTemperatureToAllDevice() finish");
+		// // Thread.sleep(5000);
+		//
+		deviceHandlerHelper.disconnectAllDevice();
 
 	}
 

@@ -29,6 +29,7 @@
 		<property name="dao" ref="deviceSettingDao"/>
 	</bean>
 	
+	<bean id="deviceHandlerHelper" class="com.acs.biz.device.service.DeviceHandlerHelper" scope="singleton" />
 	<bean id="deviceHandler" class="com.acs.biz.device.service.DeviceHandler" scope="singleton" />
 
 </beans>
