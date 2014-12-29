@@ -67,7 +67,7 @@ $().ready(function() {
 			<s:form action="list.do" method="post" id="deviceSearchForm">
 			<div class="row-fluid">			
 				<div class="span1">选择设备</div>
-				<div class="span2">
+				<div class="span3">
 					<select data-placeholder="选择设备" id="paraDeviceId" name="paraDeviceId" data-rel="chosen" >
 					<c:forEach items="${deviceMap}" var="entry">
 						<optgroup label="${entry.key}">

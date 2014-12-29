@@ -42,10 +42,8 @@
 			<s:form action="list.do" method="post" id="searchForm">
 			<div class="row-fluid">			
 				<div class="span1">选择设备群组</div>
-				<div class="span2">
-					<div class="span2">
+				<div class="span3">
 					<s:select id="paraGroupId" name="paraGroupId" list="groupMap" listKey="key" listValue="value.groupName" headerKey="-1" headerValue="无群组设备" theme="simple"/>						
-				</div>	
 				</div>
 				<div class="span1">
 						<button type="submit" class="btn btn-primary">搜索</button>
