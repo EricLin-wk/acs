@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import com.acs.biz.device.entity.Device;
 import com.acs.biz.device.entity.DeviceGroup;
 import com.acs.biz.device.service.DeviceGroupService;
+import com.acs.biz.device.service.DeviceHandlerHelper;
 import com.acs.biz.device.service.DeviceService;
 import com.acs.core.common.exception.CoreException;
 import com.acs.core.common.web.AbstractAction;
@@ -32,6 +33,8 @@ public class DeviceAction extends AbstractAction {
 	private DeviceGroupService deviceGroupService;
 	@Resource
 	protected MenuService menuService;
+	@Resource
+	private DeviceHandlerHelper deviceHandlerHelper;
 
 	/* Page fields */
 	private List<Device> objList;
@@ -99,7 +102,7 @@ public class DeviceAction extends AbstractAction {
 			paraObj = deviceService.get(paraOid);
 			if (paraObj == null) {
 				addActionError("错误: 设备不存在. ID:" + paraOid);
-				return "list";
+				return list();
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -129,18 +132,24 @@ public class DeviceAction extends AbstractAction {
 			if (!isValid)
 				return "edit";
 			// copy field values for entity save
+			boolean needReconnect = true;
 			Device entity = null;
 			if (paraObj.getOid() != null) {
 				entity = deviceService.get(paraObj.getOid());
 				if (entity == null)
 					throw new CoreException("OID:" + paraObj.getOid() + " not found");
+				if (entity.getIpAddress().equals(paraObj.getIpAddress()) && entity.getPort() == paraObj.getPort())
+					needReconnect = false; // update and ip/port did not change
 			} else
 				entity = new Device();
 			BeanUtils.copyProperties(paraObj, entity, new String[] { "oid", "createUser", "createDate", "modifyUser",
-					"modifyDate" });
+			"modifyDate" });
 
-			deviceService.save(entity);
+			entity = deviceService.save(entity);
 			addActionMessage("設備" + entity.getDeviceName() + "保存成功");
+
+			if (needReconnect)
+				deviceHandlerHelper.reconnectDevice(entity.getOid());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			addActionError("错误:" + e.getMessage());
@@ -154,11 +163,12 @@ public class DeviceAction extends AbstractAction {
 		try {
 			paraObj = deviceService.markDelete(paraOid);
 			addActionMessage("设备" + paraObj.getSerialNum() + "刪除成功");
+			deviceHandlerHelper.disconnectDevice(paraOid);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			addActionError("错误:" + e.getMessage());
 		}
-		return "list";
+		return list();
 	}
 
 	public List<Device> getObjList() {

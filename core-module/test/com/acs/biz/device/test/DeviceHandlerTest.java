@@ -65,8 +65,8 @@ public class DeviceHandlerTest extends SpringCommonTest {
 		// deviceHandlerHelper.disconnectAllDevice();
 		// logger.debug("disconnectAllDevice() finish");
 		//
-		// deviceHandlerHelper.connectAllActiveDevice();
-		// logger.debug("connectAllActiveDevice() finish");
+		deviceHandlerHelper.connectAllActiveDevice();
+		logger.debug("connectAllActiveDevice() finish");
 		//
 		// // get status
 		// deviceHandlerHelper.sendCommandStatusToAllDevice();

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -31,8 +29,6 @@ public class DeviceHandlerHelper {
 	/** logger **/
 	private final Logger logger = LoggerFactory.getLogger(DeviceHandlerHelper.class);
 
-	private static final int THREAD_POOL_SIZE = 10;
-
 	private static final int THREAD_EXECUTION_TIMEOUT_SEC = 60;
 
 	@Resource
@@ -46,14 +42,11 @@ public class DeviceHandlerHelper {
 
 	private Hashtable<Long, DeviceStatus> statusMap;
 
-	private ExecutorService executor;
-
 	/**
 	 * No public constructor for singleton instance
 	 */
 	protected DeviceHandlerHelper() {
 		statusMap = new Hashtable<Long, DeviceStatus>();
-		executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 	}
 
 	/**
@@ -61,19 +54,20 @@ public class DeviceHandlerHelper {
 	 */
 	public synchronized void connectAllActiveDevice() {
 		List<Future<Boolean>> futureList = new ArrayList<Future<Boolean>>();
+		Hashtable<Long, DeviceStatus> newStatusMap = new Hashtable<Long, DeviceStatus>();
 		// iterate over active devices
 		List<Device> devList = deviceService.listActiveDevices(0, -1);
 		logger.debug(devList.toString());
 		for (Device device : devList) {
 			// get corresponding device status
-			final DeviceStatus status;
-			DeviceStatus tmp = statusMap.get(device.getOid());
-			if (tmp == null) {
+			DeviceStatus status = statusMap.get(device.getOid());
+			if (status == null) {
 				status = new DeviceStatus();
-				statusMap.put(device.getOid(), status);
-			} else
-				status = tmp;
+			} else {
+				statusMap.remove(device.getOid()); // remove from old map
+			}
 			status.setDevice(device);
+			newStatusMap.put(device.getOid(), status);
 			// create connection if not already connected
 			Socket socket = status.getSocket();
 			if (socket == null || socket.isClosed()) {
@@ -82,6 +76,13 @@ public class DeviceHandlerHelper {
 				futureList.add(future);
 			}
 		}
+
+		// disconnect whatever's remaining in the old statusMap
+		for (DeviceStatus status : statusMap.values()) {
+			deviceHandler.disconnectDevice(status);
+		}
+		// set statMap to new map
+		statusMap = newStatusMap;
 
 		// wait for futures to finish or terminate
 		for (Future<Boolean> future : futureList) {
@@ -116,6 +117,37 @@ public class DeviceHandlerHelper {
 			connectAllActiveDevice();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Reconnect the given device.
+	 *
+	 * @param deviceId Device ID.
+	 */
+	public synchronized void reconnectDevice(Long deviceId) {
+		Device device = deviceService.get(deviceId);
+		if (device == null)
+			return;
+		DeviceStatus status = statusMap.get(deviceId);
+		if (status != null) {
+			deviceHandler.disconnectDevice(status);
+			status.setDevice(device);
+			deviceHandler.connectDevice(status);
+		} else {
+			if (device.isDelete())
+				return;
+			status = new DeviceStatus();
+			status.setDevice(device);
+			deviceHandler.connectDevice(status);
+			statusMap.put(device.getOid(), status);
+		}
+	}
+
+	public synchronized void disconnectDevice(Long deviceId) {
+		DeviceStatus status = statusMap.get(deviceId);
+		if (status != null) {
+			deviceHandler.disconnectDevice(status);
 		}
 	}
 

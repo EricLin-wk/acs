@@ -15,10 +15,8 @@ package com.acs.core.user.web;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -29,8 +27,6 @@ import org.slf4j.LoggerFactory;
 import com.acs.core.common.dao.impl.CommonCriteria;
 import com.acs.core.common.entity.SimplePager;
 import com.acs.core.common.exception.CoreException;
-import com.acs.core.common.utils.ServerValue;
-import com.acs.core.mail.entity.Mail;
 import com.acs.core.mail.service.MailService;
 import com.acs.core.menu.entity.Menu;
 import com.acs.core.menu.service.MenuService;
@@ -43,7 +39,6 @@ import com.acs.core.user.service.GroupService;
 import com.acs.core.user.service.PermissionService;
 import com.acs.core.user.service.RoleService;
 import com.acs.core.user.service.UserService;
-import com.acs.core.user.utils.AdminHelper;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 
@@ -440,10 +435,10 @@ public class UserAction extends ActionSupport implements Preparable {
 					switch (r.getType()) {
 					case MANAGER:
 						grantManageRoles.add(r.getName());
-						break;
+					break;
 					case OTHER:
 						grantOtherRoles.add(r.getName());
-						break;
+					break;
 					}
 				}
 
@@ -481,13 +476,13 @@ public class UserAction extends ActionSupport implements Preparable {
 				while (it.hasNext()) {
 					Role r = it.next();
 					if (Collections.frequency(grantManageRoles, r.getName()) == 0 && Role.Type.MANAGER.equals(r.getType())) {
-						// 移除權限為 Manager, 但是代碼不相同
+						// 移除权限为 Manager, 但是代码不相同
 						it.remove();
 					} else if (Collections.frequency(grantOtherRoles, r.getName()) == 0 && Role.Type.OTHER.equals(r.getType())) {
-						// 移除權限為 Other, 但是代碼不相同
+						// 移除权限为 Other, 但是代码不相同
 						it.remove();
 					} else if (Role.Type.GROUP.equals(r.getType()) && !r.getKey().equals(groupCode)) {
-						// 移除權限為 Group, 但是部門代碼不相同
+						// 移除权限为 Group, 但是部门代码不相同
 						it.remove();
 					} else {
 						userRoleName.add(r.getName());
@@ -569,26 +564,18 @@ public class UserAction extends ActionSupport implements Preparable {
 	}
 
 	public String resetPasswd() {
-		// TODO: redesign password reset
 		try {
 			obj = userService.get(objId);
 			if (obj != null) {
 				String newPasswd = userService.getRandPassword();
-				userService.resetPassword(obj);
-				User user = AdminHelper.getUser();
-				Map<String, Object> m = new HashMap<String, Object>();
-				m.put("userObj", obj);
-				m.put("newPassword", newPasswd);
-				m.put("serverValue", ServerValue.getInstance());
-				Mail mail = templateService.formatToMail("User.resetPassword", m);
-				mail.addTo(obj.getNameNative(), obj.getEmail());
-				mail.addCc(user.getUsername(), user.getEmail());
-				mailService.save(mail);
-				addActionMessage("重设密码成功");
+				userService.resetPassword(obj, newPasswd, false);
+				addActionMessage("重设密码成功, 新密码为: " + newPasswd);
+			} else {
+				addActionError("错误: 用户不存在 " + objId);
 			}
 		} catch (Exception e) {
-			addActionError(e.getMessage());
-			e.printStackTrace();
+			addActionError("错误: " + e.getMessage());
+			logger.error(e.getMessage(), e);
 			return "view";
 		}
 		return "view";
@@ -600,7 +587,7 @@ public class UserAction extends ActionSupport implements Preparable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.opensymphony.xwork2.Preparable#prepare()
 	 */
 	@Override

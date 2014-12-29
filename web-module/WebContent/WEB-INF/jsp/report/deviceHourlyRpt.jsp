@@ -2,8 +2,8 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ include file="/taglibs.jsp"%>
 <%@ page import="com.acs.core.common.utils.ServerValue"%>
-<c:url value="../css" var="cssPath" />
-<c:url value="../js" var="jsPath" />
+<c:url value="/css" var="cssPath" />
+<c:url value="/js" var="jsPath" />
 <link rel="stylesheet" href="${cssPath}/jqx.base.css" type="text/css" />
 <script type="text/javascript" src="${jsPath}/jqxcore.js"></script>
 <script type="text/javascript" src="${jsPath}/jqxdraw.js"></script>

@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ page import="org.springframework.security.authentication.BadCredentialsException" %>
 <%@ page import="org.springframework.security.core.AuthenticationException" %>
 <%@ page import="org.springframework.security.core.userdetails.UserDetails"%>
 <%@ page import="com.acs.core.user.utils.AdminHelper"%>
+<c:url value="/js" var="jsPath" />
+<c:url value="/css" var="cssPath" />
+<c:url value="/img" var="imgPath" />
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -20,18 +22,15 @@ body {
 	padding: 9px 0;
 }
 </style>
-<link href="css/charisma-app.css" rel="stylesheet"/>
-<link href='css/uniform.default.css' rel='stylesheet'/>
+<link href="${cssPath}/charisma-app.css" rel="stylesheet"/>
+<link href='${cssPath}/uniform.default.css' rel='stylesheet'/>
+<!-- The fav icon -->
+<link rel="shortcut icon" href="${imgPath}/favicon.ico">
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-  <script src="js/html5.js"></script>
+  <script src="${jsPath}/html5.js"></script>
 <![endif]-->
 </head>
-
-<!-- <c:if test="${param.error != null}">
-		<h2>Username or password wrong!</h2>
-	</c:if> -->
-
 <body>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -42,8 +41,18 @@ body {
 			</div><!--/row-->
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
-					<c:if test="${SPRING_SECURITY_LAST_EXCEPTION.message=='Bad credentials'}">
-					<div class="alert alert-error">登录失败, 请再试一次.</div>
+					<c:if test="${param.error != null}">
+						<c:choose>
+							<c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message=='Bad credentials'}">
+								<div class="alert alert-error">登录失败, 请再试一次</div>
+							</c:when>
+							<c:when test="${SPRING_SECURITY_LAST_EXCEPTION.message=='User is disabled'}">
+								<div class="alert alert-error">用户帐号已被禁用​​</div>
+							</c:when>
+							<c:otherwise>
+								<div class="alert alert-error">${SPRING_SECURITY_LAST_EXCEPTION.message}</div>
+							</c:otherwise>
+						</c:choose>
 					</c:if>
 					<div class="alert alert-info">请输入帐号密码</div>
 					<form class="form-horizontal" action="j_spring_security_check" method="post">
@@ -87,11 +96,11 @@ body {
 	<!-- Placed at the end of the document so the pages load faster -->
 
 	<!-- jQuery -->
-	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="${jsPath}/jquery-1.7.2.min.js"></script>
 	<!-- library for advanced tooltip -->
-	<script src="js/bootstrap-tooltip.js"></script>
+	<script src="${jsPath}/bootstrap-tooltip.js"></script>
 	<!-- checkbox, radio, and file input styler -->
-	<script src="js/jquery.uniform.min.js"></script>
+	<script src="${jsPath}/jquery.uniform.min.js"></script>
 	<script>
 		//tool tip
 		$('[rel="tooltip"],[data-rel="tooltip"]').tooltip({

@@ -48,10 +48,10 @@ public class DeviceSettingAction extends AbstractAction {
 	private Long paraDeviceId;
 	private Long paraGroupId;
 	private String paraJsonSetting;
-	private int paraTemperature;
-	private int paraHumidity;
-	private int paraDefaultTemperature;
-	private int paraDefaultHumidity;
+	private double paraTemperature;
+	private double paraHumidity;
+	private double paraDefaultTemperature;
+	private double paraDefaultHumidity;
 	private String displayTtile;
 
 	@Override
@@ -73,14 +73,12 @@ public class DeviceSettingAction extends AbstractAction {
 
 	@Override
 	public void resetData() {
-		paraDeviceId = null;
-		paraGroupId = null;
 		paraJsonSetting = null;
 		DeviceSetting defaultSetting = deviceSettingService.getDefaultSetting();
-		paraTemperature = (int) defaultSetting.getTemperature();
-		paraDefaultTemperature = (int) defaultSetting.getTemperature();
-		paraHumidity = (int) defaultSetting.getHumidity();
-		paraDefaultHumidity = (int) defaultSetting.getHumidity();
+		paraTemperature = defaultSetting.getTemperature();
+		paraDefaultTemperature = defaultSetting.getTemperature();
+		paraHumidity = defaultSetting.getHumidity();
+		paraDefaultHumidity = defaultSetting.getHumidity();
 		displayTtile = null;
 	}
 
@@ -214,19 +212,19 @@ public class DeviceSettingAction extends AbstractAction {
 		this.paraJsonSetting = paraJsonSetting;
 	}
 
-	public int getParaTemperature() {
+	public double getParaTemperature() {
 		return paraTemperature;
 	}
 
-	public void setParaTemperature(int paraTemperature) {
+	public void setParaTemperature(double paraTemperature) {
 		this.paraTemperature = paraTemperature;
 	}
 
-	public int getParaHumidity() {
+	public double getParaHumidity() {
 		return paraHumidity;
 	}
 
-	public void setParaHumidity(int paraHumidity) {
+	public void setParaHumidity(double paraHumidity) {
 		this.paraHumidity = paraHumidity;
 	}
 
@@ -234,19 +232,19 @@ public class DeviceSettingAction extends AbstractAction {
 		return displayTtile;
 	}
 
-	public int getParaDefaultTemperature() {
+	public double getParaDefaultTemperature() {
 		return paraDefaultTemperature;
 	}
 
-	public void setParaDefaultTemperature(int paraDefaultTemperature) {
+	public void setParaDefaultTemperature(double paraDefaultTemperature) {
 		this.paraDefaultTemperature = paraDefaultTemperature;
 	}
 
-	public int getParaDefaultHumidity() {
+	public double getParaDefaultHumidity() {
 		return paraDefaultHumidity;
 	}
 
-	public void setParaDefaultHumidity(int paraDefaultHumidity) {
+	public void setParaDefaultHumidity(double paraDefaultHumidity) {
 		this.paraDefaultHumidity = paraDefaultHumidity;
 	}
 

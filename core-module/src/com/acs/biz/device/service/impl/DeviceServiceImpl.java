@@ -108,6 +108,7 @@ public class DeviceServiceImpl extends DomainServiceImpl<Device> implements Devi
 	public boolean isSerialNumUsed(String serialNum, Long oid) {
 		CommonCriteria crit = new CommonCriteria();
 		crit.addEq("serialNum", serialNum);
+		crit.addEq("isDelete", false);
 		if (oid != null)
 			crit.addNe("oid", oid);
 		int size = super.getListSize(crit).intValue();

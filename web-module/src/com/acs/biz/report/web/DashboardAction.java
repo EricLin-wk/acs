@@ -62,21 +62,19 @@ public class DashboardAction extends AbstractAction {
 			menuDeviceType = menuService.getClone(MenuService.MENU_DEVICE_TYPE);
 		}
 
-		if (deviceMap == null) {
-			deviceMap = new LinkedHashMap<DeviceGroup, List<Device>>();
-			// insert device with no group
-			List<Device> devList = deviceService.listByIsDelete_GroupId(0, -1, false, null);
-			if (devList.size() > 0) {
-				DeviceGroup devGroup = new DeviceGroup();
-				devGroup.setGroupName("无群组");
-				deviceMap.put(devGroup, devList);
-			}
-			// insert device for each group
-			for (DeviceGroup group : deviceGroupService.listAllOrdered()) {
-				List<Device> devList2 = deviceService.listByIsDelete_GroupId(0, -1, false, group.getOid());
-				if (devList2.size() > 0)
-					deviceMap.put(group, devList2);
-			}
+		deviceMap = new LinkedHashMap<DeviceGroup, List<Device>>();
+		// insert device with no group
+		List<Device> devList = deviceService.listByIsDelete_GroupId(0, -1, false, null);
+		if (devList.size() > 0) {
+			DeviceGroup devGroup = new DeviceGroup();
+			devGroup.setGroupName("无群组");
+			deviceMap.put(devGroup, devList);
+		}
+		// insert device for each group
+		for (DeviceGroup group : deviceGroupService.listAllOrdered()) {
+			List<Device> devList2 = deviceService.listByIsDelete_GroupId(0, -1, false, group.getOid());
+			if (devList2.size() > 0)
+				deviceMap.put(group, devList2);
 		}
 	}
 

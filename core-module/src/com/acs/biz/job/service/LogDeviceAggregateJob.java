@@ -13,8 +13,6 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.acs.biz.log.service.LogDeviceDailyService;
 import com.acs.biz.log.service.LogDeviceHourlyService;
@@ -65,7 +63,6 @@ public class LogDeviceAggregateJob {
 		}
 	}
 
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	private void aggregateLogDeviceDataByRecordDate_DeviceId(final Date recordDate, final Long deviceId) {
 		// check if record already exits
 		Date recordDateStart = DateUtils.truncate(recordDate, Calendar.DAY_OF_MONTH);
@@ -77,7 +74,6 @@ public class LogDeviceAggregateJob {
 		}
 	}
 
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	private void deleteOldLog(final Date startDate) {
 		Date logCutOff = DateUtils.addDays(startDate, DEVICE_LOG_RETAIN_DAYS * -1);
 		logDeviceService.deleteLog(logCutOff);

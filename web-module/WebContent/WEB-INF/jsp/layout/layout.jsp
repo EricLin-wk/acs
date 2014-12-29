@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:url value="../js" var="jsPath" />
-<c:url value="../css" var="cssPath" />
-<c:url value="../img" var="imgPath" />
+<c:url value="/js" var="jsPath" />
+<c:url value="/css" var="cssPath" />
+<c:url value="/img" var="imgPath" />
 <!DOCTYPE html>
 <html lang="zh">
 <head>

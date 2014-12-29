@@ -29,7 +29,7 @@ public class EchoServerTest extends SpringCommonTest {
 	@Test
 	public void startServer() {
 		try {
-			ServerSocket server = new ServerSocket(5600);
+			ServerSocket server = new ServerSocket(16000);
 			logger.debug("EchoServer started...");
 			while (true) {
 				Socket client = server.accept();

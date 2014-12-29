@@ -2,11 +2,30 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ include file="/taglibs.jsp"%>
 <%@ page import="com.acs.core.common.utils.ServerValue"%>
-<style type="text/css">
-input,textarea {
+
+<style>
+#formObj label.error  {
 	width: auto;
+	display: inline;
+	color: #B94A48;
+}
+#formObj input.error  {
+	border-color: #B94A48;
 }
 </style>
+<script>
+$().ready(function() {
+	$("#formObj").validate({
+		rules: {
+			"obj.username": "required",
+			"obj.nameNative": "required",
+			"groupCode": "required",
+			"obj.email": "required",
+			"obj.password": "required"			
+		}
+	});
+});
+</script>
 <div class="row-fluid">
 	<s:if test="hasActionMessages()">
 		<div class="alert alert-success">
@@ -46,7 +65,7 @@ input,textarea {
 				</tr>
 				<s:if test="%{obj.modifyDate == null}">
 					<tr>
-						<th style="width: 15%">密码</th>
+						<th style="width: 15%">* 密码</th>
 						<td><s:password name="obj.password" id="password" theme="simple"/></td>
 					</tr>
 				</s:if>

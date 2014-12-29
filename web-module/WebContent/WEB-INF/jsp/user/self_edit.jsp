@@ -2,11 +2,26 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ include file="/taglibs.jsp"%>
 <%@ page import="com.acs.core.common.utils.ServerValue"%>
-<style type="text/css">
-input,textarea {
+<style>
+#formObj label.error  {
 	width: auto;
+	display: inline;
+	color: #B94A48;
+}
+#formObj input.error  {
+	border-color: #B94A48;
 }
 </style>
+<script>
+$().ready(function() {
+	$("#formObj").validate({
+		rules: {
+			"nameNative": "required",
+			"email": "required"		
+		}
+	});
+});
+</script>
 <div class="row-fluid">
 	<s:if test="hasActionMessages()">
 		<div class="alert alert-success">

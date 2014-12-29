@@ -2,8 +2,8 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ include file="/taglibs.jsp"%>
 <%@ page import="com.acs.core.common.utils.ServerValue"%>
-<c:url value="../css" var="cssPath" />
-<c:url value="../js" var="jsPath" />
+<c:url value="/css" var="cssPath" />
+<c:url value="/js" var="jsPath" />
 <link rel="stylesheet" href="${cssPath}/jqx.base.css" type="text/css" />
 <script type="text/javascript" src="${jsPath}/jqxcore.js"></script>
 <script type="text/javascript" src="${jsPath}/jqxdata.js"></script>
@@ -18,6 +18,11 @@
 	color: #B94A48;
 }
 #groupSearchForm label.error  {
+	width: auto;
+	display: inline;
+	color: #B94A48;
+}
+#saveDefaultForm label.error  {
 	width: auto;
 	display: inline;
 	color: #B94A48;
@@ -49,7 +54,11 @@ $().ready(function() {
 	});	
 	$("#dialogDefaultSetting").dialog({
 		autoOpen: false,
-		modal: true});
+		modal: true,
+		close: function( event, ui ) {
+			$("#saveDefaultForm")[0].reset();
+		}
+	});
 	$("#btnDefaultSetting").click(function () {
 		$("#dialogDefaultSetting").dialog("open");
    });
@@ -88,7 +97,7 @@ $().ready(function() {
 			<s:form action="listDevice.do" method="post" id="deviceSearchForm">
 			<div class="row-fluid">			
 				<div class="span1">选择设备</div>
-				<div class="span2">
+				<div class="span3">
 					<select data-placeholder="选择设备" id="paraDeviceId" name="paraDeviceId" data-rel="chosen" >
 					<c:forEach items="${deviceMap}" var="entry">
 						<optgroup label="${entry.key}">
@@ -99,7 +108,7 @@ $().ready(function() {
 					</c:forEach>
 					</select>		
 				</div>
-				<div class="span1">
+				<div class="span2">
 						<button type="submit" class="btn btn-primary">搜索设备</button>
 					</div>
 			</div>
@@ -107,10 +116,10 @@ $().ready(function() {
 			<s:form action="listGroup.do" method="post" id="groupSearchForm">
 			<div class="row-fluid">			
 				<div class="span1">选择设备群组</div>
-				<div class="span2">
+				<div class="span3">
 					<s:select id="paraGroupId" name="paraGroupId" list="groupMap" listKey="key" listValue="value.groupName" theme="simple"/>						
 				</div>
-				<div class="span1">
+				<div class="span2">
 						<button type="submit" class="btn btn-primary">搜索群组</button>
 					</div>
 			</div>
@@ -122,10 +131,10 @@ $().ready(function() {
 	<s:form action="saveDefault.do" method="post" id="saveDefaultForm">
 	<div class="">
 		<div class="">
-			默认温度<s:textfield id="paraDefaultTemperature" name="paraDefaultTemperature" theme="simple" cssStyle="width:30px"/>°C						
+			默认温度<s:textfield id="paraDefaultTemperature" name="paraDefaultTemperature" theme="simple" cssStyle="width:40px"/>°C						
 		</div>
 		<div class="">
-			默认湿度<s:textfield id="paraDefaultHumidity" name="paraDefaultHumidity" theme="simple" cssStyle="width:30px"/>%						
+			默认湿度<s:textfield id="paraDefaultHumidity" name="paraDefaultHumidity" theme="simple" cssStyle="width:40px"/>%						
 		</div>
 		<div class=""><button id="btnSaveDefault" type="submit" class="btn btn-primary">保存设定</button></div>
 	</div>
@@ -196,13 +205,14 @@ $().ready(function() {
 	</div>
 	<br />
 	<div class="row-fluid">
-		<div class="span1">
-			温度<s:textfield id="paraTemperature" name="paraTemperature" theme="simple" cssStyle="width:30px"/>°C						
+		<div class="span2">
+			温度<s:textfield id="paraTemperature" name="paraTemperature" theme="simple" cssStyle="width:40px"/>°C						
 		</div>
-		<div class="span1">
-			湿度<s:textfield id="paraHumidity" name="paraHumidity" theme="simple" cssStyle="width:30px"/>%						
+		<div class="span2">
+			湿度<s:textfield id="paraHumidity" name="paraHumidity" theme="simple" cssStyle="width:40px"/>%						
 		</div>
 		<div class="span2"><button id="btnSetTemperature" type="button" class="btn btn-primary">设定温度湿度</button></div>
+		<div class="span2"><button id="btnSave" type="button" class="btn btn-primary">保存设定</button></div>
 	</div>
 	<div id="jqxgrid">
 	</div>	
@@ -212,8 +222,7 @@ $().ready(function() {
 		<s:form action="save.do" method="post" id="saveForm">
 		<s:hidden id="paraDeviceId" name="paraDeviceId" value="%{paraDeviceId}"/>
 		<s:hidden id="paraGroupId" name="paraGroupId" value="%{paraGroupId}"/>
-		<s:hidden id="paraJsonSetting" name="paraJsonSetting" value="%{paraJsonSetting}"/>
-		<button id="btnSave" type="button" class="btn btn-primary">保存设定</button>
+		<s:hidden id="paraJsonSetting" name="paraJsonSetting" value="%{paraJsonSetting}"/>		
 		</s:form>
 		</div>
 	</div>
