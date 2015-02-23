@@ -7,29 +7,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns="http://www.springframework.org/schema/beans">	
 	<context:annotation-config/>
-	
-	<bean id="deviceGroupDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
-		<property name="className" value="com.acs.biz.device.entity.DeviceGroup"/>
-	</bean>
-	<bean id="deviceGroupService" class="com.acs.biz.device.service.impl.DeviceGroupServiceImpl">
-		<property name="dao" ref="deviceGroupDao"/>
-	</bean>
-	
-	<bean id="deviceDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
-		<property name="className" value="com.acs.biz.device.entity.Device"/>
-	</bean>
-	<bean id="deviceService" class="com.acs.biz.device.service.impl.DeviceServiceImpl">
-		<property name="dao" ref="deviceDao"/>
-	</bean>
-	
-	<bean id="deviceSettingDao" parent="daoTemplate" class="com.acs.core.common.dao.impl.HibernateObjectDaoImpl">
-		<property name="className" value="com.acs.biz.device.entity.DeviceSetting"/>
-	</bean>
-	<bean id="deviceSettingService" class="com.acs.biz.device.service.impl.DeviceSettingServiceImpl">
-		<property name="dao" ref="deviceSettingDao"/>
-	</bean>
-	
-	<bean id="deviceHandlerHelper" class="com.acs.biz.device.service.DeviceHandlerHelper" scope="singleton" />
-	<bean id="deviceHandler" class="com.acs.biz.device.service.DeviceHandler" scope="singleton" />
+		
+	<bean id="deviceHourlyReportResource" class="com.acs.biz.report.rest.DeviceReportResource" scope="singleton" />	
 
 </beans>

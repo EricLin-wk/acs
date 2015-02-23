@@ -69,7 +69,7 @@ $().ready(function() {
 	            { name: 'max_humidity', type: 'number' },
 	            { name: 'min_humidity', type: 'number' }            
             ],
-        url: 'jsonData.do?paraGroupId=${paraGroupId}'
+        url: '<c:url value="/rest/report/group/daily/" />${paraGroupId}'
     };
     var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, 
     	loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); },

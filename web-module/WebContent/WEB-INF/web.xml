@@ -32,6 +32,7 @@
 		<listener-class>com.acs.biz.listener.MyAppServletContextListener</listener-class>
 	</listener>
 	
+	
 	<filter>
 		<filter-name>openSessionInView</filter-name>
 		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
@@ -83,4 +84,6 @@
 	<welcome-file-list>
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
+		
+	
 </web-app>
